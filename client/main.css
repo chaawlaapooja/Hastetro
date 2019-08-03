@@ -1,0 +1,119 @@
+body{
+	background-color: #dcdcdc
+}	
+.tab-pane{
+	padding: 10px;
+}
+.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
+	border-color: #5b4681;
+}
+.navbar-inverse .navbar-brand, .navbar-inverse .navbar-nav > li > a{
+	color:#fff;
+	font-size: larger;
+}
+li:hover{
+	background-color: #8B6DC2;
+}
+.navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
+	background-color: #CFBDF0;
+	color:#000000;
+}
+.heading{
+		font-family: "Lucida Console", Monaco, monospace;
+		font-size: 3em;
+		border-bottom: 2px solid pink;
+		border-right: 2px solid pink;
+		width: 60%;
+		text-align: center;
+		-moz-box-shadow:4px 4px 5px #888888;
+		-ms-box-shadow: 4px 4px 5px #888888;
+		-webkit-box-shadow: 4px 4px 5px #888888;
+		-o-box-shadow: 4px 4px 5px #888888;
+		box-shadow: 4px 4px 5px #888888;
+		margin-top: 10px;
+}
+.content{
+	line-height: 2
+}
+.w3ls_about_grid_left p{
+	line-height:1.8em;
+	margin-bottom:2em;
+	font-size: 1.8rem
+}
+.w3ls_about_grid_left2 p{
+	line-height:1.8em;
+	margin-top: 0px;
+	padding-top: 0px
+}
+.w3ls_about_grid_left1 {
+    text-align: center;
+}
+.w3ls_about_grid_left1 span{
+	font-size:1.5em;
+	top: 1em;
+}
+
+.boxed-view{
+    align-items: center;
+    background: #dddddd;
+    display: flex;
+    justify-content: center;
+    height: 80vh;
+    width: 95vw;
+    margin:0;
+    padding: 0;
+}
+
+.boxed-view__box{
+    background-color: white;
+    padding: 2.4rem;
+    text-align: center;
+    width: 34rem;
+}
+.boxed-view__form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+h1{
+    margin-bottom: 2.4rem;
+}
+input[type=text], input[type=password],input[type=tel],input[type=number], textarea{
+    font-size: 1.6rem;
+    margin-bottom: 1.4rem;
+    padding: 0.8rem;
+    border: 1px solid #dddddd;
+    height: 100%;
+    width: 100%
+}
+.button{
+    background-color: #3c43a4; 
+    color: white;
+    cursor: pointer;
+    padding: 1rem;
+    text-transform: uppercase;
+}
+
+
+
+
+.newsletter{
+	background:#3c43a4;
+	padding:3em 0;
+}
+.w3agile_newsletter_left h3{
+	font-size:2em;
+	color:#fff;
+}
+.w3agile_newsletter_left p {
+    color: #bfbfbf;
+    line-height: 1.8em;
+    margin-top: .5em;
+    font-weight: 100;
+}
+.w3agile_newsletter_right {
+    margin-top: 0.8em;
+}
+.w3agile_newsletter_right input[type="submit"]:hover{
+    background-color:#212121;
+}

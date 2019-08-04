@@ -85,7 +85,7 @@ class LandingPage extends React.Component{
     	  </div>
     	</div>
     	<div className="card bg-primary" style={{width:100+"%", padding:7+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932189/hastetro/Akshay_Mugalkhod.jpg" className="img-responsive" alt="Akshay_Mugalkhod"/>
+		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564938350/hastetro/2.jpg" className="img-responsive" alt="Akshay_Mugalkhod"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Akshay Mugalkhod, Director</h4>
 		    <p className="card-text">A man with the dream of empowering the people of India with the vision of making everyone financially independent. </p>

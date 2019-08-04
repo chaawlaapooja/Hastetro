@@ -18,6 +18,15 @@ li:hover{
 	background-color: #CFBDF0;
 	color:#000000;
 }
+@media (min-width: 768px){
+.navbar{
+	border-radius:0px;
+	margin-bottom: 0px;
+}
+}
+.navbar{
+	margin-bottom: 0px;
+}
 .heading{
 		font-family: "Lucida Console", Monaco, monospace;
 		font-size: 3em;
@@ -33,7 +42,21 @@ li:hover{
 		margin-top: 10px;
 }
 .content{
-	line-height: 2
+	line-height: 2;
+	padding: 0 7%;
+}
+.subtitle{
+	font-size: 24px;
+    text-decoration: underline;
+    text-decoration-color: unset;
+    text-decoration-style: double;
+    text-transform: uppercase;
+}
+#myCarousel, #myCarousel1{
+	height: 50%;
+    width: 80%;
+    padding: 0 3%;
+    margin: 0 7%; 
 }
 .w3ls_about_grid_left p{
 	line-height:1.8em;
@@ -116,4 +139,12 @@ input[type=text], input[type=password],input[type=tel],input[type=number], texta
 }
 .w3agile_newsletter_right input[type="submit"]:hover{
     background-color:#212121;
+}
+img{
+	pointer-events: none;
+}
+.cardContainer{
+	display: grid;
+	grid-template-columns: repeat(auto-fit, minmax(500px, 1fr) );;
+    grid-gap: 30px;
 }

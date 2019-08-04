@@ -3,30 +3,30 @@ import React from 'react';
 class LandingPage extends React.Component{
 
 	componentDidMount(){
-		var message="Right-click has been disabled";
-function clickIE() {
-    if (document.all) {
-        (message);
-        return false;
-    }
-}
-function clickNS(e) {
-    if (document.layers || (document.getElementById && !document.all)) {
-        if (e.which == 2||e.which == 3) {
-            (message);
-            return false;
-        }
-    }
-}
-if (document.layers) {
-    document.captureEvents(Event.MOUSEDOWN);
-    document.onmousedown = clickNS;
-} else {
-    document.onmouseup = clickNS;
-    document.oncontextmenu = clickIE;
-}
-document.oncontextmenu = new Function("return false");
-document.getElementsByClassName('my-img').ondragstart = function() { return false; };
+// 		var message="Right-click has been disabled";
+// function clickIE() {
+//     if (document.all) {
+//         (message);
+//         return false;
+//     }
+// }
+// function clickNS(e) {
+//     if (document.layers || (document.getElementById && !document.all)) {
+//         if (e.which == 2||e.which == 3) {
+//             (message);
+//             return false;
+//         }
+//     }
+// }
+// if (document.layers) {
+//     document.captureEvents(Event.MOUSEDOWN);
+//     document.onmousedown = clickNS;
+// } else {
+//     document.onmouseup = clickNS;
+//     document.oncontextmenu = clickIE;
+// }
+// document.oncontextmenu = new Function("return false");
+// document.getElementsByClassName('my-img').ondragstart = function() { return false; };
 
 		
 	}
@@ -70,29 +70,29 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
       <h3 className="heading">ABOUT BOARD OF DIRECTORS</h3>
       <div className="content">
       	<div className="cardContainer">
-      	<div className="card bg-primary" style={{width:100+"%", padding:7+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932249/hastetro/Ashokrao_Khot.jpg" className="img-responsive" alt="Ashokrao_Khot"/>
+      	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
+		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932249/hastetro/Ashokrao_Khot.jpg" className="img-thumbnail" alt="Ashokrao_Khot"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Ashokrao Khot, CMD</h4>
 		    <p className="card-text">A dreamy Mr. Ashokrao Khot realized that working for any other organization could be a barrier to achieving big dreams. So he decided to start his own business. Mr. Khot is always looking for perfection in everything he or his company does. For more than 10 years, the leader of the direct sells industry, Shri. Ashokrao Khot helped thousands of people to realize their dreams.</p>
     	  </div>
     	</div>
-    	<div className="card bg-primary" style={{width:100+"%", padding:7+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932320/hastetro/Santosh_Jadhav.jpg" className="img-responsive" alt="Santosh_Jadhav"/>
+    	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
+		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932320/hastetro/Santosh_Jadhav.jpg" className="img-thumbnail" alt="Santosh_Jadhav"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Santosh Jadhav, Vice President</h4>
 		    <p className="card-text">A Visionary Man with the outstanding experience in marketing company.</p>
     	  </div>
     	</div>
-    	<div className="card bg-primary" style={{width:100+"%", padding:7+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564938350/hastetro/2.jpg" className="img-responsive" alt="Akshay_Mugalkhod"/>
+    	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
+		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564938350/hastetro/2.jpg" className="img-thumbnail" alt="Akshay_Mugalkhod"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Akshay Mugalkhod, Director</h4>
 		    <p className="card-text">A man with the dream of empowering the people of India with the vision of making everyone financially independent. </p>
     	  </div>
     	</div>
-    	<div className="card bg-primary" style={{width:100+"%", padding:7+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932289/hastetro/Suraj_Sagare.jpg" className="img-responsive" alt="Suraj_Sagare"/>
+    	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
+		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932289/hastetro/Suraj_Sagare.jpg" className="img-thumbnail" alt="Suraj_Sagare"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Suraj Sagare, Development Director (Technical)</h4>
 		    <p className="card-text">A person with the amazing experience in technical Development and product enhancement has always made his efforts upto the mark to raise the company in all fields.</p>

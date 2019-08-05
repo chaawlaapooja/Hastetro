@@ -53,10 +53,9 @@ li:hover{
     text-transform: uppercase;
 }
 #myCarousel, #myCarousel1{
-	height: 50%;
-    width: 80%;
-    padding: 0 3%;
-    margin: 0 7%; 
+	padding: 0 3%;
+    margin: 0 3%; 
+
 }
 .w3ls_about_grid_left p{
 	line-height:1.8em;

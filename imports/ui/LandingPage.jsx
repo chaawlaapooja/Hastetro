@@ -2,6 +2,12 @@ import React from 'react';
 
 class LandingPage extends React.Component{
 
+	constructor(props){
+		super(props);
+		this.state={
+			error:''
+		}
+	}
 	componentDidMount(){
 		var message="Right-click has been disabled";
 function clickIE() {
@@ -30,10 +36,27 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 
 		
 	}
+	handle_submit(event){
+		event.preventDefault();
+		let email =  this.refs.registrationID.value.trim()
+		let password = this.refs.password.value.trim();
+
+
+		Meteor.loginWithPassword({email}, password, (err)=>{
+			if(err){
+				this.setState({error: err.reason});
+			}
+			else
+			{
+				this.setState({error:''});
+				
+			}
+		});
+	}
 	render(){
 	return(
-  <div>
-  <nav className="navbar navbar-inverse" style={{backgroundColor:'#5b4681'}}>
+  <div style={{backgroundColor: '#dcdcdc'}}>
+  <nav className="navbar navbar-inverse " style={{backgroundColor:'#5b4681'}}>
   <div className="container-fluid">
     <div className="navbar-header">
       <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
@@ -60,7 +83,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 
 <div className="tab-content" >
     <div id="menuAbout" className="tab-pane fade in active">
-      <h3 className="heading"><img src="https://res.cloudinary.com/luckymobile/image/upload/v1564855977/hastetro/Logo-removebg-preview.png" height="50" width="50"/> ABOUT HASTETRO</h3>
+      <h3 className="heading"><img src="https://res.cloudinary.com/hastetro/image/upload/v1567510172/Logo-removebg-preview_ffu8is.png" height="50" width="50"/> ABOUT HASTETRO</h3>
     <h4 className="content">
       <li>Hastetro is a marketing company that considers customer service as God's service.  Because of this, the company has always provided good service and good products for its customers. To increase the number of customers, the company has used various marketing tools such as direct marketing, Telemarketing, online shopping. We are entering in market with a new & unique concept of direct selling. In order to provide better service to the customers, the company has built a good network of distributors in every Taluka and District.</li>  <br/>
       <li>Hastetro is company with a vast experience and resources. Through this company, customers have received a golden opportunity to do their own business. This opportunity allows everyone to start their own business with minimal capital. Everyone who does this business can achieve financial freedom and financial security. By staying with this company, everyone can make their dreams come true. We helps to you fulfill business ambitions in each and every step on the way towards a better tomorrow.
@@ -71,28 +94,28 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
       <div className="content">
       	<div className="cardContainer">
       	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932249/hastetro/Ashokrao_Khot.jpg" className="img-thumbnail" alt="Ashokrao_Khot" height="200" width="200"/>
+		  <img className="card-img-top" src="https://res.cloudinary.com/hastetro/image/upload/v1567510220/Ashokrao_Khot_ehubbc.jpg" className="img-thumbnail" alt="Ashokrao_Khot" height="200" width="200"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Ashokrao Khot, CMD</h4>
 		    <p className="card-text">The man of dreams, Mr. Ashokrao Khot realized that working for any other organization could be a barrier to achieving big dreams. So he decided to start his own business. Mr. Khot is always looking for perfection in everything he or his company does. For more than 10 years, the leader of the direct sells industry, Shri. Ashokrao Khot helped thousands of people to realize their dreams.</p>
     	  </div>
     	</div>
     	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932320/hastetro/Santosh_Jadhav.jpg" className="img-thumbnail" alt="Santosh_Jadhav" height="200" width="200"/>
+		  <img className="card-img-top" src="https://res.cloudinary.com/hastetro/image/upload/v1567510250/Santosh_Jadhav_evpph2.jpg" className="img-thumbnail" alt="Santosh_Jadhav" height="200" width="200"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Santosh Jadhav, Vice President</h4>
 		    <p className="card-text">A Visionary Man with the outstanding experience in marketing company.</p>
     	  </div>
     	</div>
     	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564938350/hastetro/2.jpg" className="img-thumbnail" alt="Akshay_Mugalkhod" height="200" width="200"/>
+		  <img className="card-img-top" src="https://res.cloudinary.com/hastetro/image/upload/v1567510276/2_dldawf.jpg" className="img-thumbnail" alt="Akshay_Mugalkhod" height="200" width="200"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Akshay Mugalkhod, Director</h4>
 		    <p className="card-text">A man with the dream of empowering the people of India with the vision of making everyone financially independent. </p>
     	  </div>
     	</div>
     	<div className="card bg-primary" style={{width:60+"%", padding:6+'%'}}>
-		  <img className="card-img-top" src="https://res.cloudinary.com/luckymobile/image/upload/v1564932289/hastetro/Suraj_Sagare.jpg" className="img-thumbnail" alt="Suraj_Sagare" height="200" width="200"/>
+		  <img className="card-img-top" src="https://res.cloudinary.com/hastetro/image/upload/v1567510299/Suraj_Sagare_pz2dcb.jpg" className="img-thumbnail" alt="Suraj_Sagare" height="200" width="200"/>
 		  <div className="card-body">
 		    <h4 className="card-title" style={{color:'red', fontSize:20+'px'}}>Suraj Sagare, Development Director (Technical)</h4>
 		    <p className="card-text">A person with the amazing experience in technical Development and product enhancement has always made his efforts upto the mark to raise the company in all fields.</p>
@@ -136,7 +159,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
     	<br/><br/><br/>
     	<strong>Have a look at how much you can earn after building 7 level network.</strong>
     	</h4>
-    	<img style={{paddingLeft:7+'%', paddingRight:7+'%'}} src="https://res.cloudinary.com/hastetro/image/upload/c_scale,h_500,w_700/v1564835742/Plan_jligrx.png"  className="img-responsive" />
+    	<img style={{paddingLeft:7+'%', paddingRight:7+'%'}} src="https://res.cloudinary.com/hastetro/image/upload/v1567510336/Plan_jligrx_dhmmau.png"  className="img-responsive" />
     	<br/>
     	<h3 style={{paddingLeft:7+'%', paddingRight:7+'%'}}><i className="glyphicon glyphicon-earphone" aria-hidden="true"></i>Call now to get richer <a href="tel:+919156827889"><strong>+91-9156827889</strong></a> or <a href="tel:+919156764599"><strong>+91-9156764599</strong>.</a></h3>
 
@@ -157,7 +180,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 	    <div className="carousel-inner">
 
 	      <div className="item active">
-	        <img src="https://res.cloudinary.com/luckymobile/image/upload/c_scale,h_700,w_500/v1564856267/hastetro/Organic_Powar.jpg" alt="organic Power" style={{width:100+'%'}}/>
+	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510403/products/Organic_Powar_qjruxu.jpg" alt="organic Power" style={{width:100+'%'}}/>
 	        <div className="carousel-caption">
 	          <h3 style={{color:'black'}}>Orgainic Power</h3>
 	          <p style={{color:'black'}}>Organic powder for agricultural use!</p>
@@ -165,7 +188,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 	      </div>
 
 	      <div className="item">
-	        <img src="https://res.cloudinary.com/luckymobile/image/upload/c_scale,h_700,w_500/v1564856236/hastetro/canegld.jpg" alt="Canegold" style={{width:100+'%'}}/>
+	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510461/products/canegld_tfydlj.jpg" alt="Canegold" style={{width:100+'%'}}/>
 	        <div className="carousel-caption">
 	          <h3 style={{color:'black'}}>Canegold</h3>
 	          <p style={{color:'black'}}>For agricultural use!</p>
@@ -173,7 +196,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 	      </div>
 	    
 	      <div className="item">
-	        <img src="https://res.cloudinary.com/luckymobile/image/upload/c_scale,h_700,w_500/v1564856288/hastetro/Spirulina.jpg" alt="Spirulina" style={{width:100+'%'}}/>
+	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510517/products/Spirulina_e6seeu.jpg" alt="Spirulina" style={{width:100+'%'}}/>
 	        <div className="carousel-caption">
 	          <h3 style={{color:'black'}}>Spirulina</h3>
 	          <p style={{color:'black'}}>Muscle strengthening tablets!</p>
@@ -181,7 +204,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 	      </div>
 
 	      <div className="item">
-	        <img src="https://res.cloudinary.com/luckymobile/image/upload/c_scale,h_700,w_500/v1564856248/hastetro/LEDY_SAFE1.jpg" alt="Lady Safe" style={{width:100+'%'}}/>
+	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510553/products/LEDY_SAFE1_l25nkw.jpg" alt="Lady Safe" style={{width:100+'%'}}/>
 	        <div className="carousel-caption">
 	          <h3 style={{color:'black'}}>Lady Safe</h3>
 	          <p style={{color:'black'}}>Sanitary Napkins!</p>
@@ -189,7 +212,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 	      </div>
 
 	      <div className="item">
-	        <img src="https://res.cloudinary.com/luckymobile/image/upload/c_scale,h_700,w_500/v1564856254/hastetro/Organic_Powar_Gold.jpg" alt="Organic Power Gold" style={{width:100+'%'}}/>
+	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510604/products/Organic_Powar_Gold_zt7e1b.jpg" alt="Organic Power Gold" style={{width:100+'%'}}/>
 	        <div className="carousel-caption">
 	          <h3 style={{color:'black'}}>Organic Power gold</h3>
 	          <p style={{color:'black'}}>Powder for agricultural use!</p>
@@ -305,7 +328,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 				</div>
 
 				<div className="col-md-6 w3ls_about_grid_right">
-					<img src="https://res.cloudinary.com/luckymobile/image/upload/v1564855112/hastetro/Logo.png" alt="HASTETRO" className="img-responsive" />
+					<img src="https://res.cloudinary.com/hastetro/image/upload/v1567510727/Logo_oj8kk9.png" alt="HASTETRO" className="img-responsive" />
 				</div>
 				<div className="clearfix"> </div>
 			</div>
@@ -316,10 +339,10 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
     	<div className="boxed-view">
 		<div className="boxed-view__box">
 		<h1>Login!</h1>
-		{/*this.state.error?<p>{this.state.error}</p>:undefined*/}
-		<form className="boxed-view__form">
-			<input type="tel" ref="number" placeholder="Enter your registration ID" pattern="[0-9]{10}" title="10 digit mobile number"/>
-			<input type="password" ref="password" placeholder="Enter Password"/>
+		{this.state.error?<p style={{color:'red'}}>{this.state.error}</p>:undefined}
+		<form className="boxed-view__form" onSubmit={this.handle_submit.bind(this)}>
+			<input type="text" ref="registrationID" placeholder="Enter your registration ID" pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
+			<input type="password" ref="password" placeholder="Enter Password" pattern=".{6,}" title="Enter six or more characters"/>
 			<button className="button">Login</button>
 		</form>
 		

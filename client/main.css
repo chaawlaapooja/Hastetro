@@ -1,7 +1,7 @@
-body{
+/*body{
 	background-color: #dcdcdc
 }	
-.tab-pane{
+*/.tab-pane{
 	padding: 10px;
 }
 .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form{
@@ -11,7 +11,7 @@ body{
 	color:#fff;
 	font-size: larger;
 }
-li:hover{
+.navbar-nav li:hover{
 	background-color: #8B6DC2;
 }
 .navbar-inverse .navbar-nav > .active > a, .navbar-inverse .navbar-nav > .active > a:hover, .navbar-inverse .navbar-nav > .active > a:focus{
@@ -80,7 +80,7 @@ li:hover{
     background: #dddddd;
     display: flex;
     justify-content: center;
-    height: 80vh;
+    height: 100vh;
     width: 95vw;
     margin:0;
     padding: 0;
@@ -100,7 +100,7 @@ li:hover{
 h1{
     margin-bottom: 2.4rem;
 }
-input[type=text], input[type=password],input[type=tel],input[type=number], textarea{
+input[type=text],input[type=email], input[type=password],input[type=tel],input[type=number], textarea{
     font-size: 1.6rem;
     margin-bottom: 1.4rem;
     padding: 0.8rem;
@@ -120,12 +120,12 @@ input[type=text], input[type=password],input[type=tel],input[type=number], texta
 
 
 .newsletter{
-	background:#3c43a4;
+	background:#FAEBD7;
 	padding:3em 0;
 }
 .w3agile_newsletter_left h3{
 	font-size:2em;
-	color:#fff;
+	color:#000;
 }
 .w3agile_newsletter_left p {
     color: #bfbfbf;
@@ -146,4 +146,100 @@ img{
 	display: grid;
 	grid-template-columns: repeat(auto-fit, minmax(500px, 1fr) );
     grid-gap: 30px;
+}
+@media (max-width: 767px){
+.navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
+    color: #fff;
+}
+}
+/* Side Navigation */
+
+/*@media(min-width:768px) {
+    .side-nav {
+        position: fixed;
+        top: 55px;
+        left: 225px;
+        width: 14%;
+        margin-left: -225px;
+        border: none;
+        border-radius: 0;
+        border-top: 1px rgba(0,0,0,.5) solid;
+        overflow-y: auto;
+        background-color: #5b4681;
+        background-color: #5A6B7D;
+        bottom: 0;
+        overflow-x: scroll;
+        padding-bottom: 40px;
+    }
+
+    .side-nav>li>a {
+        width: 225px;
+        border-bottom: 1px rgba(0,0,0,.3) solid;
+    }
+
+    .side-nav li a:hover,
+    .side-nav li a:focus {
+        outline: none;
+        background-color: #1a242f !important;
+    }
+    
+}*/
+
+/*.side-nav>li>ul {
+    padding: 0;
+    border-bottom: 1px rgba(0,0,0,.3) solid;
+}
+
+.side-nav>li>ul>li>a {
+    display: block;
+    padding: 10px 15px 10px 38px;
+    text-decoration: none;
+    color: #999;
+    color: #fff;    
+}
+
+.side-nav>li>ul>li>a:hover {
+    color: #fff;
+}*/
+
+/*.navbar .nav > li > a > .label {
+  -webkit-border-radius: 50%;
+  -moz-border-radius: 50%;
+  border-radius: 50%;
+  position: absolute;
+  top: 14px;
+  right: 6px;
+  font-size: 10px;
+  font-weight: normal;
+  min-width: 15px;
+  min-height: 15px;
+  line-height: 1.0em;
+  text-align: center;
+  padding: 2px;
+}
+
+.navbar .nav > li > a:hover > .label {
+  top: 10px;
+}
+.main {
+  margin-left: 15%; /* Same as the width of the sidenav */
+  /*margin-top: 2em;
+  padding-top: 6em;
+  padding-left: 0.2%;
+}*/
+/*!--side navigation--*/
+.navbar-brand {
+    padding: 5px 15px;
+}
+#login-buttons a{
+  color: white;
+}
+/*#login-buttons{
+	margin: 10px;
+}*/
+#login-buttons a:hover{
+    color: #222
+}
+#login-dropdown-list{
+    background-color: #C0C0C0;
 }

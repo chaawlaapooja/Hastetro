@@ -1,31 +1,18 @@
 import { Meteor } from 'meteor/meteor';
+import Pins from '/imports/api/pins';
 import Links from '/imports/api/links';
+import Payout from '/imports/api/payout';
 
-function insertLink(title, url) {
-  Links.insert({ title, url, createdAt: new Date() });
-}
 
 Meteor.startup(() => {
-  // If the Links collection is empty, add some data.
-  if (Links.find().count() === 0) {
-    insertLink(
-      'Do the Tutorial',
-      'https://www.meteor.com/tutorials/react/creating-an-app'
-    );
-
-    insertLink(
-      'Follow the Guide',
-      'http://guide.meteor.com'
-    );
-
-    insertLink(
-      'Read the Docs',
-      'https://docs.meteor.com'
-    );
-
-    insertLink(
-      'Discussions',
-      'https://forums.meteor.com'
-    );
-  }
+  Meteor.publish('users', function(){
+  		return Meteor.users.find()
+  })
+  Meteor.publish('pins', function(){
+  		return Pins.find({available:true})
+  })
+  Meteor.publish('payout', function(){
+  		return Payout.find({})
+  })
+  
 });

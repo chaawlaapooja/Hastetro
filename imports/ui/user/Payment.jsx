@@ -41,22 +41,22 @@ class Payment extends Component{
         return ar.map(data=>{
     		const {_id,Category,ps, Content, Level, SellingDate, Mobile, ProductID, Name, chequeNumber, paidOn}=data
     		let payment;
-    		if(Level==='2'){
+    		if(Level==='1'){
     			payment=60
     		}
-    		else if(Level==='3'){
+    		else if(Level==='2'){
     			payment=50
     		}
-    		else if(Level==='4'){
+    		else if(Level==='3'){
     			payment=40
     		}
-    		else if(Level==='5'){
+    		else if(Level==='4'){
     			payment=30
     		}
-    		else if(Level==='6'){
+    		else if(Level==='5'){
     			payment=20
     		}
-    		else if(Level>='7'){
+    		else if(Level>='6'){
     			payment=10
     		}
     		let sellingDate=new Date(SellingDate).toLocaleDateString()

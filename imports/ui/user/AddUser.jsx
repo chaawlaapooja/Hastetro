@@ -22,7 +22,9 @@ class AddUser extends Component{
       errorNomineeAddress:'',
       showPrintForm:true,
       image:'',
-      errorProductID:''
+      errorProductID:'',
+      errorRelation:'',
+      errorNomineeDetails:''
     };
 	}
 
@@ -65,6 +67,21 @@ class AddUser extends Component{
 	handle_submit(event){
 		
 		event.preventDefault();
+		if(this.refs.confirmNominee.value==='yes'){
+	    	if(document.getElementById("textareaidNominee").value === ''){
+		      this.setState({errorNomineeAddress:"Nominee Address can't be empty. Please fill this field"})
+		      document.getElementById("textareaidNominee").focus()
+		    }
+		    else if(document.getElementById("textareaidNominee").value.length<5){
+		      this.setState({errorNomineeAddress:"Please enter at least 5 characters"});
+		      document.getElementById("textareaidNominee").focus()
+		    }
+		    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaidNominee").value))===false)
+		    {
+		      this.setState({errorNomineeAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
+		      document.getElementById("textareaidNominee").focus()
+		    }
+	    }
 		if(document.getElementById("textareaid").value === ''){
 	      this.setState({errorAddress:"Details can't be empty. Please fill this field"})
 	      document.getElementById("textareaid").focus()
@@ -78,24 +95,18 @@ class AddUser extends Component{
 	      this.setState({errorAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
 	      document.getElementById("textareaid").focus()
 	    }
-	    else if(document.getElementById("textareaidNominee").value === ''){
-	      this.setState({errorNomineeAddress:"Nominee Address can't be empty. Please fill this field"})
-	      document.getElementById("textareaidNominee").focus()
-	    }
-	    else if(document.getElementById("textareaidNominee").value.length<5){
-	      this.setState({errorNomineeAddress:"Please enter at least 5 characters"});
-	      document.getElementById("textareaidNominee").focus()
-	    }
-	    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaidNominee").value))===false)
-	    {
-	      this.setState({errorNomineeAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-	      document.getElementById("textareaidNominee").focus()
+	    else if(this.refs.product.value===''){
+	    	this.setState({errorProduct:'Please select a product'})
 	    }
 	    else if(this.state.errorProductID!==''){
-	    	this.setState({errorProductID:'Enter valid productID'})
+	    	this.setState({errorProductID:'Enter valid product ID'})
+	    }
+	    else if(this.refs.nomineeRelation.value===''){
+	    	this.setState({errorRelation:'Please select a relation'})
 	    }
 	    else
 	    {
+	    	console.log('enterd')
 		let imageURL='';
 		if(this.state.uploadedFileCloudinaryUrl===''){
 			this.setState({image:'https://res.cloudinary.com/hastetro/image/upload/v1567596651/jmv1nigeofc2ljcsjrnk.jpg'})
@@ -104,20 +115,7 @@ class AddUser extends Component{
 		else{
 			this.setState({image:this.state.uploadedFileCloudinaryUrl})
 			imageURL=this.state.uploadedFileCloudinaryUrl
-		}let users = this.props.userList.filter(user=>user.profile.designation==='USER')
-    	let ar = users.map(user=>user._id)
-    	let parent=[]
-    	Meteor.users.find().fetch().length!==0?parent.push({id:Meteor.userId(), paymentStatus:'Pending'}):undefined
-    	for(var i=0; i<parent.length; i++){
-    		for(var j=0; j<users.length; j++){
-    			if(users[j]._id===parent[i].id){
-    				if(ar.includes(users[j].profile.parent)){
-    					parent.push({id:users[j].profile.parent, paymentStatus:'Pending'})
-    				}
-    				
-    			}
-    		}
-    	}
+		}
     	Meteor.call('user.create',
 			'USER',
 			this.refs.level.value,
@@ -137,11 +135,9 @@ class AddUser extends Component{
 			this.refs.nomineeBirthday.value,
 			this.refs.nomineeMobile.value,
 			this.refs.nomineeAddress.value,
-			this.refs.nomineeAccountNumber.value,
-			this.refs.nomineeIFSC.value,
-			Meteor.userId(),
+			this.refs.product.value,
 			this.refs.productID.value,
-			parent,
+			Meteor.userId(),
 			(error,result)=>{
 				console.log(error,result)
 				if(error)
@@ -172,10 +168,9 @@ class AddUser extends Component{
 						this.refs.nomineeBirthday.value='',
 						this.refs.nomineeMobile.value='',
 						this.refs.nomineeAddress.value='',
-						this.refs.nomineeAccountNumber.value='',
-						this.refs.nomineeIFSC.value='',
+						this.refs.product.value='',
 						this.refs.productID.value='',
-						this.setState({uploadedFileCloudinaryUrl:'', showPrintForm:true, image:'', errorAddress:'', errorNomineeAddress:''})
+						this.setState({uploadedFileCloudinaryUrl:'', showPrintForm:true, image:'', errorAddress:'', errorProduct:'', errorProductID:'', errorRelation:'', errorNomineeDetails:'', errorNomineeAddress:''})
 					}
 						}
 					})
@@ -241,6 +236,41 @@ class AddUser extends Component{
 					
   		}
   	}
+  	capitaliseIFSC(){
+  		this.refs.IFSC.value=this.refs.IFSC.value.toUpperCase()
+  	}
+  	onConfirmationChange(){
+  		if(this.refs.confirmNominee.value===''){
+  			this.setState({errorNomineeDetails:'Please select an answer'})
+  			document.querySelector('#accDetails').hidden=true
+  			document.querySelector('#nomineeDetails').hidden=true
+  		}
+  		else if(this.refs.confirmNominee.value==='yes'){
+  			this.setState({errorNomineeDetails:''})
+  			document.querySelector('#accDetails').hidden=false
+  			document.querySelector('#nomineeDetails').hidden=false
+  			document.querySelector('#acc').innerHTML="Nominee's Account Number :"
+  			document.querySelector('#ifsc').innerHTML="Nominee's IFSC :"
+  			document.querySelector('#tableAcc').innerHTML="Nominee's Account Number :"
+  			document.querySelector('#tableIFSC').innerHTML="Nominee's IFSC :"
+  			
+  			this.refs.nomineeBirthday.required=true
+  			this.refs.nomineeMobile.required=true
+  		}
+  		else if(this.refs.confirmNominee.value==='no'){
+  			this.setState({errorNomineeDetails:''})
+  			document.querySelector('#accDetails').hidden=false
+  			document.querySelector('#nomineeDetails').hidden=true
+  			document.querySelector('#acc').innerHTML="Your Account Number :"
+  			document.querySelector('#ifsc').innerHTML="Your IFSC :"
+  			document.querySelector('#tableAcc').innerHTML="Your Account Number :"
+  			document.querySelector('#tableIFSC').innerHTML="Your IFSC :"
+  			
+  			this.refs.nomineeBirthday.required=false
+  			this.refs.nomineeMobile.required=false
+  		}
+
+  	}
 	render(){
 		let level = 0;
 		Meteor.users.find().fetch().length!==0?level=parseInt(Meteor.users.find().fetch()[0].profile.level)+1:undefined
@@ -279,11 +309,11 @@ class AddUser extends Component{
 		<td>{this.refs.address?this.refs.address.value:undefined}</td>
 		</tr>
 		<tr>
-		<td>Bank Account Number :</td>
+		<td id='tableAcc'>Bank Account Number :</td>
 		<td>{this.refs.accountNumber?this.refs.accountNumber.value:undefined}</td>
 		</tr>
 		<tr>
-		<td>IFSC :</td>
+		<td id='tableIFSC'>IFSC :</td>
 		<td>{this.refs.IFSC?this.refs.IFSC.value:undefined}</td>
 		</tr>
 		<tr>
@@ -299,6 +329,8 @@ class AddUser extends Component{
 		<td>Name of the Nominee :</td>
 		<td>{this.refs.nomineeName?this.refs.nomineeName.value:undefined}</td>
 		</tr>
+		{this.refs.confirmNominee?this.refs.confirmNominee.value==='yes'?
+		<tr>
 		<tr>
 		<td>Birthday of the Nominee :</td>
 		<td>{this.refs.nomineeBirthday?this.refs.nomineeBirthday.value:undefined}</td>
@@ -310,14 +342,11 @@ class AddUser extends Component{
 		<tr>
 		<td>Address of the Nominee :</td>
 		<td>{this.refs.nomineeAddress?this.refs.nomineeAddress.value:undefined}</td>
-		</tr>
+		</tr></tr>:undefined:undefined}
+		
 		<tr>
-		<td>Account Number of the Nominee:</td>
-		<td>{this.refs.nomineeAccountNumber?this.refs.nomineeAccountNumber.value:undefined}</td>
-		</tr>
-		<tr>
-		<td>IFSC of the Nominee:</td>
-		<td>{this.refs.nomineeIFSC?this.refs.nomineeIFSC.value:undefined}</td>
+		<td>Product:</td>
+		<td>{this.refs.product?this.refs.product.value:undefined}</td>
 		</tr>
 		<tr>
 		<td>Product ID:</td>
@@ -346,20 +375,14 @@ class AddUser extends Component{
 					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" required/><br/><br/>
 					<label>Mobile :</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required/><br/>
-					<label>Email :</label>
-					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' required/><br/>
-					<label>Address :</label><br/>
-					<textarea ref="address" cols="30" rows="4" onKeyUp={this.call_validate_textarea_address.bind(this)} id="textareaid" placeholder='Address...'></textarea>{this.state.errorAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorAddress}</span>:undefined}<br/>
-					<label>Account Number :</label>
-					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required/><br/>
-					<label>IFSC :</label>
-					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required/><br/>
-					<label>PAN Card Number :</label>
-					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' /><br/>
-					
 					<label>Password :</label>
 					<input type="password" ref="password" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Password' pattern=".{6,}" title="Enter six or more characters" required/><br/>
-					
+					<label>Address :</label><br/>
+					<textarea ref="address" cols="30" rows="4" onKeyUp={this.call_validate_textarea_address.bind(this)} id="textareaid" placeholder='Address...'></textarea>{this.state.errorAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorAddress}</span>:undefined}<br/>
+					<label>Email :</label>
+					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
+					<label>PAN Card Number :</label>
+					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' /><br/>
 					<label>Photo :</label><br/>
 					
 					<Dropzone ref="photo" multiple={false} accept="image/*" onDrop={this.on_image_drop.bind(this)} >
@@ -378,22 +401,56 @@ class AddUser extends Component{
 			        	</div>
 			        }
 			      </div><br/>
-			      	<label>Nominee Details:</label><br/>
+			      <label>Nominee Details:</label><br/>
 			      	<label>Relation with nominee:</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} placeholder="Relation with Nominee" 
-					 ref="nomineeRelation" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/><br/>
+			      	<select style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeRelation" required>
+			     	<option value=''></option>
+			      	<option value='Son'>Son</option>
+			      	<option value='Daughter'>Daughter</option>
+			      	<option value='Mother'>Mother</option>
+			      	<option value='Father'>Father</option>
+			      	<option value='Husband'>Husband</option>
+			      	<option value='Brother'>Brother</option>
+			      	<option value='Sister'>Sister</option>
+			      	<option value='Wife'>Wife</option>
+			      	</select>
+			      	{this.state.errorRelation?<p style={{color:'red'}}>{this.state.errorRelation}</p>:undefined}
+			      	<br/>
 					<label>Name of nominee:</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeName" placeholder="Nominee's Name" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
-					<label>Birthday of nominee:</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday"  required/><br/><br/>
+					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeName" placeholder="Nominee's Name" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
+					<label>Do you want to deposit credits in your nominee's account?</label>
+			      	<select ref='confirmNominee' onChange={()=>this.onConfirmationChange()} required>
+			      	<option value='no'>No</option>
+			      	<option value='yes'>Yes</option>
+			      	</select>
+			      	<br/>
+			      	<div id='accDetails'>
+			      	<label id='acc'>Account Number :</label>
+					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required/><br/>
+					<label id='ifsc'>IFSC :</label>
+					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' onKeyUp={()=>this.capitaliseIFSC()} required/><br/>
+					</div>
+					
+					<div id='nomineeDetails' hidden>
+			      	<label>Birthday of nominee:</label>
+					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" /><br/><br/>
 					<label>Mobile of nominee:</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number" required/><br/>
+					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number"/><br/>
 					<label>Address of nominee:</label><br/>
 					<textarea ref="nomineeAddress" cols="30" rows="4" onKeyUp={this.call_validate_textarea_nomineeAddress.bind(this)} id="textareaidNominee" placeholder="Nominees's Address..."></textarea>{this.state.errorNomineeAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorNomineeAddress}</span>:undefined}<br/>
-					<label>Account Number of nominee :</label>
-					<input type="number" ref="nomineeAccountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder="Nominee's account number" pattern="[0-9]{9,18}" title='Enter valid account number' required/><br/>
-					<label>IFSC of nominee :</label>
-					<input type="text" ref="nomineeIFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder="Nominee's IFSC" pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required/><br/>
+					</div>
+					<br/>
+					<label>Product:</label>
+					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" required>
+			     	<option value=''></option>
+			      	<option value='OrganicPowerGold'>Organic Power Gold - Rs.920</option>
+			      	<option value='OrganicPower'>Organic Power - Rs.700</option>
+			      	<option value='Canegold'>Canegold - Rs.630</option>
+			      	<option value='Spirulina'>Spirulina - Rs.630</option>
+			      	<option value='Ladysafe'>Ladysafe - Rs.630</option>
+			      	</select>
+			      	{this.state.errorProduct?<p style={{color:'red'}}>{this.state.errorProduct}</p>:undefined}
+			      	<br/><br/>
 					<label>Product ID :</label>
 					<input type="text" ref="productID" onKeyUp={()=>this.checkProductID()} style={{marginLeft:2+'%',width:60+'%'}} placeholder="10 character product ID" pattern="[a-zA-Z0-9]{10}" title='10 character long product ID' required/><br/>
 					{this.state.errorProductID?<p style={{color:'red'}}>{this.state.errorProductID}</p>:undefined}

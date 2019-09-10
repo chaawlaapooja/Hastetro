@@ -1,6 +1,6 @@
 import { Mongo } from 'meteor/mongo';
 Meteor.methods({
-	'user.create':function(designation, level, ID,name,birthday,mobile,email,address,accountNumber,IFSC,PAN,password,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeAddress,nomineeAccountNumber, nomineeIFSC,parent, productID,parents){
+	'user.create':function(designation, level, ID,name,birthday,mobile,email,address,accountNumber,IFSC,PAN,password,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeAddress,product,productID ,parent){
 		Accounts.createUser({
 			email :ID,
 			password : password,
@@ -21,11 +21,9 @@ Meteor.methods({
             nomineeBirthday,
             nomineeMobile,
             nomineeAddress,
-            nomineeAccountNumber,
-            nomineeIFSC,
-            parent,
+            product,
             productID,
-            parents,
+            parent,
             paymentStatus:'Pending',
             sellingDate:new Date().toLocaleDateString()
             

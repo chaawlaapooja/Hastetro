@@ -26,12 +26,14 @@ class UserList extends Component{
       let name = user.profile.name;
       let mobile = user.profile.mobile
       let level = user.profile.level
+      let product = user.profile.product
       return (
         <tr key={_id}>
           <td>{id}</td>
           <td>{name}</td>
           <td>{mobile}</td>
-          <td>{level}
+          <td>{level}</td>
+          <td>{product}
           
           <span className="pull-right">
           <input type="submit"  className="btn btn-danger" style={{width : 100 +"%"}} value='Remove'
@@ -64,7 +66,7 @@ class UserList extends Component{
             <th>Name</th>
             <th>Mobile</th>
             <th>Level</th>
-            
+            <th>Product</th>
           </tr>
         </thead>
         <tbody>

@@ -5,20 +5,6 @@ import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapC
 import { createContainer } from 'meteor/react-meteor-data';
 import { DataManager } from "@syncfusion/ej2-data";
 
-const hierarchicalTree = [
-    { 'Name': 'Diagram','fillColor': '#916DAF' },
-    { 'Name': 'Layout', 'Category': 'Diagram' },
-    { 'Name': 'Tree Layout', 'Category': 'Layout' },
-    { 'Name': 'Organizational Chart', 'Category': 'Layout' },
-    { 'Name': 'Hierarchical Tree', 'Category': 'Tree Layout' },
-    { 'Name': 'Radial Tree', 'Category': 'Tree Layout' },
-    { 'Name': 'Mind Map', 'Category': 'Hierarchical Tree' },
-    { 'Name': 'Family Tree', 'Category': 'Hierarchical Tree' },
-    { 'Name': 'Management', 'Category': 'Organizational Chart' },
-    { 'Name': 'Human Resources', 'Category': 'Management' },
-    { 'Name': 'University', 'Category': 'Management' },
-    { 'Name': 'Business', 'Category': 'Management' },
-];
 const SAMPLE_CSS = `.image-pattern-style {
         background-color: white;
         background-size: contain;
@@ -166,6 +152,7 @@ export class SeeDownline extends React.Component {
             <thead>
               <tr>
                 <th>HTPL ID</th>
+                <th>Business Associate name</th>
                 <th>Mobile</th>
                 <th>Level</th>
                 <th>Status</th>
@@ -174,7 +161,10 @@ export class SeeDownline extends React.Component {
             <tbody>
               {dataArray.map(data=>{
                const {Name, Content, Mobile, Level}=data;
-               let status = this.getStatus(Name);
+               var n = Content.indexOf("(");
+              var name=Content.substring(0,n)
+              var id = Content.substring(n)
+              let status = this.getStatus(Name);
                if(this.state.filter==='none'){
                let color=''
                if(status==='active')
@@ -184,25 +174,25 @@ export class SeeDownline extends React.Component {
                else
                  color='danger'
                return(
-               <tr key={Name} className={color}><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className={color}><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )  
                }
                else if(this.state.filter==='active'){
                if(status==='active')
                  return(
-               <tr key={Name} className='success'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='success'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='working'){
                if(status==='working')
                  return(
-               <tr key={Name} className='warning'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='warning'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='inactive'){
                  if(status==='inactive')
                  return(
-               <tr key={Name} className='danger'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='danger'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
               })}

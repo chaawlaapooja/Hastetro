@@ -27,7 +27,7 @@ class Payment extends Component{
     	for(var i=0; i<dataArray.length; i++){
         	for(var j=0; j<users.length; j++){
     			if(users[j].profile.parent===dataArray[i].Name){
-                    dataArray.push({'Name':users[j]._id,'ps':users[j].profile.parents[0].paymentStatus, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'ProductID':users[j].profile.productID,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
+                    dataArray.push({'Name':users[j]._id,'ps':users[j].profile.paymentStatus, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'ProductID':users[j].profile.productID,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
     		    }
     		}
     	}

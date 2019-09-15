@@ -33,7 +33,7 @@ class UserList extends Component{
           <td>{name}</td>
           <td>{mobile}</td>
           <td>{level}</td>
-          <td>{product}
+          <td>Rs.{product}
           
           <span className="pull-right">
           <input type="submit"  className="btn btn-danger" style={{width : 100 +"%"}} value='Remove'
@@ -66,7 +66,7 @@ class UserList extends Component{
             <th>Name</th>
             <th>Mobile</th>
             <th>Level</th>
-            <th>Product</th>
+            <th>Price-Product</th>
           </tr>
         </thead>
         <tbody>

@@ -39,7 +39,12 @@ class Report extends Component{
     }
     return weeknum;
 };
-		
+		function convert(dt) {
+              var date = new Date(dt),
+              month = ("0" + (date.getMonth()+1)).slice(-2),
+              day  = ("0" + date.getDate()).slice(-2);
+              return [ date.getFullYear(), month, day ].join("-");
+    	}
 
 		let users = this.props.userList.filter(user=>user.profile.designation==='USER')
     	let dataArray = []
@@ -48,7 +53,7 @@ class Report extends Component{
     	for(var i=0; i<dataArray.length; i++){
         for(var j=0; j<users.length; j++){
     			if(users[j].profile.parent===dataArray[i].Name){
-    				dataArray.push({'Name':users[j]._id,'SoldBy':users[i].emails[0].address,'ProductID':users[j].profile.productID,'Product':users[j].profile.product, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
+    				dataArray.push({'Name':users[j]._id,'SoldBy':users[i].emails[0].address,'ProductID':users[j].profile.productID, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
     			}
     		}
     	}
@@ -67,28 +72,25 @@ class Report extends Component{
 			{d.length>0?<table className="table table-bordered table-stripped table-hover table-responsive">
 			<thead>
 				<tr>
-	              	<th>Sponsor Id</th>
-	                <th>Business Associate Name</th>
-	                <th>Business Associate ID</th>
-	                <th>Product Name</th>
+	              	<th>Sold by</th>
+	                <th>Sold to</th>
+	                <th>Mobile</th>
+	                <th>Level</th>
+	                <th>ProductID</th>
 	                <th>Selling Date</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        {d.map(data=>{
-	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
-	        	var n = Content.indexOf("(");
-	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
-	        	var product=Product.substring(4)
-	        	var sd = new Date(SellingDate).toLocaleDateString()
+	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate}=data;
 	        	return(
 	        		<tr key={Content}>
 	        		<td>{SoldBy}</td>
-	        		<td>{name}</td>
-	        		<td>{id}</td>
-	        		<td>{product}</td>
-	        		<td>{sd}</td>
+	        		<td>{Content}</td>
+	        		<td>{Mobile}</td>
+	        		<td>{Level}</td>
+	        		<td>{ProductID}</td>
+	        		<td>{SellingDate}</td>
 	        		</tr>
 	        	)
 	        })}
@@ -115,28 +117,25 @@ class Report extends Component{
 			{d.length>0?<table className="table table-bordered table-stripped table-hover table-responsive">
 			<thead>
 				<tr>
-	              	<th>Sponsor Id</th>
-	                <th>Business Associate Name</th>
-	                <th>Business Associate ID</th>
-	                <th>Product Name</th>
+	              	<th>Sold by</th>
+	                <th>Sold to</th>
+	                <th>Mobile</th>
+	                <th>Level</th>
+	                <th>ProductID</th>
 	                <th>Selling Date</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        {d.map(data=>{
-	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
-	        	var n = Content.indexOf("(");
-	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
-	        	var product=Product.substring(4)
-	        	var sd = new Date(SellingDate).toLocaleDateString()
+	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate}=data;
 	        	return(
 	        		<tr key={Content}>
 	        		<td>{SoldBy}</td>
-	        		<td>{name}</td>
-	        		<td>{id}</td>
-	        		<td>{product}</td>
-	        		<td>{sd}</td>
+	        		<td>{Content}</td>
+	        		<td>{Mobile}</td>
+	        		<td>{Level}</td>
+	        		<td>{ProductID}</td>
+	        		<td>{SellingDate}</td>
 	        		</tr>
 	        	)
 	        })}
@@ -163,28 +162,25 @@ class Report extends Component{
 			{d.length>0?<table className="table table-bordered table-stripped table-hover table-responsive">
 			<thead>
 				<tr>
-	              	<th>Sponsor Id</th>
-	                <th>Business Associate Name</th>
-	                <th>Business Associate ID</th>
-	                <th>Product Name</th>
+	              	<th>Sold by</th>
+	                <th>Sold to</th>
+	                <th>Mobile</th>
+	                <th>Level</th>
+	                <th>ProductID</th>
 	                <th>Selling Date</th>
 	            </tr>
 	        </thead>
 	        <tbody>
 	        {d.map(data=>{
-	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
-	        	var n = Content.indexOf("(");
-	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
-	        	var product=Product.substring(4)
-	        	var sd = new Date(SellingDate).toLocaleDateString()
+	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate}=data;
 	        	return(
 	        		<tr key={Content}>
 	        		<td>{SoldBy}</td>
-	        		<td>{name}</td>
-	        		<td>{id}</td>
-	        		<td>{product}</td>
-	        		<td>{sd}</td>
+	        		<td>{Content}</td>
+	        		<td>{Mobile}</td>
+	        		<td>{Level}</td>
+	        		<td>{ProductID}</td>
+	        		<td>{SellingDate}</td>
 	        		</tr>
 	        	)
 	        })}

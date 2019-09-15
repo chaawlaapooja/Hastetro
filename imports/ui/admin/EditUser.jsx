@@ -78,7 +78,7 @@ class EditUser extends Component{
 			}
 			if(found){
 				this.setState({hideInputFields:false})
-				const {level, name, birthday, mobile, email, address, accountNumber,IFSC,PAN, imageURL, nomineeRelation, nomineeName, nomineeBirthday, nomineeAddress, nomineeMobile, nomineeAccountNumber, nomineeIFSC } = userInfo.profile
+				const {level, name, birthday, mobile, email, address, accountNumber,IFSC,PAN, imageURL, nomineeRelation, nomineeName, nomineeBirthday, nomineeAddress, nomineeMobile } = userInfo.profile
 				this.refs.level.value=level;
 				this.refs.name.value=name;
 				this.refs.birthday.value=birthday;
@@ -95,8 +95,7 @@ class EditUser extends Component{
 				this.refs.nomineeBirthday.value=nomineeBirthday;
 				this.refs.nomineeMobile.value=nomineeMobile;
 				this.refs.nomineeAddress.value=nomineeAddress
-				this.refs.nomineeAccountNumber.value=nomineeAccountNumber
-				this.refs.nomineeIFSC.value=nomineeIFSC
+				
 			}
 			else{
 				alert('No record found with such ID. Please enter valid HTPL ID')
@@ -117,19 +116,6 @@ class EditUser extends Component{
 	    {
 	      this.setState({errorAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
 	      document.getElementById("textareaid").focus()
-	    }
-	    else if(document.getElementById("textareaidNominee").value === ''){
-	      this.setState({errorNomineeAddress:"Nominee Address can't be empty. Please fill this field"})
-	      document.getElementById("textareaidNominee").focus()
-	    }
-	    else if(document.getElementById("textareaidNominee").value.length<5){
-	      this.setState({errorNomineeAddress:"Please enter at least 5 characters"});
-	      document.getElementById("textareaidNominee").focus()
-	    }
-	    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaidNominee").value))===false)
-	    {
-	      this.setState({errorNomineeAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-	      document.getElementById("textareaidNominee").focus()
 	    }
 	    else
 	    {
@@ -153,8 +139,9 @@ class EditUser extends Component{
 			this.refs.nomineeBirthday.value,
 			this.refs.nomineeMobile.value,
 			this.refs.nomineeAddress.value,
-			this.refs.nomineeAccountNumber.value,
-			this.refs.nomineeIFSC.value,
+			this.state.user.profile.sellingDate,
+			this.state.user.profile.product,
+			this.state.user.profile.productID,
 			Meteor.userId(),
 			(err,res)=>{
 				if(err)
@@ -181,8 +168,6 @@ class EditUser extends Component{
 						this.refs.nomineeBirthday.value='',
 						this.refs.nomineeMobile.value='',
 						this.refs.nomineeAddress.value='',
-						this.refs.nomineeAccountNumber.value='',
-						this.refs.nomineeIFSC.value='',
 						this.setState({uploadedFileCloudinaryUrl:'', hidePrintForm:true, image:'', hideInputFields:true})
 						this.refs.ID.readOnly=false
 						this.refs.ID.focus()
@@ -256,7 +241,7 @@ class EditUser extends Component{
 		</tr>
 		<tr>
 		<td>Birthday :</td>
-		<td>{this.refs.birthday?this.refs.birthday.value:undefined}</td>
+		<td>{this.refs.birthday?new Date(this.refs.birthday.value).toLocaleDateString():undefined}</td>
 		</tr>
 		<tr>
 		<td>Mobile :</td>
@@ -303,14 +288,6 @@ class EditUser extends Component{
 		<td>Address of the Nominee :</td>
 		<td>{this.refs.nomineeAddress?this.refs.nomineeAddress.value:undefined}</td>
 		</tr>
-		<tr>
-		<td>Account Number of the Nominee:</td>
-		<td>{this.refs.nomineeAccountNumber?this.refs.nomineeAccountNumber.value:undefined}</td>
-		</tr>
-		<tr>
-		<td>IFSC of the Nominee:</td>
-		<td>{this.refs.nomineeIFSC?this.refs.nomineeIFSC.value:undefined}</td>
-		</tr>
 
 		</tbody>
 		</table>
@@ -320,7 +297,7 @@ class EditUser extends Component{
 		<br/><br/>
 		<div className="container">
 			<div className="col-md-6 w3agile_newsletter_left">
-				<h3>Edit User</h3>
+				<h3>Profile Edit</h3>
 			</div>
 			<div className="col-md-6 w3agile_newsletter_right">
 				<form onSubmit={this.handle_submit.bind(this)}>
@@ -332,19 +309,19 @@ class EditUser extends Component{
 					<input type="number" min="0" style={{marginLeft:2+'%',width:60+'%'}} ref="level" placeholder="Level (e.g, 2)" required={!this.state.hideInputFields}/>
 					<br/>
 					<label>Name :</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields}/><br/>
+					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields} readOnly/><br/>
 					<label>Birthday :</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" required={!this.state.hideInputFields}/><br/><br/>
+					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" required={!this.state.hideInputFields} readOnly/><br/><br/>
 					<label>Mobile :</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required={!this.state.hideInputFields}/><br/>
 					<label>Email :</label>
-					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' required={!this.state.hideInputFields}/><br/>
+					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
 					<label>Address :</label><br/>
 					<textarea ref="address" cols="30" rows="4" onKeyUp={this.call_validate_textarea_address.bind(this)} id="textareaid" placeholder='Address...'></textarea>{this.state.errorAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorAddress}</span>:undefined}<br/>
 					<label>Account Number :</label>
-					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required={!this.state.hideInputFields}/><br/>
+					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required={!this.state.hideInputFields} readOnly/><br/>
 					<label>IFSC :</label>
-					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required={!this.state.hideInputFields}/><br/>
+					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required={!this.state.hideInputFields} readOnly/><br/>
 					<label>PAN Card Number :</label>
 					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' /><br/>
 					
@@ -371,16 +348,14 @@ class EditUser extends Component{
 					 ref="nomineeRelation" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields}/><br/>
 					<label>Name of nominee:</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeName" placeholder="Nominee's Name" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields}/><br/>
+					<div hidden>
 					<label>Birthday of nominee:</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" required={!this.state.hideInputFields}/><br/><br/>
+					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" /><br/><br/>
 					<label>Mobile of nominee:</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number" required={!this.state.hideInputFields}/><br/>
+					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number" /><br/>
 					<label>Address of nominee:</label><br/>
 					<textarea ref="nomineeAddress" cols="30" rows="4" onKeyUp={this.call_validate_textarea_nomineeAddress.bind(this)} id="textareaidNominee" placeholder="Nominees's Address..."></textarea>{this.state.errorNomineeAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorNomineeAddress}</span>:undefined}<br/>
-					<label>Account Number of nominee :</label>
-					<input type="number" ref="nomineeAccountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder="Nominee's account number" pattern="[0-9]{9,18}" title='Enter valid account number' required={!this.state.hideInputFields}/><br/>
-					<label>IFSC of nominee :</label>
-					<input type="text" ref="nomineeIFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder="Nominee's IFSC" pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required={!this.state.hideInputFields}/><br/>
+					</div>
 					</div>
 					<input type="submit" className="btn btn-success"  value={this.state.hideInputFields?'Search':'Save and Print'} />
 				</form>

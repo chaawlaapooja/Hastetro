@@ -219,7 +219,7 @@ class Profile extends Component{
 		</tr>
 		<tr>
 		<td>Birthday :</td>
-		<td>{this.refs.birthday?this.refs.birthday.value:undefined}</td>
+		<td>{this.refs.birthday?new Date(this.refs.birthday.value).toLocaleDateString():undefined}</td>
 		</tr>
 		<tr>
 		<td>Mobile :</td>

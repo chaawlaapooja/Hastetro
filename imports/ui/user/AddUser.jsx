@@ -24,7 +24,9 @@ class AddUser extends Component{
       image:'',
       errorProductID:'',
       errorRelation:'',
-      errorNomineeDetails:''
+      errorNomineeDetails:'',
+      errorDate:'',
+      errorNomineeDate:''
     };
 	}
 
@@ -103,6 +105,12 @@ class AddUser extends Component{
 	    }
 	    else if(this.refs.nomineeRelation.value===''){
 	    	this.setState({errorRelation:'Please select a relation'})
+	    }
+	    else if(this.state.errorDate!==''){
+	    	this.setState({errorDate:'Enter valid date'})
+	    }
+	    else if(this.state.errorNomineeDate!==''){
+	    	this.setState({errorNomineeDate:'Enter valid date'})
 	    }
 	    else
 	    {
@@ -271,6 +279,26 @@ class AddUser extends Component{
   		}
 
   	}
+  	validate_date(){
+  		console.log(this.refs.birthday.value)
+  		var val = this.refs.birthday.value.split('-');
+  		console.log(val[0] < new Date().getFullYear() && val[0]>1800)
+		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
+		    this.setState({errorDate:''})
+		  } else {
+		    this.setState({errorDate:'Enter a valid date'})
+		  }
+  	}  	
+  	validate_nominee_date(){
+  		console.log(this.refs.nomineeBirthday.value)
+  		var val = this.refs.nomineeBirthday.value.split('-');
+  		console.log(val[0] < new Date().getFullYear() && val[0]>1800)
+		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
+		    this.setState({errorNomineeDate:''})
+		  } else {
+		    this.setState({errorNomineeDate:'Enter a valid date'})
+		  }
+  	}  	
 	render(){
 		let level = 0;
 		Meteor.users.find().fetch().length!==0?level=parseInt(Meteor.users.find().fetch()[0].profile.level)+1:undefined
@@ -294,7 +322,7 @@ class AddUser extends Component{
 		</tr>
 		<tr>
 		<td>Birthday :</td>
-		<td>{this.refs.birthday?this.refs.birthday.value:undefined}</td>
+		<td>{this.refs.birthday?new Date(this.refs.birthday.value).toLocaleDateString():undefined}</td>
 		</tr>
 		<tr>
 		<td>Mobile :</td>
@@ -333,7 +361,7 @@ class AddUser extends Component{
 		<tr>
 		<tr>
 		<td>Birthday of the Nominee :</td>
-		<td>{this.refs.nomineeBirthday?this.refs.nomineeBirthday.value:undefined}</td>
+		<td>{this.refs.nomineeBirthday?this.refs.nomineeBirthday.value.toLocaleDateString():undefined}</td>
 		</tr>
 		<tr>
 		<td>Mobile Number of Nominee:</td>
@@ -345,8 +373,12 @@ class AddUser extends Component{
 		</tr></tr>:undefined:undefined}
 		
 		<tr>
-		<td>Product:</td>
-		<td>{this.refs.product?this.refs.product.value:undefined}</td>
+		<td>Product Name:</td>
+		<td>{this.refs.product?this.refs.product.value.substring(4):undefined}</td>
+		</tr>
+		<tr>
+		<td>Product Price:</td>
+		<td>{this.refs.product?this.refs.product.value.substring(0,3):undefined}</td>
 		</tr>
 		<tr>
 		<td>Product ID:</td>
@@ -359,7 +391,7 @@ class AddUser extends Component{
 		<div className="newsletter">
 		<div className="container">
 			<div className="col-md-6 w3agile_newsletter_left">
-				<h3>Add New Downline Member</h3>
+				<h3>Add New Business Associate</h3>
 			</div>
 			<div className="col-md-6 w3agile_newsletter_right">
 				<form onSubmit={this.handle_submit.bind(this)}>
@@ -372,7 +404,8 @@ class AddUser extends Component{
 					<label>Name :</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
 					<label>Birthday :</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" required/><br/><br/>
+					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" onChange={()=>this.validate_date()} required/><br/><br/>
+					{this.state.errorDate?<p style={{color:'red'}}>{this.state.errorDate}</p>:undefined}
 					<label>Mobile :</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required/><br/>
 					<label>Password :</label>
@@ -433,7 +466,8 @@ class AddUser extends Component{
 					
 					<div id='nomineeDetails' hidden>
 			      	<label>Birthday of nominee:</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" /><br/><br/>
+					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" onChange={()=>this.validate_nominee_date()}/><br/><br/>
+					{this.state.errorNomineeDate?<p style={{color:'red'}}>{this.state.errorNomineeDate}</p>:undefined}
 					<label>Mobile of nominee:</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number"/><br/>
 					<label>Address of nominee:</label><br/>
@@ -441,13 +475,13 @@ class AddUser extends Component{
 					</div>
 					<br/>
 					<label>Product:</label>
-					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" required>
+					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" req>
 			     	<option value=''></option>
-			      	<option value='OrganicPowerGold'>Organic Power Gold - Rs.920</option>
-			      	<option value='OrganicPower'>Organic Power - Rs.700</option>
-			      	<option value='Canegold'>Canegold - Rs.630</option>
-			      	<option value='Spirulina'>Spirulina - Rs.630</option>
-			      	<option value='Ladysafe'>Ladysafe - Rs.630</option>
+			      	<option value='920-OrganicPowerGold'>Organic Power Gold - Rs.920</option>
+			      	<option value='700-OrganicPower'>Organic Power - Rs.700</option>
+			      	<option value='630-Canegold'>Canegold - Rs.630</option>
+			      	<option value='630-Spirulina'>Spirulina - Rs.630</option>
+			      	<option value='630-Ladysafe'>Ladysafe - Rs.630</option>
 			      	</select>
 			      	{this.state.errorProduct?<p style={{color:'red'}}>{this.state.errorProduct}</p>:undefined}
 			      	<br/><br/>

@@ -13,6 +13,11 @@ import PaymentReport from '/imports/ui/admin/PaymentReport'
 import SeeDownline from '/imports/ui/user/SeeDownline'
 import Profile from '/imports/ui/user/Profile'
 import Payment from '/imports/ui/user/Payment'
+//  import {Accounts} from 'meteor/accounts-base'
+
+// Accounts.onLogout(() => {
+//   console.log('logged out from system after timeout ')
+// });
 
 const unauthenticatedPages = ['/'];
 const authenticatedPages=[]
@@ -77,7 +82,8 @@ export const onAuthChange =(isAuthenticated)=>{
 			{
 				browserHistory.replace('/userPanel');
 			}
-		}
+			
+			}
 	}
 	else if(!isAuthenticatedPage && !isAuthenticated){
 		browserHistory.replace('/')

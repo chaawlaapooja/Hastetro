@@ -36,6 +36,9 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 
 		
 	}
+	onIDEnter(){
+		this.refs.registrationID.value=this.refs.registrationID.value.toUpperCase()
+	}
 	handle_submit(event){
 		event.preventDefault();
 		let email =  this.refs.registrationID.value.trim()
@@ -341,7 +344,7 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 		<h1>Login!</h1>
 		{this.state.error?<p style={{color:'red'}}>{this.state.error}</p>:undefined}
 		<form className="boxed-view__form" onSubmit={this.handle_submit.bind(this)}>
-			<input type="text" ref="registrationID" placeholder="Enter your registration ID" pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
+			<input type="text" ref="registrationID" placeholder="Enter your registration ID" onKeyUp={()=>this.onIDEnter()} pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
 			<input type="password" ref="password" placeholder="Enter Password" pattern=".{6,}" title="Enter six or more characters"/>
 			<button className="button">Login</button>
 		</form>

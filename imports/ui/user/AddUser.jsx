@@ -247,6 +247,9 @@ class AddUser extends Component{
   	capitaliseIFSC(){
   		this.refs.IFSC.value=this.refs.IFSC.value.toUpperCase()
   	}
+  	capitalisePAN(){
+  		this.refs.PAN.value=this.refs.PAN.value.toUpperCase()
+  	}
   	onConfirmationChange(){
   		if(this.refs.confirmNominee.value===''){
   			this.setState({errorNomineeDetails:'Please select an answer'})
@@ -361,7 +364,7 @@ class AddUser extends Component{
 		<tr>
 		<tr>
 		<td>Birthday of the Nominee :</td>
-		<td>{this.refs.nomineeBirthday?this.refs.nomineeBirthday.value.toLocaleDateString():undefined}</td>
+		<td>{this.refs.nomineeBirthday?new Date(this.refs.nomineeBirthday.value).toLocaleDateString():undefined}</td>
 		</tr>
 		<tr>
 		<td>Mobile Number of Nominee:</td>
@@ -415,7 +418,7 @@ class AddUser extends Component{
 					<label>Email :</label>
 					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
 					<label>PAN Card Number :</label>
-					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' /><br/>
+					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' onKeyUp={()=>this.capitalisePAN()}/><br/>
 					<label>Photo :</label><br/>
 					
 					<Dropzone ref="photo" multiple={false} accept="image/*" onDrop={this.on_image_drop.bind(this)} >
@@ -475,7 +478,7 @@ class AddUser extends Component{
 					</div>
 					<br/>
 					<label>Product:</label>
-					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" req>
+					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" required>
 			     	<option value=''></option>
 			      	<option value='920-OrganicPowerGold'>Organic Power Gold - Rs.920</option>
 			      	<option value='700-OrganicPower'>Organic Power - Rs.700</option>

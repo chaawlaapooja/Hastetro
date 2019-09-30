@@ -43,7 +43,7 @@ class Navbar extends Component{
 		)
 	else if(this.props.level==='user')
 		return(
-	<nav className="navbar navbar-inverse navbar-fixed-top" style={{backgroundColor:'#5b4681'}}>
+	<nav className="navbar navbar-inverse navbar-fixed-top" style={{backgroundColor:'#5b4681', marginBottom:2+'%'}}>
   <div className="container-fluid">
     <div className="navbar-header">
       <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">

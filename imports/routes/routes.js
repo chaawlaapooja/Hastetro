@@ -40,20 +40,25 @@ const onEnterPrivatePage=()=>{
 				let unauthenticatedPagesLength = unauthenticatedPages.length
 				unauthenticatedPages.splice(0,unauthenticatedPagesLength)
 				unauthenticatedPages.push('/','/userPanel', '/addDownline', '/seeDownline','/profile', '/payment')
+				//authenticatedPages.push('/adminPanel','/addUser', '/editUser', '/allMembers', '/paymentReport','/dashboard')
+	    	
 			}
 			else if(Meteor.user().profile.designation==='USER')
 			{
 				let unauthenticatedPagesLength = unauthenticatedPages.length
 				unauthenticatedPages.splice(0,unauthenticatedPagesLength)
 				unauthenticatedPages.push('/','/adminPanel','/addUser', '/editUser', '/allMembers', '/paymentReport','/dashboard')
-	    	}
+	    		//authenticatedPages.push('/userPanel', '/addDownline', '/seeDownline','/profile', '/payment')
+				}
 		 }
 		if(unauthenticatedPages.includes(pathname)){
+			console.log('unauthenticatedPages')
 			browserHistory.replace('/')
 		}
 	
 	}
 	if(!Meteor.userId()){
+		console.log('no meteor id')
 		browserHistory.replace('/')
 	}
 };
@@ -61,7 +66,7 @@ export const onAuthChange =(isAuthenticated)=>{
 	const pathname = browserHistory.getCurrentLocation().pathname;
 	const isUnauthenticatedPage = unauthenticatedPages.includes(pathname)
 	const isAuthenticatedPage = authenticatedPages.includes(pathname);
-	
+	console.log(isAuthenticatedPage, isAuthenticated)
 	if(isUnauthenticatedPage && isAuthenticated){
 		if(Meteor.user()){
 			if(Meteor.user().profile.designation==='ADMIN')
@@ -76,6 +81,7 @@ export const onAuthChange =(isAuthenticated)=>{
 			}
 	}
 	else if(!isAuthenticatedPage && !isAuthenticated){
+		console.log('unauthorised user')
 		browserHistory.replace('/')
 	}
 }

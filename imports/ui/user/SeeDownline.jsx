@@ -97,7 +97,7 @@ export class SeeDownline extends React.Component {
     	for(var i=0; i<dataArray.length; i++){
         for(var j=0; j<users.length; j++){
     			if(users[j].profile.parent===dataArray[i].Name){
-    				dataArray.push({'Name':users[j]._id, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'Category':dataArray[i].Name})
+    				dataArray.push({'Name':users[j]._id, 'Content':users[j].profile.name+'\n( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'Category':dataArray[i].Name})
     			}
     		}
     	}
@@ -222,11 +222,12 @@ function nodeDefaults(obj, diagram) {
         fill: "#659be5",
         strokeColor: "none",
         color: "white",
-        strokeWidth: 2
+        strokeWidth: 2,
+        fontSize:15
     };
     obj.borderColor = "#3a6eb5";
     obj.backgroundColor = "#659be5";
-    obj.shape.margin = { left: 5, right: 5, bottom: 5, top: 5 };
+    obj.shape.margin = { left: 10, right: 10, bottom: 10, top: 10 };
     obj.expandIcon = {
         height: 10,
         width: 10,

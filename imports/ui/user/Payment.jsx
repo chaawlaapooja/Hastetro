@@ -21,66 +21,81 @@ class Payment extends Component{
     getData(){
     	let users = this.props.userList.filter(user=>user.profile.designation==='USER')
     	let ar = users.filter(user=>user.profile.parent===Meteor.userId())
-    	let dataArray = []
-    	dataArray.push({ 'Name': Meteor.userId(),'Content':'ME','Level':'','Mobile':'','fillColor': '#916DAF' })
+    	let user = this.props.userList.filter(user=>user._id===Meteor.userId())[0]
+        let userid, username=''
+        if(user!==undefined)
+             userid = user.emails[0].address, username = user.profile.name
+        let dataArray = []
+    	dataArray.push({ 'Name': Meteor.userId(),'Content':'ME' })
     	
     	for(var i=0; i<dataArray.length; i++){
         	for(var j=0; j<users.length; j++){
-    			if(users[j].profile.parent===dataArray[i].Name){
-                    dataArray.push({'Name':users[j]._id,'ps':users[j].profile.paymentStatus, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'ProductID':users[j].profile.productID,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
+                let payment
+                let Level = users[j].profile.level;
+                if(Level==='1'){
+                payment=60
+            }
+            else if(Level==='2'){
+                payment=50
+            }
+            else if(Level==='3'){
+                payment=40
+            }
+            else if(Level==='4'){
+                payment=30
+            }
+            else if(Level==='5'){
+                payment=20
+            }
+            else if(Level>='6'){
+                payment=10
+            }
+                let dateValue
+                new Date(users[j].profile.sellingDate).getDate()<15?dateValue=15:dateValue=30
+                let dt = new Date(users[j].profile.sellingDate).getFullYear() +'-'+ parseInt(new Date(users[j].profile.sellingDate).getMonth()+1)+'-'+dateValue
+                if(users[j].profile.parent===dataArray[i].Name){
+                    dataArray.push({'Name':users[j]._id,'id':userid,'username':username,'ps':users[j].profile.paymentStatus,'Commission':payment, 'PaymentDate':new Date(dt),'Category':dataArray[i].Name})
     		    }
     		}
     	}
-        return dataArray
+        let result=[]
+        let arr = dataArray
+        arr.forEach(function (a) {
+    if (!this[a.PaymentDate]) {
+        this[a.PaymentDate] = { name: a.username, id:a.id, Commission: 0, PaymentDate:a.PaymentDate, paymentStatus:'Pending' };
+        result.push(this[a.PaymentDate]);
+    }
+    this[a.PaymentDate].Commission += a.Commission;
+}, Object.create(null));
+
+        return result
     }
     renderRows(){
-    	let ar = this.props.payout.filter(data=> data.main===Meteor.users.find().fetch()[0].emails[0].address)
+        let ar = this.props.payout.filter(data=> data.id===Meteor.users.find().fetch()[0].emails[0].address)
     	ar.sort(function(a,b){
-            return new Date(a.SellingDate) - new Date(b.SellingDate);
+            return new Date(a.PaymentDate) - new Date(b.PaymentDate);
         });
         return ar.map(data=>{
-    		const {_id,Category,ps, Content, Level, SellingDate, Mobile, ProductID, Name, chequeNumber, paidOn}=data
-    		let payment;
-    		if(Level==='1'){
-    			payment=60
-    		}
-    		else if(Level==='2'){
-    			payment=50
-    		}
-    		else if(Level==='3'){
-    			payment=40
-    		}
-    		else if(Level==='4'){
-    			payment=30
-    		}
-    		else if(Level==='5'){
-    			payment=20
-    		}
-    		else if(Level>='6'){
-    			payment=10
-    		}
-    		let sellingDate=new Date(SellingDate).toLocaleDateString()
-    		let paymentDate=new Date(SellingDate)
-    		let pd = paymentDate.setDate(paymentDate.getDate() + 15);
-    		pd=new Date(pd).toLocaleDateString()
+    		const {_id,Category,id, name,Commission, PaymentDate, Name, chequeNumber, paidOn, paymentStatus}=data
     		let paymentMsg=''
-            ps==='Paid'?paymentMsg=ps+' on : '+paidOn+' via cheque number '+chequeNumber:paymentMsg=ps
+            paymentStatus==='Paid'?paymentMsg=paymentStatus+' on : '+paidOn+' via cheque number '+chequeNumber:paymentMsg=paymentStatus
             let cls
-    		if(ps==='Pending')
+    		if(paymentStatus==='Pending')
     			cls='bg-warning'
-    		else if(ps==='Paid')
+    		else if(paymentStatus==='Paid')
     			cls='bg-success'
     		if(this.state.filter==='none'){
     			return(
     			<tr key={_id} className={cls}>
-    			<td>{Content}</td>
-    			<td>{Mobile}</td>
-    			<td>{Level}</td>
-    			<td>{ProductID}</td>
-    			<td>Rs.{payment}</td>
-    			<td>{paymentMsg}</td>
-    			<td>{sellingDate}</td>
-    			<td>{pd}</td>
+    			<td>{PaymentDate.toLocaleDateString()}</td>
+    			<td>{id}</td>
+    			<td>{name}</td>
+    			<td>Rs.{Commission}</td>
+    			<td>Rs.{(5/100)*Commission}</td>
+    			<td>Rs.{(2/100)*Commission}</td>
+                <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
+                <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
+                <td>{paymentStatus}</td>
     			</tr>
     			)
     		}
@@ -88,15 +103,16 @@ class Payment extends Component{
     			if(ps==='Pending'){
     				return(
 	    			<tr key={_id} className={cls}>
-	    			<td>{Content}</td>
-	    			<td>{Mobile}</td>
-	    			<td>{Level}</td>
-	    			<td>{ProductID}</td>
-	    			<td>Rs.{payment}</td>
-	    			<td>{ps}</td>
-	    			<td>{sellingDate}</td>
-	    			<td>{pd}</td>
-	    			</tr>
+                    <td>{PaymentDate.toLocaleDateString()}</td>
+                    <td>{id}</td>
+                    <td>{name}</td>
+                    <td>Rs.{Commission}</td>
+                    <td>Rs.{(5/100)*Commission}</td>
+                    <td>Rs.{(2/100)*Commission}</td>
+                    <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
+                    <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
+                    <td>{paymentStatus}</td>
+                    </tr>
 	    		)
     			}
     		}
@@ -104,15 +120,16 @@ class Payment extends Component{
     			if(ps==='Paid'){
     				return(
 	    			<tr key={_id} className={cls}>
-	    			<td>{Content}</td>
-	    			<td>{Mobile}</td>
-	    			<td>{Level}</td>
-	    			<td>{ProductID}</td>
-	    			<td>Rs.{payment}</td>
-	    			<td>{ps}</td>
-	    			<td>{sellingDate}</td>
-	    			<td>{pd}</td>
-	    			</tr>
+                    <td>{PaymentDate.toLocaleDateString()}</td>
+                    <td>{id}</td>
+                    <td>{name}</td>
+                    <td>Rs.{Commission}</td>
+                    <td>Rs.{(5/100)*Commission}</td>
+                    <td>Rs.{(2/100)*Commission}</td>
+                    <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
+                    <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
+                    <td>{paymentStatus}</td>
+                    </tr>
 	    		)
     			}
     		}
@@ -140,14 +157,16 @@ class Payment extends Component{
 		<table className="table table-bordered table-hover table-responsive">
             <thead>
               <tr>
+                <th>Payout Date</th>
                 <th>HTPL ID</th>
-                <th>Mobile</th>
-                <th>Level</th>
-                <th>ProductID</th>
-                <th>Payment</th>
+                <th>BA Name</th>
+                <th>Commission</th>
+                <th>TDS</th>
+                <th>BDF</th>
+                <th>Total Deduction</th>
+                <th>Net Payment</th>
                 <th>Payment Status</th>
-                <th>Selling Date</th>
-                <th>Payment Date</th>
+                
               </tr>
             </thead>
             <tbody>

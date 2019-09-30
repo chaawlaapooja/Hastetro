@@ -242,4 +242,5 @@ img{
 }
 #login-dropdown-list{
     background-color: #C0C0C0;
+    width: fit-content;
 }

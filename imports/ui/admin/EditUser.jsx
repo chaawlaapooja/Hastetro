@@ -219,7 +219,9 @@ class EditUser extends Component{
     }
   }
 
-  	
+  	capitalisePAN(){
+  		this.refs.PAN.value=this.refs.PAN.value.toUpperCase()
+  	}
 	render(){
 	return(
 		<div>
@@ -323,7 +325,7 @@ class EditUser extends Component{
 					<label>IFSC :</label>
 					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' required={!this.state.hideInputFields} readOnly/><br/>
 					<label>PAN Card Number :</label>
-					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' /><br/>
+					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' onKeyUp={()=>this.capitalisePAN}/><br/>
 					
 					
 					<label>Photo :</label><br/>

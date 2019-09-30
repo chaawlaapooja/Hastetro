@@ -20,7 +20,7 @@ class Report extends Component{
     var day = newYear.getDay() - dowOffset; //the day of week the year begins on
     day = (day >= 0 ? day : day + 7);
     var daynum = Math.floor((this.getTime() - newYear.getTime() - 
-    (this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) + 1;
+    (this.getTimezoneOffset()-newYear.getTimezoneOffset())*60000)/86400000) ;
     var weeknum;
     //if the year starts before the middle of a week
     if(day < 4) {

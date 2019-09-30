@@ -13,11 +13,6 @@ import PaymentReport from '/imports/ui/admin/PaymentReport'
 import SeeDownline from '/imports/ui/user/SeeDownline'
 import Profile from '/imports/ui/user/Profile'
 import Payment from '/imports/ui/user/Payment'
-//  import {Accounts} from 'meteor/accounts-base'
-
-// Accounts.onLogout(() => {
-//   console.log('logged out from system after timeout ')
-// });
 
 const unauthenticatedPages = ['/'];
 const authenticatedPages=[]
@@ -43,24 +38,19 @@ const onEnterPrivatePage=()=>{
 			if(Meteor.user().profile.designation==='ADMIN')
 			{
 				let unauthenticatedPagesLength = unauthenticatedPages.length
-				// unauthenticatedPages.splice(0,unauthenticatedPagesLength)
-				// unauthenticatedPages.push('/','/teacher', '/training', '/student','/user', '/vendor',
-				//  '/settings', '/product', '/editLabels', '/boughtTogetherCourses', '/relatedProducts',
-				//   '/seeRelatedProductsManager',  '/seeSchedule', '/promotionDashboard',
-				//   '/mainDashboard','/teacherDashboard', '/docExportForm/:id/:teacher/:date/:language', '/finalOptionForm',
-				//   '/monthlyReport', '/managerSchedule',
-				//      '/bookSchedule','/studentUser', '/seeRelatedProducts','/seeInvoice', '/seeInvoice/:student/:invoiceNumber')
+				unauthenticatedPages.splice(0,unauthenticatedPagesLength)
+				unauthenticatedPages.push('/','/userPanel', '/addDownline', '/seeDownline','/profile', '/payment')
 			}
 			else if(Meteor.user().profile.designation==='USER')
 			{
 				let unauthenticatedPagesLength = unauthenticatedPages.length
 				unauthenticatedPages.splice(0,unauthenticatedPagesLength)
-				unauthenticatedPages.push('/','/popupDocs','/graphicsDocs', '/editGraphicsDocs', '/manager', '/navbarGodManager','/studentUser', 
-	     		'/bookSchedule', '/seeInvoice', '/seeInvoice/:student/:invoiceNumber', '/seeRelatedProducts' )
-			}
+				unauthenticatedPages.push('/','/adminPanel','/addUser', '/editUser', '/allMembers', '/paymentReport','/dashboard')
+	    	}
 		 }
-		if(unauthenticatedPages.includes(pathname))
+		if(unauthenticatedPages.includes(pathname)){
 			browserHistory.replace('/')
+		}
 	
 	}
 	if(!Meteor.userId()){

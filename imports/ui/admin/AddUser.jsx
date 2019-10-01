@@ -1,6 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
-import Navbar from '../Navbar';
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import print from 'print-js'
@@ -404,7 +402,6 @@ class AddUser extends Component{
 		</tbody>
 		</table>
 		</div>
-		<Navbar level='admin'/>
 		<div className="newsletter">
 		<div className="container">
 			<div className="col-md-6 w3agile_newsletter_left">

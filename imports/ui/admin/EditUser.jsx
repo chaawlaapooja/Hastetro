@@ -294,7 +294,6 @@ class EditUser extends Component{
 		</tbody>
 		</table>
 		</div>
-		<Navbar level='admin'/>
 		<div className="newsletter">
 		<br/><br/>
 		<div className="container">

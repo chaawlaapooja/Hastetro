@@ -1,14 +1,17 @@
 import React from 'react';
-
+import {Link} from 'react-router';
+//import '/imports/css/LandingPage.css'
 class LandingPage extends React.Component{
 
 	constructor(props){
 		super(props);
 		this.state={
-			error:''
+			error:'',
+			component:'about'
 		}
 	}
 	componentDidMount(){
+	
 		var message="Right-click has been disabled";
 function clickIE() {
     if (document.all) {
@@ -56,36 +59,49 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
 			}
 		});
 	}
+	changeComponent(component){
+		this.setState({component})
+	}
+	
 	render(){
 	return(
   <div style={{backgroundColor: '#dcdcdc'}}>
-  <nav className="navbar navbar-inverse " style={{backgroundColor:'#5b4681'}}>
-  <div className="container-fluid">
-    <div className="navbar-header">
-      <button type="button" className="navbar-toggle" data-toggle="collapse" data-target="#myNavbar">
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>
-        <span className="icon-bar"></span>                        
-      </button>
-      <a className="navbar-brand" data-toggle="pill" href="#menuAbout">HASTETRO TRADE</a>
-    </div>
-    <div className="collapse navbar-collapse" id="myNavbar">
-      <ul className="nav navbar-nav">
-        <li className="active"><a data-toggle="pill" href="#menuAbout">About</a></li>
-	    <li><a data-toggle="pill" href="#menuPlan">Business Plan</a></li>
-	    <li><a data-toggle="pill" href="#menuProducts">Products</a></li>
-      	<li><a data-toggle="pill" href="#menuRules">Rules and Policy</a></li>
-	    <li><a data-toggle="pill" href="#menuLegal">Legal</a></li>
-	  	<li><a data-toggle="pill" href="#menuContact">Contact us</a></li>
-  	    <li><a data-toggle="pill" href="#menuLogin"><span className="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>
-    </div>
-  </div>
+  
+  <nav className="navbar navbar-expand-md navbar-dark" style={{backgroundColor:'rgb(145, 147, 149)'}}>
+  <a className="navbar-brand" href="#"><img src="https://res.cloudinary.com/hastetro/image/upload/v1567510172/Logo-removebg-preview_ffu8is.png" height="50" width="50"/>HASTETRO</a>
+  <button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#collapsibleNavbar">
+    <span className="navbar-toggler-icon"></span>
+  </button>
+  <div className="collapse navbar-collapse" id="collapsibleNavbar">
+    <ul className="nav nav-tabs" role="tablist">
+      <li className="nav-item">
+        <a className="nav-link active" style={{color:'black'}} href="#menuAbout" role="tab" data-toggle="tab">ABOUT</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuPlan" role="tab" data-toggle="tab">BUSINESS PLAN</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuProducts" role="tab" data-toggle="tab">PRODUCTS</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuRules" role="tab" data-toggle="tab">RULES AND POLICIES</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuLegal" role="tab" data-toggle="tab">LEGAL</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuContact" role="tab" data-toggle="tab">CONTACT US</a>
+      </li>
+      <li className="nav-item">
+        <a className="nav-link" style={{color:'black'}} href="#menuLogin" role="tab" data-toggle="tab">LOGIN</a>
+      </li>    
+    </ul>
+  </div>  
 </nav>
   
 
-<div className="tab-content" >
-    <div id="menuAbout" className="tab-pane fade in active">
+<div className="tab-content">
+    <div id="menuAbout" role="tabpanel" className="tab-pane active">
       <h3 className="heading"><img src="https://res.cloudinary.com/hastetro/image/upload/v1567510172/Logo-removebg-preview_ffu8is.png" height="50" width="50"/> ABOUT HASTETRO</h3>
     <h4 className="content">
       <li>Hastetro is a marketing company that considers customer service as God's service.  Because of this, the company has always provided good service and good products for its customers. To increase the number of customers, the company has used various marketing tools such as direct marketing, Telemarketing, online shopping. We are entering in market with a new & unique concept of direct selling. In order to provide better service to the customers, the company has built a good network of distributors in every Taluka and District.</li>  <br/>
@@ -169,71 +185,69 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
     </div>
     <div id="menuProducts" className="tab-pane fade">
       <h3 className="heading">OUR PRODUCTS</h3>
-      	<div style={{paddingLeft:2+"%", paddingRight:2+'%', marginLeft:10+'%', marginRight:10+'%', display: 'flex',
+        <div style={{paddingLeft:2+"%", paddingRight:2+'%', marginLeft:10+'%', marginRight:10+'%', display: 'flex',
     justifyContent: 'center'}}>
-    	<div id="myCarousel" className="carousel slide" data-ride="carousel">
-	    <ol className="carousel-indicators">
-	      <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
-	      <li data-target="#myCarousel" data-slide-to="1"></li>
-	      <li data-target="#myCarousel" data-slide-to="2"></li>
-	      <li data-target="#myCarousel" data-slide-to="3"></li>
-	      <li data-target="#myCarousel" data-slide-to="4"></li>
-	    </ol>
+      <div id="myCarousel" className="carousel slide" data-ride="carousel">
+      <ul className="carousel-indicators">
+        <li data-target="#myCarousel" data-slide-to="0" className="active"></li>
+        <li data-target="#myCarousel" data-slide-to="1"></li>
+        <li data-target="#myCarousel" data-slide-to="2"></li>
+        <li data-target="#myCarousel" data-slide-to="3"></li>
+        <li data-target="#myCarousel" data-slide-to="4"></li>
+      </ul>
 
-	    <div className="carousel-inner">
+      <div className="carousel-inner">
 
-	      <div className="item active">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510403/products/Organic_Powar_qjruxu.jpg" alt="organic Power" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3 style={{color:'black'}}>Orgainic Power</h3>
-	          <p style={{color:'black'}}>Organic powder for agricultural use!</p>
-	        </div>
-	      </div>
+        <div className="carousel-item active">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510403/products/Organic_Powar_qjruxu.jpg" alt="organic Power" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3 style={{color:'black'}}>Orgainic Power</h3>
+            <p style={{color:'black'}}>Organic powder for agricultural use!</p>
+          </div>
+        </div>
 
-	      <div className="item">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510461/products/canegld_tfydlj.jpg" alt="Canegold" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3 style={{color:'black'}}>Canegold</h3>
-	          <p style={{color:'black'}}>For agricultural use!</p>
-	        </div>
-	      </div>
-	    
-	      <div className="item">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510517/products/Spirulina_e6seeu.jpg" alt="Spirulina" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3 style={{color:'black'}}>Spirulina</h3>
-	          <p style={{color:'black'}}>Muscle strengthening tablets!</p>
-	        </div>
-	      </div>
+        <div className="carousel-item">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510461/products/canegld_tfydlj.jpg" alt="Canegold" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3 style={{color:'black'}}>Canegold</h3>
+            <p style={{color:'black'}}>For agricultural use!</p>
+          </div>
+        </div>
+      
+        <div className="carousel-item">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510517/products/Spirulina_e6seeu.jpg" alt="Spirulina" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3 style={{color:'black'}}>Spirulina</h3>
+            <p style={{color:'black'}}>Muscle strengthening tablets!</p>
+          </div>
+        </div>
 
-	      <div className="item">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510553/products/LEDY_SAFE1_l25nkw.jpg" alt="Lady Safe" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3 style={{color:'black'}}>Lady Safe</h3>
-	          <p style={{color:'black'}}>Sanitary Napkins!</p>
-	        </div>
-	      </div>
+        <div className="carousel-item">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510553/products/LEDY_SAFE1_l25nkw.jpg" alt="Lady Safe" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3 style={{color:'black'}}>Lady Safe</h3>
+            <p style={{color:'black'}}>Sanitary Napkins!</p>
+          </div>
+        </div>
 
-	      <div className="item">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510604/products/Organic_Powar_Gold_zt7e1b.jpg" alt="Organic Power Gold" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3 style={{color:'black'}}>Organic Power gold</h3>
-	          <p style={{color:'black'}}>Powder for agricultural use!</p>
-	        </div>
-	      </div>
-	  
-	    </div>
+        <div className="carousel-item">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/v1567510604/products/Organic_Powar_Gold_zt7e1b.jpg" alt="Organic Power Gold" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3 style={{color:'black'}}>Organic Power gold</h3>
+            <p style={{color:'black'}}>Powder for agricultural use!</p>
+          </div>
+        </div>
+    
+      </div>
 
-	    <a style={{color:'black'}} className="left carousel-control" href="#myCarousel" data-slide="prev">
-	      <span className="glyphicon glyphicon-chevron-left"></span>
-	      <span className="sr-only">Previous</span>
-	    </a>
-	    <a style={{color:'black'}} className="right carousel-control" href="#myCarousel" data-slide="next">
-	      <span className="glyphicon glyphicon-chevron-right"></span>
-	      <span className="sr-only">Next</span>
-	    </a>
-	</div>
-	</div>
+      <a style={{color:'black'}} className="carousel-control-prev" href="#myCarousel" data-slide="prev">
+        <i className="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+      <a style={{color:'black'}} className="carousel-control-next" href="#myCarousel" data-slide="next">
+        <i className="fa fa-arrow-right" aria-hidden="true"></i>
+      </a>
+  </div>
+  </div>
     </div>
     <div id="menuRules" className="tab-pane fade">
       <h3 className="heading">RULES AND POLICIES</h3>
@@ -250,49 +264,47 @@ document.getElementsByClassName('my-img').ondragstart = function() { return fals
       Hastetro Trade Private Limited is goverment issued MSME.<br/>
       We ensure consumer safety and unlike other companies, we have all legal documents from income tax department to keep your returns and profits safe.<br/>
       Have a look at all our legal documents and join us to have your safe and secure financial future.</h4>
-      	<div style={{display:'flex', justifyContent:'center'}}>
-      	<div id="myCarousel1" className="carousel slide" data-ride="carousel">
-	    <ol className="carousel-indicators">
-	      <li data-target="#myCarousel1" data-slide-to="0" className="active"></li>
-	      <li data-target="#myCarousel1" data-slide-to="1"></li>
-	      <li data-target="#myCarousel1" data-slide-to="2"></li>
-	    </ol>
+        <div style={{display:'flex', justifyContent:'center'}}>
+        <div id="myCarousel1" className="carousel slide" data-ride="carousel">
+      <ol className="carousel-indicators">
+        <li data-target="#myCarousel1" data-slide-to="0" className="active"></li>
+        <li data-target="#myCarousel1" data-slide-to="1"></li>
+        <li data-target="#myCarousel1" data-slide-to="2"></li>
+      </ol>
 
-	    <div className="carousel-inner">
+      <div className="carousel-inner">
 
-	      <div className="item active">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838344/PAN_drmwwk.png" alt="PAN" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3>PAN CARD</h3>
-	        </div>
-	      </div>
+        <div className="carousel-item active">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838344/PAN_drmwwk.png" alt="PAN" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3>PAN CARD</h3>
+          </div>
+        </div>
 
-	      <div className="item" >
-	        <img className='msme' src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838325/MSME_z8tbst.png" alt="MSME CERTIFICATE" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3>MSME CERTIFICATE</h3>
-	        </div>
-	      </div>
+        <div className="carousel-item" >
+          <img className='msme' src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838325/MSME_z8tbst.png" alt="MSME CERTIFICATE" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3>MSME CERTIFICATE</h3>
+          </div>
+        </div>
 
-	      <div className="item">
-	        <img src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838313/Certificate_of_Inc_aokcwa.png" alt="CERTIFICATE OF INCORPORATION" style={{width:100+'%'}}/>
-	        <div className="carousel-caption">
-	          <h3>CERTIFICATE OF INCORPORATION</h3>
-	        </div>
-	      </div>
-	  
-	    </div>
+        <div className="carousel-item">
+          <img src="https://res.cloudinary.com/hastetro/image/upload/c_fill,g_auto,h_500,w_800/b_rgb:000000,e_gradient_fade,y_-0.50/c_scale,co_rgb:d9d9d9,fl_relative,l_text:montserrat_25_style_light_align_center:HASTETRO,w_0.5,y_0.18/v1564838313/Certificate_of_Inc_aokcwa.png" alt="CERTIFICATE OF INCORPORATION" style={{width:100+'%'}}/>
+          <div className="carousel-caption">
+            <h3>CERTIFICATE OF INCORPORATION</h3>
+          </div>
+        </div>
+    
+      </div>
 
-	    <a className="left carousel-control" href="#myCarousel1" data-slide="prev">
-	      <span style={{color:'black'}} className="glyphicon glyphicon-chevron-left"></span>
-	      <span className="sr-only">Previous</span>
-	    </a>
-	    <a className="right carousel-control" href="#myCarousel1" data-slide="next">
-	      <span style={{color:'black'}} className="glyphicon glyphicon-chevron-right"></span>
-	      <span className="sr-only">Next</span>
-	    </a>
-	</div>
-	</div>
+      <a style={{color:'black'}} className="carousel-control-prev" href="#myCarousel1" data-slide="prev">
+        <i className="fa fa-arrow-left" aria-hidden="true"></i>
+      </a>
+      <a style={{color:'black'}} className="carousel-control-next" href="#myCarousel1" data-slide="next">
+        <i className="fa fa-arrow-right" aria-hidden="true"></i>
+      </a>
+  </div>
+  </div>
     </div>
     <div id="menuContact" className="tab-pane fade">
       <h3 className="heading">CONTACT US</h3>

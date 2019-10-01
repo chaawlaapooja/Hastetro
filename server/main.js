@@ -7,7 +7,6 @@ import {Accounts} from 'meteor/accounts-base'
 // Accounts.config({
 //     loginExpirationInDays: 0.01
 // })
-
 Meteor.startup(() => {
   Meteor.publish('users', function(){
   		return Meteor.users.find()

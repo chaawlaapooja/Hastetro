@@ -204,23 +204,28 @@ class Report extends Component{
 	render(){
 	return(
 		<div style={{marginTop:7+'%', padding:2+'%'}}>
-		<ul className="nav nav-tabs nav-justified">
-    <li className="active"><a data-toggle="pill" href="#today">TODAY</a></li>
-    <li><a data-toggle="pill" href="#home">WEEK</a></li>
-    <li><a data-toggle="pill" href="#menu1">MONTH</a></li>
-    </ul>
+		<ul className="nav nav-tabs" style={{display:'flex', justifyContent:'space-around'}}>
+    <li className="nav-item">
+    <a className="nav-link active" href="#today" role="tab" data-toggle="tab">Today</a>
+  </li>
+  <li className="nav-item">
+    <a className="nav-link" href="#week" role="tab" data-toggle="tab">Week</a>
+  </li>  
+  <li className="nav-item">
+    <a className="nav-link" href="#month" role="tab" data-toggle="tab">Month</a>
+  </li>  </ul>
   
   	<div className="tab-content">
-    <div id="today" className="tab-pane fade in active">
+    <div id="today" role="tabpanel" className="container tab-pane active">
     <br/>
     {this.renderInfo('today')}
 	</div>
-	<div id="home" className="tab-pane fade">
+	<div id="week" role="tabpanel" className="container tab-pane fade">
     <br/>
     <input ref="weekPicker" type="week" onChange={()=>this.onWeekPickerChange()}/>
 	{this.renderInfo('week')}
 	</div>
-	<div id="menu1" className="tab-pane fade">
+	<div id="month" role="tabpanel" className="container tab-pane fade">
     <br/>
     <input ref="monthPicker" type="month" onChange={()=>this.onMonthPickerChange()}/>
 	{this.renderInfo('month')}

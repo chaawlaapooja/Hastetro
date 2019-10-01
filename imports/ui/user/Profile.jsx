@@ -224,9 +224,7 @@ class Profile extends Component{
 		</tbody>
 		</table>
 		</div>
-		<Navbar level='user'/>
 		<div className="newsletter">
-		<br/><br/>
 		<div className="container">
 			<div className="col-md-6 w3agile_newsletter_left">
 				<h3>Edit Profile</h3>

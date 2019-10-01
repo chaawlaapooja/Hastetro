@@ -143,7 +143,6 @@ class Payment extends Component{
 	render(){
 	return(
 		<div>
-		<Navbar level='user'/><br/><br/>
 		<div id="tableView" style={{margin:3+'%'}}>
 		<div style={{margin:1+'%'}}>
 		<label>Filter by : </label>

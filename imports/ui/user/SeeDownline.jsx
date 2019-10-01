@@ -5,20 +5,7 @@ import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapC
 import { createContainer } from 'meteor/react-meteor-data';
 import { DataManager } from "@syncfusion/ej2-data";
 
-const hierarchicalTree = [
-    { 'Name': 'Diagram','fillColor': '#916DAF' },
-    { 'Name': 'Layout', 'Category': 'Diagram' },
-    { 'Name': 'Tree Layout', 'Category': 'Layout' },
-    { 'Name': 'Organizational Chart', 'Category': 'Layout' },
-    { 'Name': 'Hierarchical Tree', 'Category': 'Tree Layout' },
-    { 'Name': 'Radial Tree', 'Category': 'Tree Layout' },
-    { 'Name': 'Mind Map', 'Category': 'Hierarchical Tree' },
-    { 'Name': 'Family Tree', 'Category': 'Hierarchical Tree' },
-    { 'Name': 'Management', 'Category': 'Organizational Chart' },
-    { 'Name': 'Human Resources', 'Category': 'Management' },
-    { 'Name': 'University', 'Category': 'Management' },
-    { 'Name': 'Business', 'Category': 'Management' },
-];
+
 const SAMPLE_CSS = `.image-pattern-style {
         background-color: white;
         background-size: contain;
@@ -103,16 +90,20 @@ export class SeeDownline extends React.Component {
     	}
     	return (
         <div className="control-pane diagram-control-pane">
-        <Navbar level='user'/><style>{SAMPLE_CSS}</style>
+        <style>{SAMPLE_CSS}</style>
         <br/><br/><br/><br/>
-        <div style={{display:'flex', justifyContent:'center'}}>
-        <ul className="nav nav-pills">
-	        <li className="active"><a data-toggle="pill" href="#treeView">Tree View</a></li>
-		    <li><a data-toggle="pill" href="#tableView">Table View</a></li>
-		</ul>
+        <div>
+        <ul className="nav nav-pills" role="tablist" style={{display:'flex', justifyContent:'space-evenly'}}>
+	      <li className="nav-item">
+          <a className="nav-link active" data-toggle="pill" href="#treeView">Tree View</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" data-toggle="pill" href="#tableView">Table View</a>
+        </li>
+        </ul>
 	    </div>
 	    <div className="tab-content" >
-		    <div id="treeView" className="tab-pane fade in active">
+		    <div id="treeView" className="container tab-pane active">
 		 	
 	        <div className="col-lg-12 control-section">
 	          <div className="content-wrapper" style={{ width: "100%" }}>
@@ -148,10 +139,10 @@ export class SeeDownline extends React.Component {
 	        </div>
 
 	   
-	 <div id="tableView" style={{margin:3+'%'}} className="tab-pane fade">
-		<p className="bg-success">Active indicates 5 or more downline</p>
-		<p className="bg-warning">Working indicates 1 or more downline</p>
-		<p className="bg-danger">Inactive indicates 0 downline</p>
+	 <div id="tableView" style={{margin:3+'%'}} className="container tab-pane fade">
+		<p className="table-success">Active indicates 5 or more downline</p>
+		<p className="table-warning">Working indicates 1 or more downline</p>
+		<p className="table-danger">Inactive indicates 0 downline</p>
 		<div style={{margin:1+'%'}}>
 		<label>Filter by : </label>
 		<select style={{marginLeft:2+'%'}} ref='filter' onChange={()=>this.onFilterChange()}>
@@ -178,11 +169,11 @@ export class SeeDownline extends React.Component {
                if(this.state.filter==='none'){
                let color=''
                if(status==='active')
-                 color='success'
+                 color='table-success'
                else if(status==='working')
-                 color='warning'
+                 color='table-warning'
                else
-                 color='danger'
+                 color='table-danger'
                return(
                <tr key={Name} className={color}><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )  
@@ -190,19 +181,19 @@ export class SeeDownline extends React.Component {
                else if(this.state.filter==='active'){
                if(status==='active')
                  return(
-               <tr key={Name} className='success'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-success'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='working'){
                if(status==='working')
                  return(
-               <tr key={Name} className='warning'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-warning'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='inactive'){
                  if(status==='inactive')
                  return(
-               <tr key={Name} className='danger'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-danger'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
               })}

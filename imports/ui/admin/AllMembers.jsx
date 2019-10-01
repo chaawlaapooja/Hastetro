@@ -1,4 +1,3 @@
-import Navbar from '../Navbar';
 import { render } from 'react-dom';
 import * as React from "react";
 import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapConstraints, Inject, DiagramTools } from "@syncfusion/ej2-react-diagrams";
@@ -89,19 +88,21 @@ export class SeeDownline extends React.Component {
     	}
       return (
         <div className="control-pane diagram-control-pane">
-        <Navbar level='admin'/><style>{SAMPLE_CSS}</style>
         <br/><br/><br/><br/>
-        <div style={{display:'flex', justifyContent:'center'}}>
-        <ul className="nav nav-pills">
-	        <li className="active"><a data-toggle="pill" href="#treeView">Tree View</a></li>
-		    <li><a data-toggle="pill" href="#tableView">Table View</a></li>
-		</ul>
+        <div>
+        <ul className="nav nav-pills" role="tablist" style={{display:'flex', justifyContent:'space-around'}}>
+	      <li className="nav-item">
+          <a className="nav-link active" data-toggle="pill" href="#treeView">Tree View</a>
+        </li>
+        <li className="nav-item">
+          <a className="nav-link" data-toggle="pill" href="#tableView">Table View</a>
+        </li></ul>
 	    </div>
 	    <div className="tab-content" >
-		    <div id="treeView" className="tab-pane fade in active">
+		    <div id="treeView" className="container tab-pane active">
 		 	
 	        <div className="col-lg-12 control-section">
-	          <div className="content-wrapper" style={{ width: "100%" }}>
+	          <div style={{ width: "100%" }}>
 	            <DiagramComponent id="diagram" ref={diagram => (diagramInstance = diagram)} width={"100%"} height={"499px"} snapSettings={{ constraints: SnapConstraints.None }} //configures data source settings
 		         dataSourceSettings={{
 		            //sets the fields to bind
@@ -134,10 +135,10 @@ export class SeeDownline extends React.Component {
 	        </div>
 
 	   
-	    <div id="tableView" style={{margin:3+'%'}} className="tab-pane fade">
-		<p className="bg-success">Active indicates 5 or more downline</p>
-		<p className="bg-warning">Working indicates 1 or more downline</p>
-		<p className="bg-danger">Inactive indicates 0 downline</p>
+	    <div id="tableView" style={{margin:3+'%'}} className="container tab-pane fade">
+		<p className="table-success">Active indicates 5 or more downline</p>
+		<p className="table-warning">Working indicates 1 or more downline</p>
+		<p className="table-danger">Inactive indicates 0 downline</p>
 		<div style={{margin:1+'%'}}>
 		<label>Filter by : </label>
 		<select style={{marginLeft:2+'%'}} ref='filter' onChange={()=>this.onFilterChange()}>
@@ -168,11 +169,11 @@ export class SeeDownline extends React.Component {
                if(this.state.filter==='none'){
                let color=''
                if(status==='active')
-                 color='success'
+                 color='table-success'
                else if(status==='working')
-                 color='warning'
+                 color='table-warning'
                else
-                 color='danger'
+                 color='table-danger'
                return(
                <tr key={Name} className={color}><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )  
@@ -180,19 +181,19 @@ export class SeeDownline extends React.Component {
                else if(this.state.filter==='active'){
                if(status==='active')
                  return(
-               <tr key={Name} className='success'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-success'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='working'){
                if(status==='working')
                  return(
-               <tr key={Name} className='warning'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-warning'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='inactive'){
                  if(status==='inactive')
                  return(
-               <tr key={Name} className='danger'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-danger'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
                )
                }
               })}
@@ -234,8 +235,17 @@ function nodeDefaults(obj, diagram) {
     obj.collapseIcon.height = 10;
     obj.collapseIcon.width = 10;
     obj.collapseIcon.padding.top = 5;
-    obj.collapseIcon.shape = "None";
     obj.collapseIcon.fill = "lightgray";
+    obj.expandIcon = {
+    shape: 'ArrowDown',
+    width: 10,
+    height: 10
+  };
+  obj.collapseIcon = {
+    shape: 'ArrowUp',
+    width: 10,
+    height: 10
+  };
     return obj;
 }
 //sets connector default value

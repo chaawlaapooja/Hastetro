@@ -26,9 +26,9 @@ class Payment extends Component{
             paymentStatus==='Paid'?paymentMsg=paymentStatus+' on : '+paidOn+' via cheque number '+chequeNumber:paymentMsg=paymentStatus
             let cls, btnCls
             if(paymentStatus==='Pending')
-                cls='bg-warning'
+                cls='table-danger'
             else if(paymentStatus==='Paid')
-                cls='bg-success'
+                cls='table-success'
             paymentStatus==='Paid'?btnCls='btn btn-success disabled':btnCls='btn btn-success'
     		if(this.state.filter==='none'){
     			return(
@@ -152,7 +152,6 @@ class Payment extends Component{
     	
 	return(
 		<div>
-		<Navbar level='admin'/><br/><br/>
 		<div id="tableView" style={{margin:3+'%'}}>
 		<div style={{margin:1+'%'}}>
 		<label>Filter by : </label>
@@ -170,9 +169,9 @@ class Payment extends Component{
 
         <form className="form-inline" onSubmit={this.onSearchUser.bind(this)}>
         <div className="form-group">
-            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter your registration ID" pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
+            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter registration ID" pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
         </div>
-        <button type="submit" className="btn btn-success">Search</button>
+        <button type="submit" className="btn btn-success" style={{marginLeft:2+'%'}}>Search</button>
         </form>
         <br/>
 		<div id="allUsers">
@@ -182,7 +181,7 @@ class Payment extends Component{
             	const uid = user._id
                 let dataArray=this.props.payout.filter(data=>data.main===id)
             	if(dataArray.length>0)
-            	return (<div key={uid}><div className='bg-info'>{name} - {id}</div>
+            	return (<div key={uid} className='table-warning'><label>{name} - {id}</label>
 		<table className="table table-bordered table-hover table-responsive">
             <thead>
               <tr>
@@ -207,8 +206,8 @@ class Payment extends Component{
 	          })}
 	         </div>
 	         <div id="filteredUser" hidden>
-	         <div key={this.state.userfilter}>
-	         <div className='bg-info'>{this.state.userfilter}</div>
+	         <div key={this.state.userfilter} className='table-warning'>
+	         <div className='table-warning'>{this.state.userfilter}</div>
 			 <table className="table table-bordered table-hover table-responsive">
 	            <thead>
 	              <tr>

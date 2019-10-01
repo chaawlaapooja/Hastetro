@@ -390,7 +390,6 @@ class AddUser extends Component{
 		</tbody>
 		</table>
 		</div>
-		<Navbar level='user'/>
 		<div className="newsletter">
 		<div className="container">
 			<div className="col-md-6 w3agile_newsletter_left">

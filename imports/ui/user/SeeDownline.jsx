@@ -1,7 +1,7 @@
 import Navbar from '../Navbar';
 import { render } from 'react-dom';
 import * as React from "react";
-import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapConstraints, Inject, DiagramTools } from "@syncfusion/ej2-react-diagrams";
+import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapConstraints, Inject, DiagramConstraints } from "@syncfusion/ej2-react-diagrams";
 import { createContainer } from 'meteor/react-meteor-data';
 import { DataManager } from "@syncfusion/ej2-data";
 
@@ -119,8 +119,9 @@ export class SeeDownline extends React.Component {
 		                    content: data.Content
 		                };
 		            }
-		        }} //Disables all interactions except zoom/pan
-		         tool={DiagramTools.ZoomPan} //Configures automatic layout
+		        }} 
+            constraints={DiagramConstraints.None} 
+              //Configures automatic layout
 		         layout={{
 		            type: "HierarchicalTree",
 		            verticalSpacing: 30,

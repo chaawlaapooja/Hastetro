@@ -1,6 +1,6 @@
 import { render } from 'react-dom';
 import * as React from "react";
-import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapConstraints, Inject, DiagramTools } from "@syncfusion/ej2-react-diagrams";
+import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, DiagramConstraints, SnapConstraints, Inject } from "@syncfusion/ej2-react-diagrams";
 import { createContainer } from 'meteor/react-meteor-data';
 import { DataManager } from "@syncfusion/ej2-data";
 
@@ -104,7 +104,7 @@ export class SeeDownline extends React.Component {
 	        <div className="col-lg-12 control-section">
 	          <div style={{ width: "100%" }}>
 	            <DiagramComponent id="diagram" ref={diagram => (diagramInstance = diagram)} width={"100%"} height={"499px"} snapSettings={{ constraints: SnapConstraints.None }} //configures data source settings
-		         dataSourceSettings={{
+		          dataSourceSettings={{
 		            //sets the fields to bind
 		            id: "Name",
 		            parentId: "Category",
@@ -116,7 +116,8 @@ export class SeeDownline extends React.Component {
 		                };
 		            }
 		        }} //Disables all interactions except zoom/pan
-		         tool={DiagramTools.ZoomPan}
+		         constraints={DiagramConstraints.None} 
+              
              layout={{
 		            type: "HierarchicalTree",
 		            verticalSpacing: 40,

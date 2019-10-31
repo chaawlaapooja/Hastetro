@@ -78,8 +78,9 @@ class Report extends Component{
 	        {d.map(data=>{
 	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
 	        	var n = Content.indexOf("(");
+	        	var end = Content.indexOf(")");
 	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
+	        	var id = Content.substring(n+1,end)
 	        	var product=Product.substring(4)
 	        	var sd = new Date(SellingDate).toLocaleDateString()
 	        	return(
@@ -126,8 +127,9 @@ class Report extends Component{
 	        {d.map(data=>{
 	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
 	        	var n = Content.indexOf("(");
+	        	var end = Content.indexOf(")");
 	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
+	        	var id = Content.substring(n+1, end)
 	        	var product=Product.substring(4)
 	        	var sd = new Date(SellingDate).toLocaleDateString()
 	        	return(
@@ -174,8 +176,9 @@ class Report extends Component{
 	        {d.map(data=>{
 	        	const {SoldBy, Content, Level, Mobile, ProductID, SellingDate, Product}=data;
 	        	var n = Content.indexOf("(");
+	        	var end = Content.indexOf(")");
 	        	var name=Content.substring(0,n)
-	        	var id = Content.substring(n)
+	        	var id = Content.substring(n+1,end)
 	        	var product=Product.substring(4)
 	        	var sd = new Date(SellingDate).toLocaleDateString()
 	        	return(

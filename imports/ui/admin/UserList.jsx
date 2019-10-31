@@ -3,20 +3,10 @@ import { createContainer } from 'meteor/react-meteor-data';
 import { Link } from 'react-router';
 
 class UserList extends Component{
-  constructor() {
-        super(...arguments);
-        
-        this.state = {
-            visibleGrey : false,
-        };
-    }
-    
 //function to remove training
   on_user_remove(user){
     Meteor.call('user.remove', user)
   }
-  //function to handle edit submit event
-  
   //function to list all trainings
 	render_rows() {
 	const arr = this.props.userList.filter(user=>user.profile.designation==='USER')
@@ -25,14 +15,16 @@ class UserList extends Component{
       let id = user.emails[0].address;
       let name = user.profile.name;
       let mobile = user.profile.mobile
-      let level = user.profile.level
+      let village = user.profile.village
+      let state = user.profile.state
       let product = user.profile.product
       return (
         <tr key={_id}>
           <td>{id}</td>
           <td>{name}</td>
           <td>{mobile}</td>
-          <td>{level}</td>
+          <td>{village}</td>
+          <td>{state}</td>
           <td>Rs.{product}
           
           <span className="pull-right">
@@ -65,7 +57,8 @@ class UserList extends Component{
             <th>HTPL ID</th>
             <th>Name</th>
             <th>Mobile</th>
-            <th>Level</th>
+            <th>Village</th>
+            <th>State</th>
             <th>Price-Product</th>
           </tr>
         </thead>

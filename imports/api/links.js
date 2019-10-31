@@ -1,36 +1,16 @@
 import { Mongo } from 'meteor/mongo';
 Meteor.methods({
-	'user.create':function(designation, level, ID,name,birthday,mobile,email,address,accountNumber,IFSC,PAN,password,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeAddress,product,productID,parent){
+	'user.create':function(designation, level, ID,name,birthday,mobile,email,village,tahsil,district,pincode,state,bank,accountNumber,IFSC,aadhar,PAN,password,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeVillage, nomineeTahsil, nomineeDistrict, nomineePincode, nomineeState,product,productID,parent){
 		Accounts.createUser({
 			email :ID,
 			password : password,
 			profile: {
-            designation,
-            level,
-            name,
-            birthday,
-            mobile,
-            email,
-            address,
-            accountNumber,
-            IFSC,
-            PAN,
-            imageURL,
-            nomineeRelation,
-            nomineeName,
-            nomineeBirthday,
-            nomineeMobile,
-            nomineeAddress,
-            product,
-            productID,
-            parent,
-            paymentStatus:'Pending',
+            designation, level,name,birthday,mobile,email,village,tahsil,district,pincode,state,bank,accountNumber,IFSC,aadhar,PAN,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeVillage, nomineeTahsil, nomineeDistrict, nomineePincode, nomineeState,product,productID,parent,
             sellingDate:new Date().toLocaleDateString()
-            
-           	}
+            }
 		})
 	},
-	'user.update':function(_id, level,name,birthday,mobile,email,address,accountNumber,IFSC,PAN,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeAddress, sellingDate,product, productID, parent){
+	'user.update':function(_id, level,name,birthday,mobile,email,village,tahsil,district,pincode,state,bank,accountNumber,IFSC, aadhar, PAN,imageURL,nomineeRelation,nomineeName,nomineeBirthday,nomineeMobile, nomineeVillage, nomineeTahsil, nomineeDistrict, nomineePincode, nomineeState, sellingDate,product, productID, parent){
      Meteor.users.update({_id},{$set:{
 			profile: {
             designation:'USER',
@@ -39,18 +19,17 @@ Meteor.methods({
             birthday,
             mobile,
             email,
-            address,
+            village,tahsil,district,pincode,state,bank,
             accountNumber,
             IFSC,
-            PAN,
+            aadhar,PAN,
             imageURL,
             nomineeRelation,
             nomineeName,
             nomineeBirthday,
             nomineeMobile,
-            nomineeAddress,
+            nomineeVillage, nomineeTahsil, nomineeDistrict, nomineePincode, nomineeState,
             parent,
-            paymentStatus:'Pending',
             sellingDate,
             product,
             productID

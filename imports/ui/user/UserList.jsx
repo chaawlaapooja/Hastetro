@@ -24,15 +24,16 @@ class UserList extends Component{
     return arr.map(user => {
       let { _id } = user;
       let id = user.emails[0].address;
-      const {name, mobile, level, product, sellingDate}=user.profile
+      const {name, mobile, village, state, product, sellingDate}=user.profile
       let sd = new Date(sellingDate).toLocaleDateString()
       return (
         <tr key={_id}>
           <td>{id}</td>
           <td>{name}</td>
           <td>{mobile}</td>
-          <td>{level}</td>
-          <td>{product}</td>
+          <td>{village}</td>
+          <td>{state}</td>
+          <td>{product.substring(4)}</td>
           <td>{sd}         
           {/*<span className="pull-right">
           <input type="submit"  className="btn btn-danger" style={{width : 100 +"%"}} value='Remove'
@@ -66,7 +67,8 @@ class UserList extends Component{
             <th>HTPL ID</th>
             <th>Name</th>
             <th>Mobile</th>
-            <th>Level</th>
+            <th>Village</th>
+            <th>State</th>
             <th>Product</th>
             <th>Selling date</th>
             
@@ -81,6 +83,7 @@ class UserList extends Component{
     );
   }
 }
+
    
 
 

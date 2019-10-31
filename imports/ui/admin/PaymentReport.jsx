@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import {Link} from 'react-router';
 import Navbar from '../Navbar'
 import { createContainer } from 'meteor/react-meteor-data';
-import Payout from '/imports/api/payout'
+import Payments from '/imports/api/payment'
 
 class Payment extends Component{
 	constructor(){
@@ -12,92 +12,96 @@ class Payment extends Component{
     		userfilter:'none'
     	}
     }
-    updatePayment(_id,payment,chequeNumber){
-    	Meteor.call('payout.updatePayment', _id,payment,chequeNumber)
+    updatePayment(_id,chequeNumber,date){
+    	Meteor.call('payment.updatePayment', _id,chequeNumber,date)
     }
     renderRows(id){
-        let dataArray=this.props.payout.filter(data=>data.main===id)
-        dataArray.sort(function(a,b){
-            return new Date(a.PaymentDate) - new Date(b.PaymentDate);
-        });
+        let dataArray=this.props.payout.filter(data=>data.ID===id)
+        // dataArray.sort(function(a,b){
+        //     return new Date(a.PaymentDate) - new Date(b.PaymentDate);
+        // });
         return dataArray.map(data=>{
-    		const {_id,Category,id, name,Commission, PaymentDate, Name, chequeNumber, paidOn, paymentStatus}=data
-            let paymentMsg=''
-            paymentStatus==='Paid'?paymentMsg=paymentStatus+' on : '+paidOn+' via cheque number '+chequeNumber:paymentMsg=paymentStatus
-            let cls, btnCls
-            if(paymentStatus==='Pending')
-                cls='table-danger'
-            else if(paymentStatus==='Paid')
-                cls='table-success'
-            paymentStatus==='Paid'?btnCls='btn btn-success disabled':btnCls='btn btn-success'
-    		if(this.state.filter==='none'){
-    			return(
-    			<tr key={_id} className={cls}>
-    			<td>{PaymentDate.toLocaleDateString()}</td>
-                <td>{id}</td>
-                <td>{name}</td>
-                <td>Rs.{Commission}</td>
-                <td>Rs.{(5/100)*Commission}</td>
-                <td>Rs.{(2/100)*Commission}</td>
-                <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
-                <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
-                <td>{paymentStatus}</td>
-    			<td><button className={btnCls} onClick={()=>{
-    				var ans = prompt('Enter cheque number')
-    				if((/^[0-9]{23}$/.test(ans))===true)
-    				this.updatePayment(_id, ans)
-    				else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
-    			}}>Pay Now</button></td>
-    			</tr>
-    			)
-    		}
-    		else if(this.state.filter==='pending'){
-    			if(paymentStatus==='Pending'){
-    				return(
-	    			<tr key={_id} className={cls}>
-	    			<td>{PaymentDate.toLocaleDateString()}</td>
-                    <td>{id}</td>
+            const {_id,ID, name, payment}=data
+    		return payment.map(payment=>{
+                const {amount, date, chequeNumber,paidOn, paymentStatus}=payment;
+                let paymentMsg=''
+                paymentStatus==='Paid'?paymentMsg=paymentStatus+' on : '+new Date(paidOn).toLocaleDateString()+' via cheque number '+chequeNumber:paymentMsg=paymentStatus
+                let cls, btnCls
+                if(paymentStatus==='Pending')
+                    cls='table-danger'
+                else if(paymentStatus==='Paid')
+                    cls='table-success'
+                paymentStatus==='Paid'?btnCls='btn btn-success disabled':btnCls='btn btn-success'
+                let dt = new Date(date).toLocaleDateString()
+                if(this.state.filter==='none'){
+                if(amount!==0)
+                return(
+                    <tr key={dt} className={cls}>
+                    <td>{dt}</td>
+                    <td>{ID}</td>
                     <td>{name}</td>
-                    <td>Rs.{Commission}</td>
-                    <td>Rs.{(5/100)*Commission}</td>
-                    <td>Rs.{(2/100)*Commission}</td>
-                    <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
-                    <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
-                    <td>{paymentStatus}</td>
-	    			<td><button className={btnCls} onClick={()=>{
-    				var ans = prompt('Enter cheque number')
-    				if((/^[0-9]{23}$/.test(ans))===true)
-    				this.updatePayment(_id, ans)
-    				else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
-    			}}>Pay Now</button></td>
-	    			</tr>
-	    		)
-    			}
-    		}
-    		else if(this.state.filter==='paid'){
-    			if(paymentStatus==='Paid'){
-    				return(
-	    			<tr key={_id} className={cls}>
-	    			<td>{PaymentDate.toLocaleDateString()}</td>
-                    <td>{id}</td>
+                    <td>Rs.{amount}</td>
+                    <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
+                    <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
+                    <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
+                    <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
+                    <td>{paymentMsg}</td>
+                    <td><button className={btnCls} onClick={()=>{
+                         var ans = prompt('Enter cheque number')
+                         if((/^[0-9]{23}$/.test(ans))===true)
+                         this.updatePayment(_id, ans, date)
+                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
+                     }}>Pay Now</button></td>
+                    </tr>
+                )
+            }
+            else if(this.state.filter==='pending'){
+                if(paymentStatus==='Pending' && amount!==0)
+                    return(
+                    <tr key={dt} className={cls}>
+                    <td>{dt}</td>
+                    <td>{ID}</td>
                     <td>{name}</td>
-                    <td>Rs.{Commission}</td>
-                    <td>Rs.{(5/100)*Commission}</td>
-                    <td>Rs.{(2/100)*Commission}</td>
-                    <td>Rs.{(5/100)*Commission+(2/100)*Commission}</td>
-                    <td>Rs.{Commission - (5/100)*Commission+(2/100)*Commission}</td>
+                    <td>Rs.{amount}</td>
+                    <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
+                    <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
+                    <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
+                    <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
                     <td>{paymentStatus}</td>
-	    			<td><button className={btnCls} onClick={()=>{
-    				var ans = prompt('Enter cheque number')
-    				if((/^[0-9]{23}$/.test(ans))===true)
-    				this.updatePayment(_id, ans)
-    				else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
-    			}}>Pay Now</button></td>
-	    			</tr>
-	    		)
-    			}
-    		}
-    		
+                    <td><button className={btnCls} onClick={()=>{
+                         var ans = prompt('Enter cheque number')
+                         if((/^[0-9]{23}$/.test(ans))===true)
+                         this.updatePayment(_id, ans)
+                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
+                     }}>Pay Now</button></td>
+                    </tr>
+                )
+            }
+            else if(this.state.filter==='paid'){
+                if(paymentStatus==='Paid' && amount!==0)
+                    return(
+                    <tr key={dt} className={cls}>
+                    <td>{dt}</td>
+                    <td>{ID}</td>
+                    <td>{name}</td>
+                    <td>Rs.{amount}</td>
+                    <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
+                    <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
+                    <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
+                    <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
+                    <td>{paymentStatus}</td>
+                    <td><button className={btnCls} onClick={()=>{
+                         var ans = prompt('Enter cheque number')
+                         if((/^[0-9]{23}$/.test(ans))===true)
+                         this.updatePayment(_id, ans)
+                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
+                     }}>Pay Now</button></td>
+                    </tr>
+                )
+            }
+               
+            })
+      
     	})
     }
     onFilterChange(){
@@ -169,7 +173,7 @@ class Payment extends Component{
 
         <form className="form-inline" onSubmit={this.onSearchUser.bind(this)}>
         <div className="form-group">
-            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter registration ID" pattern="HTPL[0-9]{5}" title="ID starts with HTPL followed by 5 digits." />
+            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter registration ID" pattern="HT[0-9]{7}" title="ID starts with HTPL followed by 5 digits." />
         </div>
         <button type="submit" className="btn btn-success" style={{marginLeft:2+'%'}}>Search</button>
         </form>
@@ -179,7 +183,7 @@ class Payment extends Component{
             	const id = user.emails[0].address
             	const name = user.profile.name
             	const uid = user._id
-                let dataArray=this.props.payout.filter(data=>data.main===id)
+                let dataArray=this.props.payout.filter(data=>data.ID===id)
             	if(dataArray.length>0)
             	return (<div key={uid} className='table-warning'><label>{name} - {id}</label>
 		<table className="table table-bordered table-hover table-responsive">
@@ -189,8 +193,8 @@ class Payment extends Component{
                 <th>HTPL ID</th>
                 <th>BA Name</th>
                 <th>Commission</th>
-                <th>TDS</th>
-                <th>BDF</th>
+                <th>TDS(5%)</th>
+                <th>BDF(4%)</th>
                 <th>Total Deduction</th>
                 <th>Net Payment</th>
                 <th>Payment Status</th>
@@ -215,8 +219,8 @@ class Payment extends Component{
                     <th>HTPL ID</th>
                     <th>BA Name</th>
                     <th>Commission</th>
-                    <th>TDS</th>
-                    <th>BDF</th>
+                    <th>TDS(5%)</th>
+                    <th>BDF(4%)</th>
                     <th>Total Deduction</th>
                     <th>Net Payment</th>
                     <th>Payment Status</th>
@@ -241,6 +245,6 @@ export default createContainer(() => {
   Meteor.subscribe('payout')
   return { 
             userList:Meteor.users.find().fetch(),
-            payout:Payout.find().fetch()
+            payout:Payments.find().fetch()
    };
 }, Payment);

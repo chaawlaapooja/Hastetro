@@ -84,12 +84,27 @@ class Payment extends Component{
     onFilterChange(){
     	this.setState({filter:this.refs.filter.value})
     }
-
+    getDownlineCount(){
+        let users = this.props.userList.filter(user=>user.profile.designation==='USER')
+        let ar = users.filter(user=>user.profile.parent===Meteor.userId())
+        let dataArray = []
+      dataArray.push({ 'Name': Meteor.userId(),'Content':' (ME)','Product':'','Mobile':'','fillColor': '#916DAF' })
+        
+        for(var i=0; i<dataArray.length; i++){
+        for(var j=0; j<users.length; j++){
+                if(users[j].profile.parent===dataArray[i].Name){
+                  dataArray.push({'Name':users[j]._id, 'Content':users[j].profile.name+'\n'+'('+users[j].emails[0].address+')','Mobile':users[j].profile.mobile,'Product':users[j].profile.product,'Village':users[j].profile.village,'State':users[j].profile.state, 'Category':dataArray[i].Name})
+                }
+            }
+        }
+        return dataArray.length-1
+    }
 	render(){
 	return(
 		<div>
-		<div id="tableView" style={{margin:3+'%'}}>
-		<div style={{margin:1+'%'}}>
+        <div id="tableView" style={{margin:3+'%'}}>
+		<h3>Total Number of Downlines :{this.getDownlineCount()}</h3>
+        <div style={{margin:1+'%'}}>
 		<label>Filter by : </label>
 		<select style={{marginLeft:2+'%'}} ref='filter' onChange={()=>this.onFilterChange()}>
 		<option value='none'>All</option>
@@ -105,8 +120,8 @@ class Payment extends Component{
                 <th>HTPL ID</th>
                 <th>BA Name</th>
                 <th>Commission</th>
-                <th>TDS(5%)</th>
-                <th>BDF(4%)</th>
+                <th>TDS</th>
+                <th>BDF</th>
                 <th>Total Deduction</th>
                 <th>Net Payment</th>
                 <th>Payment Status</th>

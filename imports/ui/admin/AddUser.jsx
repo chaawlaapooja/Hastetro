@@ -16,8 +16,6 @@ class AddUser extends Component{
     this.state = {
       uploadedFileCloudinaryUrl: '',
       showImageName:'',
-      errorAddress :'',
-      errorNomineeAddress:'',
       showPrintForm:true,
       image:'',
       errorProductID:'',
@@ -29,7 +27,7 @@ class AddUser extends Component{
 	}
 
 	componentDidMount(){
-		this.refs.ID.value='HTPL'+Math.random().toString().slice(-5);
+		this.refs.ID.value='HT'+Math.random().toString().slice(-7);
 		this.refs.ID.readOnly=true
 	}
 	//function to handle when image is dropped in dropzone
@@ -67,35 +65,8 @@ class AddUser extends Component{
 	handle_submit(event){
 		
 		event.preventDefault();
-		if(this.refs.confirmNominee.value==='yes'){
-	    	if(document.getElementById("textareaidNominee").value === ''){
-		      this.setState({errorNomineeAddress:"Nominee Address can't be empty. Please fill this field"})
-		      document.getElementById("textareaidNominee").focus()
-		    }
-		    else if(document.getElementById("textareaidNominee").value.length<5){
-		      this.setState({errorNomineeAddress:"Please enter at least 5 characters"});
-		      document.getElementById("textareaidNominee").focus()
-		    }
-		    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaidNominee").value))===false)
-		    {
-		      this.setState({errorNomineeAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-		      document.getElementById("textareaidNominee").focus()
-		    }
-	    }
-		if(document.getElementById("textareaid").value === ''){
-	      this.setState({errorAddress:"Details can't be empty. Please fill this field"})
-	      document.getElementById("textareaid").focus()
-	    }
-	    else if(document.getElementById("textareaid").value.length<5){
-	      this.setState({errorAddress:"Please enter at least 5 characters"});
-	      document.getElementById("textareaid").focus()
-	    }
-	    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaid").value))===false)
-	    {
-	      this.setState({errorAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-	      document.getElementById("textareaid").focus()
-	    }
-	    else if(this.refs.product.value===''){
+		
+		if(this.refs.product.value===''){
 	    	this.setState({errorProduct:'Please select a product'})
 	    }
 	    else if(this.state.errorProductID!==''){
@@ -129,17 +100,27 @@ class AddUser extends Component{
 			this.refs.birthday.value,
 			this.refs.mobile.value,
 			this.refs.email.value,
-			this.refs.address.value,
+			this.refs.village.value,
+			this.refs.tahsil.value,
+			this.refs.district.value,
+			this.refs.pincode.value,
+			this.refs.state.value,
+			this.refs.bank.value,
 			this.refs.accountNumber.value,
 			this.refs.IFSC.value,
+			this.refs.aadhar.value,
 			this.refs.PAN.value,
-			this.refs.password.value,
+			this.refs.mobile.value,
 			imageURL,
 			this.refs.nomineeRelation.value,
 			this.refs.nomineeName.value,
 			this.refs.nomineeBirthday.value,
 			this.refs.nomineeMobile.value,
-			this.refs.nomineeAddress.value,
+			this.refs.nomineeVillage.value,
+			this.refs.nomineeTahsil.value,
+			this.refs.nomineeDistrict.value,
+			this.refs.nomineePincode.value,
+			this.refs.nomineeState.value,
 			this.refs.product.value,
 			this.refs.productID.value,
 			this.refs.udParent.value,
@@ -148,6 +129,8 @@ class AddUser extends Component{
 				if(error)
 					alert('Oops! Some error occured. Please try again')
 				else{
+					Meteor.call('payment.insert', this.refs.ID.value, this.refs.name.value, 0)
+		
 					Meteor.call('pin.update',this.refs.productID.value,(err,res)=>{
 						if(err)
 							alert('Oops! Some error occured. Please try again')
@@ -157,26 +140,34 @@ class AddUser extends Component{
 						this.setState({showPrintForm:false})
 						printJS({ printable: 'printJS-form', type: 'html',header: 'HASTETRO TRADE PRIVATE LIMITED - USER DETAILS',modalMessage: 'Retrieving Document...',targetStyles: ['*'] })
 						//printJS({ printable: 'printJS-form', type: 'html',  })
-						this.refs.ID.value='HTPL'+Math.random().toString().slice(-5);
+						this.refs.ID.value='HT'+Math.random().toString().slice(-7);
 						this.refs.level.value='',
 						this.refs.name.value='',
 						this.refs.birthday.value='',
 						this.refs.mobile.value='',
 						this.refs.email.value='',
-						this.refs.address.value='',
+						this.refs.village.value='',
+						this.refs.tahsil.value='',
+						this.refs.district.value='',
+						this.refs.pincode.value='',
+						this.refs.state.value='',
+						this.refs.bank.value='',
 						this.refs.accountNumber.value='',
 						this.refs.IFSC.value='',
 						this.refs.PAN.value='',
-						this.refs.password.value='',
 						this.refs.nomineeRelation.value='',
 						this.refs.nomineeName.value='',
 						this.refs.nomineeBirthday.value='',
 						this.refs.nomineeMobile.value='',
-						this.refs.nomineeAddress.value='',
+						this.refs.nomineeVillage.value='',
+						this.refs.nomineeTahsil.value='',
+						this.refs.nomineeDistrict.value='',
+						this.refs.nomineePincode.value='',
+						this.refs.nomineeState.value='',
 						this.refs.product.value='',
 						this.refs.productID.value='',
 						this.refs.udParent.value='',
-						this.setState({uploadedFileCloudinaryUrl:'', showPrintForm:true, image:'', errorAddress:'', errorProduct:'', errorProductID:'', errorRelation:'', errorNomineeDetails:'', errorNomineeAddress:''})
+						this.setState({uploadedFileCloudinaryUrl:'', showPrintForm:true, image:'', errorProduct:'', errorProductID:'', errorRelation:'', errorNomineeDetails:''})
 					}
 						}
 					})
@@ -187,42 +178,7 @@ class AddUser extends Component{
 		
 	
 	}
-	call_validate_textarea_address(event){
-    if(document.getElementById("textareaid").value === ''){
-      this.setState({errorAddress:"Details can't be empty. Please fill this field"})
-      document.getElementById("textareaid").focus()
-    }
-    else if(document.getElementById("textareaid").value.length<5){
-      this.setState({errorAddress:"Please enter at least 5 characters"});
-      document.getElementById("textareaid").focus()
-    }
-    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaid").value))===false)
-    {
-      this.setState({errorAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-      document.getElementById("textareaid").focus()
-    }
-    else{
-      this.setState({errorAddress:""})
-    }
-  }
-  call_validate_textarea_nomineeAddress(){
-  	if(document.getElementById("textareaidNominee").value === ''){
-      this.setState({errorNomineeAddress:"Nominee Address can't be empty. Please fill this field"})
-      document.getElementById("textareaidNominee").focus()
-    }
-    else if(document.getElementById("textareaidNominee").value.length<5){
-      this.setState({errorNomineeAddress:"Please enter at least 5 characters"});
-      document.getElementById("textareaidNominee").focus()
-    }
-    else if((/[a-zA-Z0-9-_!.]+/.test(document.getElementById("textareaidNominee").value))===false)
-    {
-      this.setState({errorNomineeAddress:"You can only use characters(a-z or A-Z), digits(0-9), underscore(_) and hyphen(-)"});
-      document.getElementById("textareaidNominee").focus()
-    }
-    else{
-      this.setState({errorNomineeAddress:""})
-    }
-  }
+	
   	checkProductID(){
   		this.setState({errorProductID:''})
   		if(this.refs.productID.value.length===10){
@@ -265,6 +221,11 @@ class AddUser extends Component{
   			
   			this.refs.nomineeBirthday.required=true
   			this.refs.nomineeMobile.required=true
+  			this.refs.nomineeVillage.required=true
+  			this.refs.nomineeTahsil.required=true
+  			this.refs.nomineeDistrict.required=true
+  			this.refs.nomineePincode.required=true
+  			this.refs.nomineeState.required=true
   		}
   		else if(this.refs.confirmNominee.value==='no'){
   			this.setState({errorNomineeDetails:''})
@@ -277,6 +238,11 @@ class AddUser extends Component{
   			
   			this.refs.nomineeBirthday.required=false
   			this.refs.nomineeMobile.required=false
+  			this.refs.nomineeVillage.required=false
+  			this.refs.nomineeTahsil.required=false
+  			this.refs.nomineeDistrict.required=false
+  			this.refs.nomineePincode.required=false
+  			this.refs.nomineeState.required=false
   		}
 
   	}
@@ -285,25 +251,22 @@ class AddUser extends Component{
   		this.refs.level.value = parseInt(level[0].profile.level)+1
   	}
   	validate_date(){
-  		console.log(this.refs.birthday.value)
   		var val = this.refs.birthday.value.split('-');
-  		console.log(val[0] < new Date().getFullYear() && val[0]>1800)
-		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
+  		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
 		    this.setState({errorDate:''})
 		  } else {
 		    this.setState({errorDate:'Enter a valid date'})
 		  }
   	}  	
   	validate_nominee_date(){
-  		console.log(this.refs.nomineeBirthday.value)
   		var val = this.refs.nomineeBirthday.value.split('-');
-  		console.log(val[0] < new Date().getFullYear() && val[0]>1800)
-		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
+  		  if (val[0] < new Date().getFullYear() && val[0]>1800) {
 		    this.setState({errorNomineeDate:''})
 		  } else {
 		    this.setState({errorNomineeDate:'Enter a valid date'})
 		  }
-  	}  	
+  	} 
+  	
   	getOptions(){
   		return this.props.userList.map(user=>{
   			const id = user._id
@@ -348,8 +311,28 @@ class AddUser extends Component{
 		<td>{this.refs.email?this.refs.email.value:undefined}</td>
 		</tr>
 		<tr>
-		<td>Address :</td>
-		<td>{this.refs.address?this.refs.address.value:undefined}</td>
+		<td>Village :</td>
+		<td>{this.refs.village?this.refs.village.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>Tahsil :</td>
+		<td>{this.refs.tahsil?this.refs.tahsil.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>District :</td>
+		<td>{this.refs.district?this.refs.district.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>Pin Code :</td>
+		<td>{this.refs.pincode?this.refs.pincode.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>State :</td>
+		<td>{this.refs.state?this.refs.state.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>Bank :</td>
+		<td>{this.refs.bank?this.refs.bank.value:undefined}</td>
 		</tr>
 		<tr>
 		<td id='tableAcc'>Bank Account Number :</td>
@@ -358,6 +341,10 @@ class AddUser extends Component{
 		<tr>
 		<td id='tableIFSC'>IFSC :</td>
 		<td>{this.refs.IFSC?this.refs.IFSC.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>Aadhar Card Number :</td>
+		<td>{this.refs.aadhar?this.refs.aadhar.value:undefined}</td>
 		</tr>
 		<tr>
 		<td>PAN Card Number :</td>
@@ -383,8 +370,24 @@ class AddUser extends Component{
 		<td>{this.refs.nomineeMobile?this.refs.nomineeMobile.value:undefined}</td>
 		</tr>
 		<tr>
-		<td>Address of the Nominee :</td>
-		<td>{this.refs.nomineeAddress?this.refs.nomineeAddress.value:undefined}</td>
+		<td>Village of the Nominee :</td>
+		<td>{this.refs.nomineeVillage?this.refs.nomineeVillage.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>Tahsil of the Nominee :</td>
+		<td>{this.refs.nomineeTahsil?this.refs.nomineeTahsil.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>District of the Nominee :</td>
+		<td>{this.refs.nomineeDistrict?this.refs.nomineeDistrict.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>PinCode of the Nominee :</td>
+		<td>{this.refs.nomineePincode?this.refs.nomineePincode.value:undefined}</td>
+		</tr>
+		<tr>
+		<td>State of the Nominee :</td>
+		<td>{this.refs.nomineeState?this.refs.nomineeState.value:undefined}</td>
 		</tr></tr>:undefined:undefined}
 		
 		<tr>
@@ -410,9 +413,7 @@ class AddUser extends Component{
 			<div className="col-md-6 w3agile_newsletter_right">
 			<br/>
 				<form onSubmit={this.handle_submit.bind(this)}>
-					<label>User level :</label>
-					<input type="number" min="0" style={{marginLeft:2+'%',width:60+'%'}} ref="level" placeholder="Level (e.g, 2)" readOnly required/>
-					<br/>
+					<input type="number" min="0" style={{marginLeft:2+'%',width:60+'%'}} ref="level" placeholder="Level (e.g, 2)" readOnly hidden required/>
 					<label>Parent :</label>
 					<select onChange={()=>this.onParentChange()} style={{marginLeft:2+'%'}} ref='udParent' required>
 					<option></option>
@@ -429,12 +430,77 @@ class AddUser extends Component{
 					{this.state.errorDate?<p style={{color:'red'}}>{this.state.errorDate}</p>:undefined}
 					<label>Mobile :</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required/><br/>
-					<label>Password :</label>
-					<input type="password" ref="password" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Password' pattern=".{6,}" title="Enter six or more characters" required/><br/>
-					<label>Address :</label><br/>
-					<textarea ref="address" cols="30" rows="4" onKeyUp={this.call_validate_textarea_address.bind(this)} id="textareaid" placeholder='Address...'></textarea>{this.state.errorAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorAddress}</span>:undefined}<br/>
+					<div>
+					<span className="pull-left">
+					<label>Village :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="village" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
+					</span>
+					<span className="pull-right">
+					<label style={{marginLeft:2+'%'}}>Tahsil :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="tahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
+					</span>
+					</div>
+					<div>
+					<span className="pull-left">
+					<label>District :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="district" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
+					</span>
+					<span className="pull-right">
+					<label style={{marginLeft:2+'%'}}>Pin Code :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="pincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' required/><br/>
+					</span>
+					</div><br/><br/><br/><br/><br/><br/>
+					<div>
+					<div className="form-group">
+                  <div className="input-group">
+					<label>State :</label>
+					<select ref="state" style={{marginLeft:2+'%'}} required>
+						<option></option>
+						<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
+						<option value="Andhra Pradesh">Andhra Pradesh</option>
+						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+						<option value="Assam">Assam</option>
+						<option value="Bihar">Bihar</option>
+						<option value="Chandigarh">Chandigarh</option>
+						<option value="Chhattisgarh">Chhattisgarh</option>
+						<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
+						<option value="Daman/Diu">Daman/Diu</option>
+						<option value="Goa">Goa</option>
+						<option value="Gujarat">Gujarat</option>
+						<option value="Haryana">Haryana</option>
+						<option value="Himachal Pradesh">Himachal Pradesh</option>
+						<option value="Jammu/Kashmir">Jammu/Kashmir</option>
+						<option value="Jharkhand">Jharkhand</option>
+						<option value="Karnataka">Karnataka</option>
+						<option value="Kerala">Kerala</option>
+						<option value="Lakshadweep">Lakshadweep</option>
+						<option value="Madhya Pradesh">Madhya Pradesh</option>
+						<option value="Maharashtra">Maharashtra</option>
+						<option value="Manipur">Manipur</option>
+						<option value="Meghalaya">Meghalaya</option>
+						<option value="Mizoram">Mizoram</option>
+						<option value="Nagaland">Nagaland</option>
+						<option value="New Delhi">New Delhi</option>
+						<option value="Orissa">Orissa</option>
+						<option value="Pondicherry">Pondicherry</option>
+						<option value="Punjab">Punjab</option>
+						<option value="Rajasthan">Rajasthan</option>
+						<option value="Sikkim">Sikkim</option>
+						<option value="Tamil Nadu">Tamil Nadu</option>
+						<option value="Telangana">Telangana</option>
+						<option value="Tripura">Tripura</option>
+						<option value="Uttaranchal">Uttaranchal</option>
+						<option value="Uttar Pradesh">Uttar Pradesh</option>
+						<option value="West Bengal">West Bengal</option>
+					</select>
+					</div>
+					</div>
+					</div>
 					<label>Email :</label>
 					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
+					<label>Aadhar Card Number :</label>
+					<input type="text" ref="aadhar" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Aadhar Card Number' pattern="[0-9]{12}" title='Enter valid Aadhar card number(12 digits)'/><br/>
+					
 					<label>PAN Card Number :</label>
 					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' onKeyUp={()=>this.capitalisePAN()}/><br/>
 					<label>Photo :</label><br/>
@@ -459,12 +525,12 @@ class AddUser extends Component{
 			      	<label>Relation with nominee:</label>
 			      	<select style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeRelation" required>
 			     	<option value=''></option>
-			      	<option value='Son'>Son</option>
+			      	<option value='Brother'>Brother</option>
 			      	<option value='Daughter'>Daughter</option>
-			      	<option value='Mother'>Mother</option>
 			      	<option value='Father'>Father</option>
 			      	<option value='Husband'>Husband</option>
-			      	<option value='Brother'>Brother</option>
+			      	<option value='Mother'>Mother</option>
+			      	<option value='Son'>Son</option>
 			      	<option value='Sister'>Sister</option>
 			      	<option value='Wife'>Wife</option>
 			      	</select>
@@ -479,10 +545,13 @@ class AddUser extends Component{
 			      	</select>
 			      	<br/>
 			      	<div id='accDetails'>
+			      	<label id='bank'>Bank Name :</label>
+					<input type="text" ref="bank" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Name' pattern="[a-zA-Z].{4,}" title='Enter valid bank name'/><br/>
+					
 			      	<label id='acc'>Account Number :</label>
-					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required/><br/>
+					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number'/><br/>
 					<label id='ifsc'>IFSC :</label>
-					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' onKeyUp={()=>this.capitaliseIFSC()} required/><br/>
+					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' onKeyUp={()=>this.capitaliseIFSC()}/><br/>
 					</div>
 					
 					<div id='nomineeDetails' hidden>
@@ -492,9 +561,72 @@ class AddUser extends Component{
 					
 					<label>Mobile of nominee:</label>
 					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number"/><br/>
-					<label>Address of nominee:</label><br/>
-					<textarea ref="nomineeAddress" cols="30" rows="4" onKeyUp={this.call_validate_textarea_nomineeAddress.bind(this)} id="textareaidNominee" placeholder="Nominees's Address..."></textarea>{this.state.errorNomineeAddress?<span className="pull-right" style={{color:"red"}}>{this.state.errorNomineeAddress}</span>:undefined}<br/>
+					<div>
+					<span className="pull-left">
+					<label>Village :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeVillage" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+					</span>
+					<span className="pull-right">
+					<label style={{marginLeft:2+'%'}}>Tahsil :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeTahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' /><br/>
+					</span>
 					</div>
+					<div>
+					<span className="pull-left">
+					<label>District :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeDistrict" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+					</span>
+					<span className="pull-right">
+					<label style={{marginLeft:2+'%'}}>Pin Code :</label>
+					<input type="text" style={{marginLeft:2+'%'}} ref="nomineePincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' /><br/>
+					</span>
+					</div><br/><br/><br/><br/><br/><br/>
+					<div>
+					<div className="form-group">
+                  <div className="input-group">
+					<label>Nominee's State :</label>
+					<select ref="nomineeState" style={{marginLeft:2+'%'}} >
+						<option></option>
+						<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
+						<option value="Andhra Pradesh">Andhra Pradesh</option>
+						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+						<option value="Assam">Assam</option>
+						<option value="Bihar">Bihar</option>
+						<option value="Chandigarh">Chandigarh</option>
+						<option value="Chhattisgarh">Chhattisgarh</option>
+						<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
+						<option value="Daman/Diu">Daman/Diu</option>
+						<option value="Goa">Goa</option>
+						<option value="Gujarat">Gujarat</option>
+						<option value="Haryana">Haryana</option>
+						<option value="Himachal Pradesh">Himachal Pradesh</option>
+						<option value="Jammu/Kashmir">Jammu/Kashmir</option>
+						<option value="Jharkhand">Jharkhand</option>
+						<option value="Karnataka">Karnataka</option>
+						<option value="Kerala">Kerala</option>
+						<option value="Lakshadweep">Lakshadweep</option>
+						<option value="Madhya Pradesh">Madhya Pradesh</option>
+						<option value="Maharashtra">Maharashtra</option>
+						<option value="Manipur">Manipur</option>
+						<option value="Meghalaya">Meghalaya</option>
+						<option value="Mizoram">Mizoram</option>
+						<option value="Nagaland">Nagaland</option>
+						<option value="New Delhi">New Delhi</option>
+						<option value="Orissa">Orissa</option>
+						<option value="Pondicherry">Pondicherry</option>
+						<option value="Punjab">Punjab</option>
+						<option value="Rajasthan">Rajasthan</option>
+						<option value="Sikkim">Sikkim</option>
+						<option value="Tamil Nadu">Tamil Nadu</option>
+						<option value="Telangana">Telangana</option>
+						<option value="Tripura">Tripura</option>
+						<option value="Uttaranchal">Uttaranchal</option>
+						<option value="Uttar Pradesh">Uttar Pradesh</option>
+						<option value="West Bengal">West Bengal</option>
+					</select>
+					</div>
+					</div>
+					</div></div>
 					<br/>
 					<label>Product:</label>
 					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" required>
@@ -510,6 +642,7 @@ class AddUser extends Component{
 					<label>Product ID :</label>
 					<input type="text" ref="productID" onKeyUp={()=>this.checkProductID()} style={{marginLeft:2+'%',width:60+'%'}} placeholder="10 character product ID" pattern="[a-zA-Z0-9]{10}" title='10 character long product ID' required/><br/>
 					{this.state.errorProductID?<p style={{color:'red'}}>{this.state.errorProductID}</p>:undefined}
+
 					<input type="submit" className="btn btn-success"  value='Add' />
 				</form>
 			</div>

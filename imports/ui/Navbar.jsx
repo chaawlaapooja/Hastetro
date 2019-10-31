@@ -10,7 +10,8 @@ import PaymentReport from '/imports/ui/admin/PaymentReport'
 import AddUser from '/imports/ui/admin/AddUser'
 import EditUser from '/imports/ui/admin/EditUser'
 
-import AddDownline from '/imports/ui/user/AddUser'
+import Dashboard from '/imports/ui/user/Dashboard'
+import AddDownline from '/imports/ui/user/UserList'
 import SeeDownline from '/imports/ui/user/SeeDownline'
 import Profile from '/imports/ui/user/Profile'
 import Payment from '/imports/ui/user/Payment'
@@ -130,6 +131,8 @@ class Navbar extends Component{
     return <AddUser/>
   else if(this.props.route.comp==='editUser')
     return <EditUser/>
+  else if(this.props.route.comp==='dashboard')
+    return <Dashboard/>
   else if(this.props.route.comp==='addDownline')
     return <AddDownline/>
   else if(this.props.route.comp==='seeDownline')
@@ -144,6 +147,8 @@ class Navbar extends Component{
   }
 	render(){
     let pic, name, id=''
+    if(!Meteor.userId())
+      window.location.href='/'
     if(Meteor.user()!==undefined){
       pic = Meteor.user().profile.imageURL;
       name = Meteor.user().profile.name;
@@ -281,6 +286,12 @@ class Navbar extends Component{
                     <span className="online"></span>
                 </div>
                     <ul className="nav">
+                        <li className="nav-item">
+                            <Link to='/userdashboard' className="nav-link">
+                                <i className="fa fa-tachometer" aria-hidden="true"></i>
+                                <span className="menu-title">Dashboard</span>
+                            </Link>
+                        </li>
                         <li className="nav-item">
                             <Link to='/addDownline' className="nav-link">
                                 <i className="fa fa-pencil" aria-hidden="true"></i>

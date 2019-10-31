@@ -1,4 +1,3 @@
-import Navbar from '../Navbar';
 import { render } from 'react-dom';
 import * as React from "react";
 import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapConstraints, Inject, DiagramConstraints } from "@syncfusion/ej2-react-diagrams";
@@ -79,13 +78,13 @@ export class SeeDownline extends React.Component {
     	let users = this.props.userList.filter(user=>user.profile.designation==='USER')
     	let ar = users.filter(user=>user.profile.parent===Meteor.userId())
     	let dataArray = []
-    	dataArray.push({ 'Name': Meteor.userId(),'Content':'ME','Level':'','Mobile':'','fillColor': '#916DAF' })
+      dataArray.push({ 'Name': Meteor.userId(),'Content':' (ME)','Product':'','Mobile':'','fillColor': '#916DAF' })
     	
     	for(var i=0; i<dataArray.length; i++){
         for(var j=0; j<users.length; j++){
     			if(users[j].profile.parent===dataArray[i].Name){
-    				dataArray.push({'Name':users[j]._id, 'Content':users[j].profile.name+'\n( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level, 'Category':dataArray[i].Name})
-    			}
+    			  dataArray.push({'Name':users[j]._id, 'Content':users[j].profile.name+'\n'+'('+users[j].emails[0].address+')','Mobile':users[j].profile.mobile,'Product':users[j].profile.product,'Village':users[j].profile.village,'State':users[j].profile.state, 'Category':dataArray[i].Name})
+          }
     		}
     	}
     	return (
@@ -158,15 +157,22 @@ export class SeeDownline extends React.Component {
             <thead>
               <tr>
                 <th>HTPL ID</th>
+                <th>Business Associate name</th>
                 <th>Mobile</th>
-                <th>Level</th>
+                <th>Village</th>
+                <th>State</th>
+                <th>Product</th>
                 <th>Status</th>
               </tr>
             </thead>
             <tbody>
               {dataArray.map(data=>{
-               const {Name, Content, Mobile, Level}=data;
-               let status = this.getStatus(Name);
+               const { Village, State, Name, Content, Mobile, Product}=data;
+               var n = Content.indexOf("(");
+               var end = Content.indexOf(")");
+                var name=Content.substring(0,n)
+                var id = Content.substring(n+1,end)
+                let status = this.getStatus(Name);
                if(this.state.filter==='none'){
                let color=''
                if(status==='active')
@@ -176,25 +182,25 @@ export class SeeDownline extends React.Component {
                else
                  color='table-danger'
                return(
-               <tr key={Name} className={color}><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className={color}><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Village}</td><td>{State}</td><td>{Product.substring(4)}</td><td>{status}</td></tr>
                )  
                }
                else if(this.state.filter==='active'){
                if(status==='active')
                  return(
-               <tr key={Name} className='table-success'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-success'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Village}</td><td>{State}</td><td>{Product.substring(4)}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='working'){
                if(status==='working')
                  return(
-               <tr key={Name} className='table-warning'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-warning'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Village}</td><td>{State}</td><td>{Product.substring(4)}</td><td>{status}</td></tr>
                )
                }
                else if(this.state.filter==='inactive'){
                  if(status==='inactive')
                  return(
-               <tr key={Name} className='table-danger'><td>{Content}</td><td>{Mobile}</td><td>{Level}</td><td>{status}</td></tr>
+               <tr key={Name} className='table-danger'><td>{id}</td><td>{name}</td><td>{Mobile}</td><td>{Village}</td><td>{State}</td><td>{Product.substring(4)}</td><td>{status}</td></tr>
                )
                }
               })}

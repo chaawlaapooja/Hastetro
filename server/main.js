@@ -1,12 +1,8 @@
 import { Meteor } from 'meteor/meteor';
 import Pins from '/imports/api/pins';
 import Links from '/imports/api/links';
-import Payout from '/imports/api/payout';
-import {Accounts} from 'meteor/accounts-base'
+import Payment from '/imports/api/payment';
 
-// Accounts.config({
-//     loginExpirationInDays: 0.01
-// })
 Meteor.startup(() => {
   Meteor.publish('users', function(){
   		return Meteor.users.find()
@@ -15,7 +11,7 @@ Meteor.startup(() => {
   		return Pins.find({available:true})
   })
   Meteor.publish('payout', function(){
-  		return Payout.find({})
+  		return Payment.find({})
   })
   
 });

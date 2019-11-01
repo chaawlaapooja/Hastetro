@@ -1,7 +1,5 @@
 import React, { Component } from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
-import Navbar from '../Navbar';
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import print from 'print-js'
@@ -16,8 +14,6 @@ class EditUser extends Component{
     this.state = {
       uploadedFileCloudinaryUrl: '',
       showImageName:'',
-      errorAddress :'',
-      errorNomineeAddress:'',
       hidePrintForm:true,
       hideInputFields:true,
       image:'',

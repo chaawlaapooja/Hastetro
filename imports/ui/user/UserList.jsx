@@ -1,6 +1,5 @@
 import React, { Component} from 'react';
 import { createContainer } from 'meteor/react-meteor-data';
-import { Link } from 'react-router';
 import AddUser from './AddUser'
 
 class UserList extends Component{

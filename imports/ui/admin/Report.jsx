@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import {Link} from 'react-router';
 import { createContainer } from 'meteor/react-meteor-data';
 
 class Report extends Component{
@@ -13,7 +12,6 @@ class Report extends Component{
 	
 	renderInfo(param){
 		Date.prototype.getWeek = function (dowOffset) {
-/*getWeek() was developed by Nick Baicoianu at MeanFreePath: http://www.meanfreepath.com */
 
     dowOffset = typeof(dowOffset) == 'int' ? dowOffset : 0; //default dowOffset to zero
     var newYear = new Date(this.getFullYear(),0,1);

@@ -143,6 +143,9 @@ class AddUser extends Component{
 			parents.push(p[0].profile.parent)
 		}
 		parents.forEach(parent=>{
+			let u = this.props.userList.filter(user=>user._id===parent)
+			let id=u[0].emails[0].address
+			let l=u[0].profile.level
 			let payment
 			if(l===0)
 				payment=60
@@ -159,8 +162,6 @@ class AddUser extends Component{
 			else if(l===6)
 				payment=10
 
-			let u = this.props.userList.filter(user=>user._id===parent)
-			let id=u[0].emails[0].address
 			
 			Meteor.call('payment.update',id,payment)
 		})

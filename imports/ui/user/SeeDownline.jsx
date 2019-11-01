@@ -4,7 +4,6 @@ import { LayoutAnimation, HierarchicalTree, DataBinding, DiagramComponent, SnapC
 import { createContainer } from 'meteor/react-meteor-data';
 import { DataManager } from "@syncfusion/ej2-data";
 
-
 const SAMPLE_CSS = `.image-pattern-style {
         background-color: white;
         background-size: contain;

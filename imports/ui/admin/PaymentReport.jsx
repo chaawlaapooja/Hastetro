@@ -46,12 +46,13 @@ class Payment extends Component{
                     <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
                     <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
                     <td>{paymentMsg}</td>
-                    <td><button className={btnCls} onClick={()=>{
+                    <td>{btnCls==='btn btn-success'?<button className={btnCls} onClick={()=>{
                          var ans = prompt('Enter cheque number')
-                         if((/^[0-9]{23}$/.test(ans))===true)
+                         if((/^[0-9]{12}$/.test(ans))===true)
                          this.updatePayment(_id, ans, date)
-                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
-                     }}>Pay Now</button></td>
+                         else(alert('Please enter valid cheque number. A valid cheque number is 12 digits long.'))
+                     }}>Pay Now</button>:<button className={btnCls}>Pay Now</button>}
+                    </td>
                     </tr>
                 )
             }
@@ -70,9 +71,9 @@ class Payment extends Component{
                     <td>{paymentStatus}</td>
                     <td><button className={btnCls} onClick={()=>{
                          var ans = prompt('Enter cheque number')
-                         if((/^[0-9]{23}$/.test(ans))===true)
+                         if((/^[0-9]{12}$/.test(ans))===true)
                          this.updatePayment(_id, ans)
-                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
+                         else(alert('Please enter valid cheque number. A valid cheque number is 12 digits long.'))
                      }}>Pay Now</button></td>
                     </tr>
                 )
@@ -92,9 +93,9 @@ class Payment extends Component{
                     <td>{paymentStatus}</td>
                     <td><button className={btnCls} onClick={()=>{
                          var ans = prompt('Enter cheque number')
-                         if((/^[0-9]{23}$/.test(ans))===true)
+                         if((/^[0-9]{12}$/.test(ans))===true)
                          this.updatePayment(_id, ans)
-                         else(alert('Please enter valid cheque number. A valid cheque number is 23 digits long.'))
+                         else(alert('Please enter valid cheque number. A valid cheque number is 12 digits long.'))
                      }}>Pay Now</button></td>
                     </tr>
                 )

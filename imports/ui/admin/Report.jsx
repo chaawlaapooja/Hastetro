@@ -46,7 +46,9 @@ class Report extends Component{
     	for(var i=0; i<dataArray.length; i++){
         for(var j=0; j<users.length; j++){
     			if(users[j].profile.parent===dataArray[i].Name){
-    				dataArray.push({'Name':users[j]._id,'SoldBy':users[i].emails[0].address,'ProductID':users[j].profile.productID,'Product':users[j].profile.product, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
+    				let parent = this.props.userList.filter(user=>user._id===users[i].profile.parent)
+    				parent = parent[0].emails[0].address
+    				dataArray.push({'Name':users[j]._id,'SoldBy':parent,'ProductID':users[j].profile.productID,'Product':users[j].profile.product, 'Content':users[j].profile.name+'( '+users[j].emails[0].address+' )','Mobile':users[j].profile.mobile,'Level':users[j].profile.level,'SellingDate':users[j].profile.sellingDate, 'Category':dataArray[i].Name})
     			}
     		}
     	}

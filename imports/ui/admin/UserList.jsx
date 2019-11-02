@@ -17,6 +17,14 @@ class UserList extends Component{
       let village = user.profile.village
       let state = user.profile.state
       let product = user.profile.product
+      let btnCls=''
+      let usersArr = this.props.userList.filter(user=>user.profile.designation==='USER')
+      let ar = usersArr.filter(u=>u.profile.parent===user._id)
+    if(ar.length===0)
+      btnCls = 'btn btn-danger'
+    else
+      btnCls = 'btn btn-danger disabled'
+    
       return (
         <tr key={_id}>
           <td>{id}</td>
@@ -27,13 +35,13 @@ class UserList extends Component{
           <td>Rs.{product}
           
           <span className="pull-right">
-          <input type="submit"  className="btn btn-danger" style={{width : 100 +"%"}} value='Remove'
+          {btnCls==='btn btn-danger'?<button className={btnCls} style={{width : 100 +"%"}}
           onClick={()=>{
             let confirmRemove = confirm('Do you really want to remove this user?');
             if(confirmRemove===true){
               this.on_user_remove(user);
             }
-          }} />
+          }}>Remove</button>:<button className={btnCls} style={{width : 100 +"%"}}>Remove</button>}
           </span>
           </td>
         </tr>

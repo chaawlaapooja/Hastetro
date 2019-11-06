@@ -59,7 +59,9 @@ class AddUser extends Component{
       }
     });
   }
-
+  	onProductChange(){
+  		this.refs.price.value=this.refs.product.value.substring(0,3)
+  	}
 	//function that handles submit event from form
 	handle_submit(event){
 		
@@ -428,242 +430,266 @@ class AddUser extends Component{
 		</tbody>
 		</table>
 		</div>
-		<div className="newsletter">
-		<div className="container">
-			<div className="col-md-6 w3agile_newsletter_left">
-				<h3>Add New Business Associate</h3>
-			</div>
-			<div className="col-md-6 w3agile_newsletter_right">
-				<form onSubmit={this.handle_submit.bind(this)}>
-					<input type="number" min="0" style={{marginLeft:2+'%',width:60+'%'}} ref="level" placeholder="Level (e.g, 2)" required readOnly hidden/>
-					<label>HTPL ID :</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="ID" placeholder="ID" required/>
-					<br/>
-					<label>Name :</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
-					<label>Birthday :</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="birthday" onChange={()=>this.validate_date()} required/><br/><br/>
-					{this.state.errorDate?<p style={{color:'red'}}>{this.state.errorDate}</p>:undefined}
-					<label>Mobile :</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required/><br/>
-					<div>
-					<span className="pull-left">
-					<label>Village :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="village" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
-					</span>
-					<span className="pull-right">
-					<label style={{marginLeft:2+'%'}}>Tahsil :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="tahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
-					</span>
-					</div>
-					<div>
-					<span className="pull-left">
-					<label>District :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="district" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
-					</span>
-					<span className="pull-right">
-					<label style={{marginLeft:2+'%'}}>Pin Code :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="pincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' required/><br/>
-					</span>
-					</div><br/><br/><br/><br/><br/><br/>
-					<div>
-					<div className="form-group">
-                  <div className="input-group">
-					<label>State :</label>
-					<select ref="state" style={{marginLeft:2+'%'}} required>
-						<option></option>
-						<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
-						<option value="Andhra Pradesh">Andhra Pradesh</option>
-						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
-						<option value="Assam">Assam</option>
-						<option value="Bihar">Bihar</option>
-						<option value="Chandigarh">Chandigarh</option>
-						<option value="Chhattisgarh">Chhattisgarh</option>
-						<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
-						<option value="Daman/Diu">Daman/Diu</option>
-						<option value="Goa">Goa</option>
-						<option value="Gujarat">Gujarat</option>
-						<option value="Haryana">Haryana</option>
-						<option value="Himachal Pradesh">Himachal Pradesh</option>
-						<option value="Jammu/Kashmir">Jammu/Kashmir</option>
-						<option value="Jharkhand">Jharkhand</option>
-						<option value="Karnataka">Karnataka</option>
-						<option value="Kerala">Kerala</option>
-						<option value="Lakshadweep">Lakshadweep</option>
-						<option value="Madhya Pradesh">Madhya Pradesh</option>
-						<option value="Maharashtra">Maharashtra</option>
-						<option value="Manipur">Manipur</option>
-						<option value="Meghalaya">Meghalaya</option>
-						<option value="Mizoram">Mizoram</option>
-						<option value="Nagaland">Nagaland</option>
-						<option value="New Delhi">New Delhi</option>
-						<option value="Orissa">Orissa</option>
-						<option value="Pondicherry">Pondicherry</option>
-						<option value="Punjab">Punjab</option>
-						<option value="Rajasthan">Rajasthan</option>
-						<option value="Sikkim">Sikkim</option>
-						<option value="Tamil Nadu">Tamil Nadu</option>
-						<option value="Telangana">Telangana</option>
-						<option value="Tripura">Tripura</option>
-						<option value="Uttaranchal">Uttaranchal</option>
-						<option value="Uttar Pradesh">Uttar Pradesh</option>
-						<option value="West Bengal">West Bengal</option>
-					</select>
-					</div>
-					</div>
-					</div>
-					<label>Email :</label>
-					<input type="email" ref="email" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
-					<label>Aadhar Card Number :</label>
-					<input type="text" ref="aadhar" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Aadhar Card Number' pattern="[0-9]{12}" title='Enter valid Aadhar card number(12 digits)'/><br/>
-					<label>PAN Card Number :</label>
-					<input type="text" ref="PAN" style={{marginLeft:2+'%',width:60+'%'}} placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' onKeyUp={()=>this.capitalisePAN()}/><br/>
-					<label>Photo :</label><br/>
-					
-					<Dropzone ref="photo" multiple={false} accept="image/*" onDrop={this.on_image_drop.bind(this)} >
-					{this.state.uploadedFileCloudinaryUrl === '' ?
-      					 <p style={{ paddingLeft:2+'%'}}>Drop an image for profile picture or click to select a file to upload</p>
-      					 :
-				        <div>
-				          <img src={this.state.uploadedFileCloudinaryUrl} height="200" width="200"/>
-				          </div>
-				        }
-				    </Dropzone>{this.state.error?<span className="pull-right" style={{color:"red"}}>{this.state.error}</span>:undefined}
-    				<div>
-        			{this.state.uploadedFileCloudinaryUrl === '' ? null :
-   						<div>
-   						<p>{this.state.showImageName}</p>
-			        	</div>
-			        }
-			      </div><br/>
-			      <label>Nominee Details:</label><br/>
-			      	<label>Relation with nominee:</label>
-			      	<select style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeRelation" required>
-			     	<option value=''></option>
-			      	<option value='Son'>Son</option>
-			      	<option value='Daughter'>Daughter</option>
-			      	<option value='Mother'>Mother</option>
-			      	<option value='Father'>Father</option>
-			      	<option value='Husband'>Husband</option>
-			      	<option value='Brother'>Brother</option>
-			      	<option value='Sister'>Sister</option>
-			      	<option value='Wife'>Wife</option>
-			      	</select>
-			      	{this.state.errorRelation?<p style={{color:'red'}}>{this.state.errorRelation}</p>:undefined}
-			      	<br/>
-					<label>Name of nominee:</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeName" placeholder="Nominee's Name" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
-					<label>Do you want to deposit credits in your nominee's account?</label>
-			      	<select ref='confirmNominee' onChange={()=>this.onConfirmationChange()} required>
-			      	<option value='no'>No</option>
-			      	<option value='yes'>Yes</option>
-			      	</select>
-			      	<br/>
-			      	<div id='accDetails'>
-			      	<label id='bank'>Bank Name :</label>
-					<input type="text" ref="bank" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Name' pattern="[a-zA-Z].{4,}" title='Enter valid bank name'/><br/>
-					<label id='acc'>Account Number :</label>
-					<input type="text" ref="accountNumber" style={{marginLeft:2+'%',width:60+'%'}} placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number' required/><br/>
-					<label id='ifsc'>IFSC :</label>
-					<input type="text" ref="IFSC" style={{marginLeft:2+'%',width:60+'%'}} placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' onKeyUp={()=>this.capitaliseIFSC()} required/><br/>
-					</div>
-					
-					<div id='nomineeDetails' hidden>
-			      	<label>Birthday of nominee:</label>
-					<input type="date" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeBirthday" onChange={()=>this.validate_nominee_date()}/><br/><br/>
-					{this.state.errorNomineeDate?<p style={{color:'red'}}>{this.state.errorNomineeDate}</p>:undefined}
-					<label>Mobile of nominee:</label>
-					<input type="text" style={{marginLeft:2+'%',width:60+'%'}} ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number"/><br/>
-					<div>
-					<span className="pull-left">
-					<label>Village :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeVillage" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
-					</span>
-					<span className="pull-right">
-					<label style={{marginLeft:2+'%'}}>Tahsil :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeTahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' /><br/>
-					</span>
-					</div>
-					<div>
-					<span className="pull-left">
-					<label>District :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="nomineeDistrict" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
-					</span>
-					<span className="pull-right">
-					<label style={{marginLeft:2+'%'}}>Pin Code :</label>
-					<input type="text" style={{marginLeft:2+'%'}} ref="nomineePincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' /><br/>
-					</span>
-					</div><br/><br/><br/><br/><br/><br/>
-					<div>
-					<div className="form-group">
-                  <div className="input-group">
-					<label>Nominee's State :</label>
-					<select ref="nomineeState" style={{marginLeft:2+'%'}} >
-						<option></option>
-						<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
-						<option value="Andhra Pradesh">Andhra Pradesh</option>
-						<option value="Arunachal Pradesh">Arunachal Pradesh</option>
-						<option value="Assam">Assam</option>
-						<option value="Bihar">Bihar</option>
-						<option value="Chandigarh">Chandigarh</option>
-						<option value="Chhattisgarh">Chhattisgarh</option>
-						<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
-						<option value="Daman/Diu">Daman/Diu</option>
-						<option value="Goa">Goa</option>
-						<option value="Gujarat">Gujarat</option>
-						<option value="Haryana">Haryana</option>
-						<option value="Himachal Pradesh">Himachal Pradesh</option>
-						<option value="Jammu/Kashmir">Jammu/Kashmir</option>
-						<option value="Jharkhand">Jharkhand</option>
-						<option value="Karnataka">Karnataka</option>
-						<option value="Kerala">Kerala</option>
-						<option value="Lakshadweep">Lakshadweep</option>
-						<option value="Madhya Pradesh">Madhya Pradesh</option>
-						<option value="Maharashtra">Maharashtra</option>
-						<option value="Manipur">Manipur</option>
-						<option value="Meghalaya">Meghalaya</option>
-						<option value="Mizoram">Mizoram</option>
-						<option value="Nagaland">Nagaland</option>
-						<option value="New Delhi">New Delhi</option>
-						<option value="Orissa">Orissa</option>
-						<option value="Pondicherry">Pondicherry</option>
-						<option value="Punjab">Punjab</option>
-						<option value="Rajasthan">Rajasthan</option>
-						<option value="Sikkim">Sikkim</option>
-						<option value="Tamil Nadu">Tamil Nadu</option>
-						<option value="Telangana">Telangana</option>
-						<option value="Tripura">Tripura</option>
-						<option value="Uttaranchal">Uttaranchal</option>
-						<option value="Uttar Pradesh">Uttar Pradesh</option>
-						<option value="West Bengal">West Bengal</option>
-					</select>
-					</div>
-					</div>
-					</div></div>
-					<br/>
-					<label>Product:</label>
-					<select style={{marginLeft:2+'%',width:60+'%'}} ref="product" required>
-			     	<option value=''></option>
-			      	<option value='920-OrganicPowerGold'>Organic Power Gold - Rs.920</option>
-			      	<option value='700-OrganicPower'>Organic Power - Rs.700</option>
-			      	<option value='630-Canegold'>Canegold - Rs.630</option>
-			      	<option value='630-Spirulina'>Spirulina - Rs.630</option>
-			      	<option value='630-Ladysafe'>Ladysafe - Rs.630</option>
-			      	</select>
-			      	{this.state.errorProduct?<p style={{color:'red'}}>{this.state.errorProduct}</p>:undefined}
-			      	<br/><br/>
-					<label>Product ID :</label>
-					<input type="text" ref="productID" onKeyUp={()=>this.checkProductID()} style={{marginLeft:2+'%',width:60+'%'}} placeholder="10 character product ID" pattern="[a-zA-Z0-9]{10}" title='10 character long product ID' required/><br/>
-					{this.state.errorProductID?<p style={{color:'red'}}>{this.state.errorProductID}</p>:undefined}
-					<input type="checkbox" ref="checkTerms" style={{marginRight:2+'%'}}/>I accept terms and conditions
+		<div className="container register">
+                <div className="row">
+                    <div className="col-md-3 register-left">
+                        <img src="https://image.ibb.co/n7oTvU/logo_white.png" alt=""/>
+                        <h3>Welcome</h3>
+                        <p>You are 30 seconds away from earning your own money!</p>
+                        
+                    </div>
+                    <div className="col-md-9 register-right">
+                        
+                        <div className="tab-content" id="myTabContent">
+                            <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                <form onSubmit={this.handle_submit.bind(this)}>
+                                <h3 className="register-heading">Add New Downline Member</h3>
+                                
+                                <div className="row register-form">
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+	                                        <input type="number" min="0" style={{marginLeft:2+'%',width:60+'%'}} ref="level" placeholder="Level (e.g, 2)" readOnly hidden required/>
+		
+										</div>
+                                        <div className="form-group">
+					                        <label>Name :</label>
+											<input type="text"  ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
+										</div>
+                                        <div className="form-group">
+                                        	<label>Birthday :</label><br/>
+											<input type="date"  ref="birthday" onChange={()=>this.validate_date()} required/>
+											{this.state.errorDate?<p style={{color:'red'}}>{this.state.errorDate}</p>:undefined}
+										</div>
+                                        <div className="form-group">
+						                    <label>Mobile :</label>
+											<input type="text"  ref="mobile" placeholder='Mobile' pattern="[6-9]{1}[0-9]{9}" title="10 digit valid mobile number" required/>
+										</div>
+										<div className="form-group">
+							                <label>Village :</label>
+											<input type="text" ref="village" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/>
+										</div>
+										<div className="form-group">
+							                <label>Tahsil :</label>
+											<input type="text" ref="tahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
+										</div>
+										<div className="form-group">
+							                <label>District :</label>
+											<input type="text"  ref="district" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+										</div>
+										<div className="form-group">
+						                	<label>Pin Code :</label>
+											<input type="text" ref="pincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' /><br/>
+										</div>
+										<div className="form-group">
+						                	<label>State :</label>
+											<select ref="state" className="form-control" style={{marginLeft:2+'%'}} required>
+												<option></option>
+												<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
+												<option value="Andhra Pradesh">Andhra Pradesh</option>
+												<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+												<option value="Assam">Assam</option>
+												<option value="Bihar">Bihar</option>
+												<option value="Chandigarh">Chandigarh</option>
+												<option value="Chhattisgarh">Chhattisgarh</option>
+												<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
+												<option value="Daman/Diu">Daman/Diu</option>
+												<option value="Goa">Goa</option>
+												<option value="Gujarat">Gujarat</option>
+												<option value="Haryana">Haryana</option>
+												<option value="Himachal Pradesh">Himachal Pradesh</option>
+												<option value="Jammu/Kashmir">Jammu/Kashmir</option>
+												<option value="Jharkhand">Jharkhand</option>
+												<option value="Karnataka">Karnataka</option>
+												<option value="Kerala">Kerala</option>
+												<option value="Lakshadweep">Lakshadweep</option>
+												<option value="Madhya Pradesh">Madhya Pradesh</option>
+												<option value="Maharashtra">Maharashtra</option>
+												<option value="Manipur">Manipur</option>
+												<option value="Meghalaya">Meghalaya</option>
+												<option value="Mizoram">Mizoram</option>
+												<option value="Nagaland">Nagaland</option>
+												<option value="New Delhi">New Delhi</option>
+												<option value="Orissa">Orissa</option>
+												<option value="Pondicherry">Pondicherry</option>
+												<option value="Punjab">Punjab</option>
+												<option value="Rajasthan">Rajasthan</option>
+												<option value="Sikkim">Sikkim</option>
+												<option value="Tamil Nadu">Tamil Nadu</option>
+												<option value="Telangana">Telangana</option>
+												<option value="Tripura">Tripura</option>
+												<option value="Uttaranchal">Uttaranchal</option>
+												<option value="Uttar Pradesh">Uttar Pradesh</option>
+												<option value="West Bengal">West Bengal</option>
+											</select>
+										</div>
+										<div className="form-group">
+                                            <label>Email :</label>
+											<input type="email" ref="email" placeholder='Email' pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$" title='xxx@xxx.domain' /><br/>
+										</div>
+                                        <div className="form-group">
+                                        	<label>Aadhar Card Number :</label>
+											<input type="text" ref="aadhar"  placeholder='Aadhar Card Number' pattern="[0-9]{12}" title='Enter valid Aadhar card number(12 digits)'/><br/>
+										</div>
+										<div className="form-group">
+                    						<label>PAN Card Number :</label>
+											<input type="text" ref="PAN"  placeholder='PAN Card Number' pattern="[a-zA-Z]{5}[0-9]{4}[a-zA-Z]{1}" title='Enter valid PAN card number(5 characters followed by 4 digits and 1 character' onKeyUp={()=>this.capitalisePAN()}/><br/>
+										</div>
+										<div className="form-group">
+											<label>Photo :</label><br/>
+											<Dropzone ref="photo" multiple={false} accept="image/*" onDrop={this.on_image_drop.bind(this)} >
+											{this.state.uploadedFileCloudinaryUrl === '' ?
+						      					 <p style={{ paddingLeft:2+'%'}}>Drop an image for profile picture or click to select a file to upload</p>
+						      					 :
+										        <div>
+										          <img src={this.state.uploadedFileCloudinaryUrl} height="200" width="200"/>
+										          </div>
+										        }
+										    </Dropzone>{this.state.error?<span className="pull-right" style={{color:"red"}}>{this.state.error}</span>:undefined}
+						    				<div>
+						        			{this.state.uploadedFileCloudinaryUrl === '' ? null :
+						   						<div>
+						   						<p>{this.state.showImageName}</p>
+									        	</div>
+									        }
+									      </div><br/>
+									    </div>
+					                </div>
+                                    <div className="col-md-6">
+                                        <div className="form-group">
+                                        	<label>HTPL ID :</label>
+											<input type="text" style={{marginLeft:2+'%'}} ref="ID" placeholder="ID" style={{width:60+'%'}} required/>
+										</div>
+                                        
+			      						<div className="form-group">
+			      							<label>Nominee Details:</label><br/>
+			      							<label>Relation with nominee:</label>
+									      	<select className="form-control" ref="nomineeRelation" required>
+									     	<option value=''>Relation with nominee</option>
+									      	<option value='Brother'>Brother</option>
+									      	<option value='Daughter'>Daughter</option>
+									      	<option value='Father'>Father</option>
+									      	<option value='Husband'>Husband</option>
+									      	<option value='Mother'>Mother</option>
+									      	<option value='Son'>Son</option>
+									      	<option value='Sister'>Sister</option>
+									      	<option value='Wife'>Wife</option>
+									      	</select>
+									      	{this.state.errorRelation?<p style={{color:'red'}}>{this.state.errorRelation}</p>:undefined}
+									      	<br/>
+											<label>Name of nominee:</label>
+											<input type="text" style={{marginLeft:2+'%'}} ref="nomineeName" placeholder="Nominee's Name" pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required/><br/>
+											<label>Do you want to deposit credits in your nominee's account?</label>
+									      	<select ref='confirmNominee' className="form-control" onChange={()=>this.onConfirmationChange()} required>
+									      	<option value='no'>No</option>
+									      	<option value='yes'>Yes</option>
+									      	</select><br/>
+			      						</div>
+			      						<div className="form-group">
+			      							<div id='accDetails'>
+			      							<label id='bank'>Bank Name :</label>
+											<input type="text" ref="bank"  placeholder='Bank Name' pattern="[a-zA-Z].{4,}" title='Enter valid bank name'/><br/>
+											<label id='acc'>Account Number :</label>
+											<input type="text" ref="accountNumber" placeholder='Bank Account Number' pattern="[0-9]{9,18}" title='Enter valid account number'/><br/>
+											<label id='ifsc'>IFSC :</label>
+											<input type="text" ref="IFSC"  placeholder='IFSC' pattern="^[A-Z]{4}[0][A-Z0-9]{6}$" title='Enter valid IFSC code(include capital letters. e.g, SBIN012345)' onKeyUp={()=>this.capitaliseIFSC()}/><br/>
+											</div>
+										</div>
+										<div id='nomineeDetails' hidden>
+									      	
+										<div className="form-group">
+											<label>Birthday of nominee:</label>
+											<input type="date" ref="nomineeBirthday" onChange={()=>this.validate_nominee_date()}/>
+											{this.state.errorNomineeDate?<p style={{color:'red'}}>{this.state.errorNomineeDate}</p>:undefined}
+											<label>Mobile of nominee:</label>
+											<input type="text" ref="nomineeMobile" placeholder="Nominee's Mobile" pattern="[6-9]{1}[0-9]{9}" title="10 digit mobile number"/>
+											<label>Village :</label>
+											<input type="text" ref="nomineeVillage" placeholder='Village' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+											<label>Tahsil :</label>
+											<input type="text" ref="nomineeTahsil" placeholder='Tahsil' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+											<label>District :</label>
+											<input type="text" ref="nomineeDistrict" placeholder='District' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' />
+											<label>Pin Code :</label>
+											<input type="text" ref="nomineePincode" placeholder='PinCode' pattern="^[1-9][0-9]{5}$" title='Enter three or more characters' />
+											
+										</div>
+										<div className="form-group">
+                  							<div className="input-group">
+											<label>Nominee's State :</label>
+											<select ref="nomineeState" className="form-control">
+												<option></option>
+												<option value="Andaman/Nicobar">Andaman/Nicobar Islands</option>
+												<option value="Andhra Pradesh">Andhra Pradesh</option>
+												<option value="Arunachal Pradesh">Arunachal Pradesh</option>
+												<option value="Assam">Assam</option>
+												<option value="Bihar">Bihar</option>
+												<option value="Chandigarh">Chandigarh</option>
+												<option value="Chhattisgarh">Chhattisgarh</option>
+												<option value="Dadra/Nagar Haveli">Dadra/Nagar Haveli</option>
+												<option value="Daman/Diu">Daman/Diu</option>
+												<option value="Goa">Goa</option>
+												<option value="Gujarat">Gujarat</option>
+												<option value="Haryana">Haryana</option>
+												<option value="Himachal Pradesh">Himachal Pradesh</option>
+												<option value="Jammu/Kashmir">Jammu/Kashmir</option>
+												<option value="Jharkhand">Jharkhand</option>
+												<option value="Karnataka">Karnataka</option>
+												<option value="Kerala">Kerala</option>
+												<option value="Lakshadweep">Lakshadweep</option>
+												<option value="Madhya Pradesh">Madhya Pradesh</option>
+												<option value="Maharashtra">Maharashtra</option>
+												<option value="Manipur">Manipur</option>
+												<option value="Meghalaya">Meghalaya</option>
+												<option value="Mizoram">Mizoram</option>
+												<option value="Nagaland">Nagaland</option>
+												<option value="New Delhi">New Delhi</option>
+												<option value="Orissa">Orissa</option>
+												<option value="Pondicherry">Pondicherry</option>
+												<option value="Punjab">Punjab</option>
+												<option value="Rajasthan">Rajasthan</option>
+												<option value="Sikkim">Sikkim</option>
+												<option value="Tamil Nadu">Tamil Nadu</option>
+												<option value="Telangana">Telangana</option>
+												<option value="Tripura">Tripura</option>
+												<option value="Uttaranchal">Uttaranchal</option>
+												<option value="Uttar Pradesh">Uttar Pradesh</option>
+												<option value="West Bengal">West Bengal</option>
+											</select>
+											</div>
+										</div>
+										</div>
+										<div className="form-group">
+											<label>Product:</label>
+											<select className="form-control" ref="product" onChange={()=>this.onProductChange()} required>
+									     	<option value=''></option>
+									      	<option value='920-OrganicPowerGold'>Organic Power Gold</option>
+									      	<option value='700-OrganicPower'>Organic Power</option>
+									      	<option value='630-Canegold'>Canegold</option>
+									      	<option value='630-Spirulina'>Spirulina</option>
+									      	<option value='630-Ladysafe'>Ladysafe</option>
+									      	</select>
+									      	{this.state.errorProduct?<p style={{color:'red'}}>{this.state.errorProduct}</p>:undefined}
+									      	<br/><br/>
+									      	<label>Price (INR) :</label>
+									      	<input type="text" ref="price" readOnly/>
+									    </div>
+									    <div className="form-group">
+											<label>Product ID :</label>
+											<input type="text" ref="productID" onKeyUp={()=>this.checkProductID()} placeholder="10 character product ID" pattern="[a-zA-Z0-9]{10}" title='10 character long product ID' required/><br/>
+											{this.state.errorProductID?<p style={{color:'red'}}>{this.state.errorProductID}</p>:undefined}
+										</div>
+										<input type="checkbox" ref="checkTerms" style={{marginRight:2+'%'}}/>I accept terms and conditions
 					<br/><br/>
-					<input type="submit" className="btn btn-success"  value='Add' />
-				</form>
-			</div>
-			<div className="clearfix"> </div>
+                                        <input type="submit" className="btnRegister"  value="Register"/>
+                                    </div>
+                                </div>
+                                </form>
+                            </div>
+      
+                        </div>
+                    </div>
+                </div>
 
-		</div>
-		</div>
+        </div>
 		
 	</div>
 		)

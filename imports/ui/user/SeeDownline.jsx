@@ -220,8 +220,9 @@ function nodeDefaults(obj, diagram) {
         strokeColor: "none",
         color: "white",
         strokeWidth: 2,
-        fontSize:15
+        fontSize: 15
     };
+
     obj.borderColor = "#3a6eb5";
     obj.backgroundColor = "#659be5";
     obj.shape.margin = { left: 10, right: 10, bottom: 10, top: 10 };
@@ -240,8 +241,17 @@ function nodeDefaults(obj, diagram) {
     obj.collapseIcon.height = 10;
     obj.collapseIcon.width = 10;
     obj.collapseIcon.padding.top = 5;
-    obj.collapseIcon.shape = "None";
     obj.collapseIcon.fill = "lightgray";
+    obj.expandIcon = {
+    shape: 'ArrowDown',
+    width: 10,
+    height: 10
+  };
+  obj.collapseIcon = {
+    shape: 'ArrowUp',
+    width: 10,
+    height: 10
+  };
     return obj;
 }
 //sets connector default value

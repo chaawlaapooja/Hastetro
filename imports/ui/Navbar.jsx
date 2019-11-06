@@ -255,8 +255,8 @@ class Navbar extends Component{
   <div className="container-scroller">
         <nav className="navbar bg-primary-gradient col-lg-12 col-12 p-0 fixed-top navbar-inverse d-flex flex-row">
             <div className="bg-white text-center navbar-brand-wrapper">
-                <a className="navbar-brand brand-logo" href="#"><img src="https://res.cloudinary.com/hastetro/image/upload/v1567510172/Logo-removebg-preview_ffu8is.png" height="60" /></a>
-                <a className="navbar-brand brand-logo-mini" href="#"><img src="https://res.cloudinary.com/hastetro/image/upload/v1567510172/Logo-removebg-preview_ffu8is.png" height="60" /></a>
+                <a className="navbar-brand brand-logo" href="#"><img src="https://res.cloudinary.com/hastetro/image/upload/v1571841600/website%20assets/about/Logo_zbcz5x.png" height="60" /></a>
+                <a className="navbar-brand brand-logo-mini" href="#"><img src="https://res.cloudinary.com/hastetro/image/upload/v1571841600/website%20assets/about/Logo_zbcz5x.png" height="60" /></a>
             </div>
             <div className="navbar-menu-wrapper d-flex align-items-center">
                 <button className="navbar-toggler navbar-toggler hidden-md-down align-self-center mr-3" type="button" data-toggle="minimize">

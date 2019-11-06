@@ -9,7 +9,6 @@ const unauthenticatedPages = ['/','/about','/businessplan','/products','/rules',
 const authenticatedPages=[]
 
 const onEnterPublicpage=()=>{
-	console.log(Meteor.userId(), 'onEnterPublicpage')
 	if(Meteor.userId()){
 		if(Meteor.user())
 		if(Meteor.user().profile)
@@ -25,7 +24,6 @@ const onEnterPublicpage=()=>{
 
 };
 const onEnterPrivatePage=()=>{
-	console.log(Meteor.userId(), 'onEnterPrivatePage')
 	const pathname = browserHistory.getCurrentLocation().pathname;
 	if(Meteor.userId()){
 		if(Meteor.user()){
@@ -46,25 +44,18 @@ const onEnterPrivatePage=()=>{
 				}
 		 }
 		if(unauthenticatedPages.includes(pathname)){
-			console.log('unauthenticatedPages')
 			browserHistory.replace('/')
 		}
 	
 	}
 	if(!Meteor.userId()){
-		console.log('no meteor id')
 		browserHistory.replace('/')
 	}
 };
 export const onAuthChange =(isAuthenticated)=>{
-	console.log(isAuthenticated)
 	const pathname = browserHistory.getCurrentLocation().pathname;
 	const isUnauthenticatedPage = unauthenticatedPages.includes(pathname)
 	const isAuthenticatedPage = authenticatedPages.includes(pathname);
-	// console.log('isAuthenticated :',isAuthenticated,'isUnauthenticatedPage :', isUnauthenticatedPage,'isAuthenticatedPage :', isAuthenticatedPage)
-	// console.log(isUnauthenticatedPage && isAuthenticated)
-	// console.log(!isAuthenticatedPage && !isAuthenticated)
-	//console.log(isAuthenticatedPage, isAuthenticated)
 	if(isUnauthenticatedPage && isAuthenticated){
 		if(Meteor.user()){
 			if(Meteor.user().profile.designation==='ADMIN')
@@ -79,7 +70,6 @@ export const onAuthChange =(isAuthenticated)=>{
 		}
 	}
 	else if(!isAuthenticatedPage && !isAuthenticated ){
-		console.log('unauthorised user')
 		browserHistory.replace('/')
 	}
 }

@@ -183,7 +183,6 @@ class AddUser extends Component{
   		this.setState({errorProductID:''})
   		if(this.refs.productID.value.length===10){
   			let pins = this.props.pins;
-  			console.log(pins)
   			let found = false
 			for(var i=0; i<pins.length; i++){
 				if(this.refs.productID.value===pins[i].pin){
@@ -668,7 +667,7 @@ class AddUser extends Component{
                     </div>
                 </div>
 
-            </div>
+        </div>
 		<UserList/>
 	</div>
 		)

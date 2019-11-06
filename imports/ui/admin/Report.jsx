@@ -201,7 +201,6 @@ class Report extends Component{
 		this.setState({weekPickerValue:this.refs.weekPicker.value})
 	}
     onMonthPickerChange(){
-    	console.log(this.refs.monthPicker.value)
     	this.setState({monthPickerValue:this.refs.monthPicker.value})
     }
 	render(){

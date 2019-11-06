@@ -148,7 +148,6 @@ class AddUser extends Component{
 			let u = this.props.userList.filter(user=>user._id===parent)
 			let id=u[0].emails[0].address
 			let l=parents.indexOf(parent)
-			console.log(l)
 			let payment
 			if(l===0)
 				payment=60
@@ -164,7 +163,6 @@ class AddUser extends Component{
 				payment=10
 			else if(l===6)
 				payment=10
-			console.log(payment)
 			
 			Meteor.call('payment.update',id,payment)
 		})
@@ -222,7 +220,6 @@ class AddUser extends Component{
   		this.setState({errorProductID:''})
   		if(this.refs.productID.value.length===10){
   			let pins = this.props.pins;
-  			console.log(pins)
   			let found = false
 			for(var i=0; i<pins.length; i++){
 				if(this.refs.productID.value===pins[i].pin){

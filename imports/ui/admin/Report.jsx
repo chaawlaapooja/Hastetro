@@ -53,7 +53,7 @@ class Report extends Component{
     		}
     	}
     	dataArray.shift()
-		
+	
 		if(param==='today'){
 			let d = dataArray.filter(data=>{
 				let dt = new Date(data.SellingDate).toLocaleDateString()

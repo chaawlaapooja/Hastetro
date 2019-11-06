@@ -174,7 +174,7 @@ class Payment extends Component{
 
         <form className="form-inline" onSubmit={this.onSearchUser.bind(this)}>
         <div className="form-group">
-            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter registration ID" pattern="HT[0-9]{7}" title="ID starts with HTPL followed by 5 digits." />
+            <input type="text" style={{margin:0+'px'}} ref="registrationID" placeholder="Enter registration ID" pattern="HT[0-9]{7}" title="ID starts with HT followed by 7 digits." />
         </div>
         <button type="submit" className="btn btn-success" style={{marginLeft:2+'%'}}>Search</button>
         </form>
@@ -182,11 +182,11 @@ class Payment extends Component{
 		<div id="allUsers">
 		{users.map(user=>{
             	const id = user.emails[0].address
-            	const name = user.profile.name
             	const uid = user._id
                 let dataArray=this.props.payout.filter(data=>data.ID===id)
             	if(dataArray.length>0)
-            	return (<div key={uid} className='table-warning'><label>{name} - {id}</label>
+            	return (this.renderRows(id)[0].length>1?<div key={uid}>
+
 		<table className="table table-bordered table-hover table-responsive">
             <thead>
               <tr>
@@ -207,13 +207,12 @@ class Payment extends Component{
             {this.renderRows(id)}
             </tbody>
           </table>
-		 </div>)  
+		 </div>:undefined)  
 	          })}
 	         </div>
 	         <div id="filteredUser" hidden>
 	         <div key={this.state.userfilter} className='table-warning'>
-	         <div className='table-warning'>{this.state.userfilter}</div>
-			 <table className="table table-bordered table-hover table-responsive">
+	         <table className="table table-bordered table-hover table-responsive">
 	            <thead>
 	              <tr>
 	              	<th>Payout Date</th>

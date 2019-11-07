@@ -154,8 +154,7 @@ class Payment extends Component{
     }
 	render(){
 		let users = this.props.userList.filter(user=>user.profile.designation==='USER')
-    	
-	return(
+    return(
 		<div>
 		<div id="tableView" style={{margin:3+'%'}}>
 		<div style={{margin:1+'%'}}>
@@ -184,8 +183,7 @@ class Payment extends Component{
             	const id = user.emails[0].address
             	const uid = user._id
                 let dataArray=this.props.payout.filter(data=>data.ID===id)
-            	if(dataArray.length>0)
-            	return (this.renderRows(id)[0].length>1?<div key={uid}>
+            	return (this.renderRows(id)[0][0]!==undefined?<div key={uid}>
 
 		<table className="table table-bordered table-hover table-responsive">
             <thead>

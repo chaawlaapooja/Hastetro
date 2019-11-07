@@ -185,7 +185,7 @@ class Payment extends Component{
                 let dataArray=this.props.payout.filter(data=>data.ID===id)
             	
                 if(dataArray.length>0)
-            	return (this.renderRows(id)[0][0]!==undefined>1?<div key={uid}>
+            	return (this.renderRows(id)[0][0]!==undefined?<div key={uid}>
 
 		<table className="table table-bordered table-hover table-responsive">
             <thead>

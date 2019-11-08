@@ -11,13 +11,6 @@ class UserList extends Component{
         };
     }
     
-//function to remove training
-  on_user_remove(user){
-    Meteor.call('user.remove', user)
-  }
-  //function to handle edit submit event
-  
-  //function to list all trainings
 	render_rows() {
 	const arr = this.props.userList.filter(user=>user.profile.parent===Meteor.userId())
     return arr.map(user => {
@@ -53,7 +46,6 @@ class UserList extends Component{
 		const arr = this.props.userList.filter(user=>user.profile.parent===Meteor.userId())
     return (
       <div>
-      {arr.length<5?<AddUser/>:<h3>You can have maximum five downlines</h3>}
       <div style={{padding:2+'%'}}>
 
       <h4>Total number of downline : {arr.length}</h4>

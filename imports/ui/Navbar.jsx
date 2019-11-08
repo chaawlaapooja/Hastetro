@@ -11,7 +11,7 @@ import AddUser from '/imports/ui/admin/AddUser'
 import EditUser from '/imports/ui/admin/EditUser'
 
 import Dashboard from '/imports/ui/user/Dashboard'
-import AddDownline from '/imports/ui/user/UserList'
+import AddDownline from '/imports/ui/user/AddUser'
 import SeeDownline from '/imports/ui/user/SeeDownline'
 import Profile from '/imports/ui/user/Profile'
 import Payment from '/imports/ui/user/Payment'

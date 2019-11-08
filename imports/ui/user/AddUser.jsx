@@ -4,6 +4,7 @@ import request from 'superagent'
 import print from 'print-js'
 import { createContainer } from 'meteor/react-meteor-data';
 import Pins from '/imports/api/pins'
+import UserList from './UserList'
 
 const CLOUDINARY_UPLOAD_PRESET = 'nf7bfn7e';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hastetro/upload';
@@ -66,7 +67,10 @@ class AddUser extends Component{
 	handle_submit(event){
 		
 		event.preventDefault();
-		if(this.refs.checkTerms.checked===false)
+		const arr = this.props.userList.filter(user=>user.profile.parent===Meteor.userId())
+    	if(arr.length>=5)
+    		alert('You can have maximum five downlines')
+		else if(this.refs.checkTerms.checked===false)
 			alert('Please accept terms and conditions')
 		else if(this.refs.product.value===''){
 	    	this.setState({errorProduct:'Please select a product'})
@@ -687,7 +691,7 @@ class AddUser extends Component{
                 </div>
 
         </div>
-		
+	<UserList/>
 	</div>
 		)
 	}

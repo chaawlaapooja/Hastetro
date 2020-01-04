@@ -126,6 +126,7 @@ class AddUser extends Component{
 			this.refs.productID.value,
 			this.refs.udParent.value,
 			(error,result)=>{
+				console.log(error,result)
 				if(error)
 					alert('Oops! Some error occured. Please try again')
 				else{
@@ -137,16 +138,17 @@ class AddUser extends Component{
 					if(level>=7)
 						level=7
 					else level++
-					console.log(level)
 					let parents = []
 					parents.push(this.refs.udParent.value)
+					console.log(parents)
 					for(var i=0; parents.length<level; i++){
 						let lastIndex = parents.length-1
 					 	let p = (n.filter(user=>user.profile.designation==='USER' && user._id===parents[lastIndex]))
 						parents.push(p[0].profile.parent)
 					}
 					let p = parents.filter(parent=>parent!=='8XxCNeLhEPgSPtort')
-    				p.forEach(parent=>{
+    				console.log(parents, p)
+					p.forEach(parent=>{
 						let u = this.props.userList.filter(user=>user._id===parent)
 						let id=u[0].emails[0].address
 						let l=parents.indexOf(parent)

@@ -22,7 +22,22 @@ class Payment extends Component{
         // });
         return dataArray.map(data=>{
             const {_id,ID, name, address, payment}=data
-    		return payment.map(payment=>{
+            return payment
+                .filter(payment=>{
+                    if(this.state.filter==='none')
+                        return payment
+                    else if(this.state.filter==='Pending'){
+                        if(payment.paymentStatus==='Pending'){
+                            return payment
+                        }
+                    }
+                    else if(this.state.filter==='Paid'){
+                        if(payment.paymentStatus==='Paid'){
+                            return payment
+                        }
+                    }
+                })
+                .map(payment=>{
                 const {amount, date, chequeNumber,paidOn, paymentStatus}=payment;
                 let paymentMsg=''
                 paymentStatus==='Paid'?paymentMsg=paymentStatus+' on : '+new Date(paidOn).toLocaleDateString()+' via cheque number '+chequeNumber:paymentMsg=paymentStatus
@@ -33,7 +48,6 @@ class Payment extends Component{
                     cls='table-success'
                 paymentStatus==='Paid'?btnCls='btn btn-success disabled':btnCls='btn btn-success'
                 let dt = new Date(date).toLocaleDateString()
-                if(this.state.filter==='none'){
                 if(amount!==0)
                 return(
                     <tr key={dt} className={cls}>
@@ -56,59 +70,8 @@ class Payment extends Component{
                     </td>
                     </tr>
                 )
-            }
-            else if(this.state.filter==='pending'){
-                if(paymentStatus==='Pending' && amount!==0)
-                    return(
-                    <tr key={dt} className={cls}>
-                    <td>{dt}</td>
-                    <td>{ID}</td>
-                    <td>{name}</td>
-                    <td>{address}</td>
-                    
-                    <td>Rs.{amount}</td>
-                    <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
-                    <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
-                    <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
-                    <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
-                    <td>{paymentStatus}</td>
-                    <td><button className={btnCls} onClick={()=>{
-                         var ans = prompt('Enter cheque number')
-                         if((/^[0-9]{12}$/.test(ans))===true)
-                         this.updatePayment(_id, ans)
-                         else(alert('Please enter valid cheque number. A valid cheque number is 12 digits long.'))
-                     }}>Pay Now</button></td>
-                    </tr>
-                )
-            }
-            else if(this.state.filter==='paid'){
-                if(paymentStatus==='Paid' && amount!==0)
-                    return(
-                    <tr key={dt} className={cls}>
-                    <td>{dt}</td>
-                    <td>{ID}</td>
-                    <td>{name}</td>
-                    <td>{address}</td>
-                    
-                    <td>Rs.{amount}</td>
-                    <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
-                    <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
-                    <td>Rs.{Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100}</td>
-                    <td>Rs.{amount - (Math.round((5/100)*amount * 100) / 100+Math.round((4/100)*amount * 100) / 100)}</td>
-                    <td>{paymentStatus}</td>
-                    <td><button className={btnCls} onClick={()=>{
-                         var ans = prompt('Enter cheque number')
-                         if((/^[0-9]{12}$/.test(ans))===true)
-                         this.updatePayment(_id, ans)
-                         else(alert('Please enter valid cheque number. A valid cheque number is 12 digits long.'))
-                     }}>Pay Now</button></td>
-                    </tr>
-                )
-            }
-               
-            })
-      
-    	})
+                })
+        })
     }
     onFilterChange(){
     	this.setState({filter:this.refs.filter.value})
@@ -166,8 +129,8 @@ class Payment extends Component{
 		<label>Filter by : </label>
 		<select style={{marginLeft:2+'%'}} ref='filter' onChange={()=>this.onFilterChange()}>
 		<option value='none'>All</option>
-		<option value='pending'>Pending</option>
-		<option value='paid'>Paid</option>
+		<option value='Pending'>Pending</option>
+		<option value='Paid'>Paid</option>
 		</select>
 		<label style={{marginLeft:3+'%'}}>Filter by : </label>
 		<select style={{marginLeft:2+'%'}} ref='userfilter' onChange={()=>this.onUserFilterChange()}>

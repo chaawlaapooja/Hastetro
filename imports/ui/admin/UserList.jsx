@@ -14,8 +14,7 @@ class UserList extends Component{
     for(var i=0; parents.length<level; i++){
       let lastIndex = parents.length-1
       let p = (n.filter(user=>user.profile.designation==='USER' && user._id===parents[lastIndex]))
-      //if(p[0].profile.parent!=='8XxCNeLhEPgSPtort')
-        parents.push(p[0].profile.parent)
+      parents.push(p[0].profile.parent)
     }
     let p = parents.filter(parent=>parent!=='8XxCNeLhEPgSPtort')
     p.forEach(parent=>{

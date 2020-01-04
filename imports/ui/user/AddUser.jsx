@@ -664,11 +664,11 @@ class AddUser extends Component{
 											<label>Product:</label>
 											<select className="form-control" ref="product" onChange={()=>this.onProductChange()} required>
 									     	<option value=''></option>
-									      	<option value='920-OrganicPowerGold'>Organic Power Gold</option>
-									      	<option value='700-OrganicPower'>Organic Power</option>
-									      	<option value='630-Canegold'>Canegold</option>
-									      	<option value='630-Spirulina'>Spirulina</option>
-									      	<option value='630-Ladysafe'>Ladysafe</option>
+									      	<option value='1200-OrganicPowerGold'>Organic Power Gold (1 liter)</option>
+									      	<option value='999-OrganicPower'>Organic Power (1 liter)</option>
+									      	<option value='1020-Canegold'>Canegold (1 liter)</option>
+									      	<option value='630-Spirulina'>Spirulina (180 tablets)</option>
+									      	<option value='630-Ladysafe'>Ladysafe (30 pads)</option>
 									      	</select>
 									      	{this.state.errorProduct?<p style={{color:'red'}}>{this.state.errorProduct}</p>:undefined}
 									      	<br/><br/>

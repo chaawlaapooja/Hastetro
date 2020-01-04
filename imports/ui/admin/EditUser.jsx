@@ -319,7 +319,7 @@ class EditUser extends Component{
 	                                        <div className="form-group">
 		                                        <input type="number" min="0"  ref="level" placeholder="Level (e.g, 2)" required={!this.state.hideInputFields} hidden/>
 												<label>Name :</label>
-												<input type="text"  ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields} readOnly/><br/>
+												<input type="text"  ref="name" placeholder='Name' pattern="[a-zA-Z].{2,}" title='Enter three or more characters' required={!this.state.hideInputFields} /><br/>
 											</div>
 	                                        <div className="form-group">
 	                                        	<label>Birthday :</label>

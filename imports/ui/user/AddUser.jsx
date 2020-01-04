@@ -135,7 +135,9 @@ class AddUser extends Component{
 				if(error)
 					alert('Oops! Some error occured. Please try again')
 				else{
-		Meteor.call('payment.insert', this.refs.ID.value, this.refs.name.value, 0)
+					let address = this.refs.village.value+' , '+this.refs.tahsil.value+' , '+this.refs.district.value+' , '+this.refs.state.value+' - '+this.refs.pincode.value
+			
+		Meteor.call('payment.insert', this.refs.ID.value, this.refs.name.value, address, 0)
 		let n = this.props.userList.filter(user=>user.profile.designation==='USER')
 		let level = (Meteor.users.find().fetch()[0].profile.level)
 		if(level>=7)
@@ -170,7 +172,7 @@ class AddUser extends Component{
 			
 			Meteor.call('payment.update',id,payment)
 		})
-					Meteor.call('pin.update',this.refs.productID.value,(err,res)=>{
+					Meteor.call('pin.update',this.refs.productID.value,false,(err,res)=>{
 						if(err)
 							alert('Oops! Some error occured. Please try again')
 						else{

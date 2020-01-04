@@ -21,7 +21,7 @@ class Payment extends Component{
         //     return new Date(a.PaymentDate) - new Date(b.PaymentDate);
         // });
         return dataArray.map(data=>{
-            const {_id,ID, name, payment}=data
+            const {_id,ID, name, address, payment}=data
     		return payment.map(payment=>{
                 const {amount, date, chequeNumber,paidOn, paymentStatus}=payment;
                 let paymentMsg=''
@@ -40,6 +40,7 @@ class Payment extends Component{
                     <td>{dt}</td>
                     <td>{ID}</td>
                     <td>{name}</td>
+                    <td>{address}</td>
                     <td>Rs.{amount}</td>
                     <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
                     <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
@@ -63,6 +64,8 @@ class Payment extends Component{
                     <td>{dt}</td>
                     <td>{ID}</td>
                     <td>{name}</td>
+                    <td>{address}</td>
+                    
                     <td>Rs.{amount}</td>
                     <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
                     <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
@@ -85,6 +88,8 @@ class Payment extends Component{
                     <td>{dt}</td>
                     <td>{ID}</td>
                     <td>{name}</td>
+                    <td>{address}</td>
+                    
                     <td>Rs.{amount}</td>
                     <td>Rs.{ Math.round((5/100)*amount * 100) / 100}</td>
                     <td>Rs.{Math.round((4/100)*amount*100)/100}</td>
@@ -193,6 +198,7 @@ class Payment extends Component{
               	<th>Payout Date</th>
                 <th>HTPL ID</th>
                 <th>BA Name</th>
+                <th>BA Address</th>
                 <th>Commission</th>
                 <th>TDS(5%)</th>
                 <th>BDF(4%)</th>
@@ -218,6 +224,8 @@ class Payment extends Component{
 	              	<th>Payout Date</th>
                     <th>HTPL ID</th>
                     <th>BA Name</th>
+                    <th>BA Address</th>
+                
                     <th>Commission</th>
                     <th>TDS(5%)</th>
                     <th>BDF(4%)</th>

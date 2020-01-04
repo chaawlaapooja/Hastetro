@@ -4,7 +4,44 @@ import { createContainer } from 'meteor/react-meteor-data';
 class UserList extends Component{
 //function to remove training
   on_user_remove(user){
-    Meteor.call('user.remove', user)
+    let n = this.props.userList.filter(user=>user.profile.designation==='USER')
+    let level = (user.profile.level)
+    if(level>=7)
+      level=7
+    else level++
+    let parents = []
+    parents.push(user.profile.parent)
+    for(var i=0; parents.length<level; i++){
+      let lastIndex = parents.length-1
+      let p = (n.filter(user=>user.profile.designation==='USER' && user._id===parents[lastIndex]))
+      //if(p[0].profile.parent!=='8XxCNeLhEPgSPtort')
+        parents.push(p[0].profile.parent)
+    }
+    let p = parents.filter(parent=>parent!=='8XxCNeLhEPgSPtort')
+    p.forEach(parent=>{
+      let u = this.props.userList.filter(user=>user._id===parent)
+      let id=u[0].emails[0].address
+      let l=parents.indexOf(parent)
+      let payment
+      if(l===0)
+        payment=60
+      else if(l===1)
+        payment=50
+      else if(l===2)
+        payment=40
+      else if(l===3)
+        payment=30
+      else if(l===4)
+        payment=20
+      else if(l===5)
+        payment=10
+      else if(l===6)
+        payment=10
+      Meteor.call('payment.deductAmountWhenUserDeleted',id,payment, user.profile.sellingDate)
+    })
+    Meteor.call('pin.update', user.profile.productID, true)
+    Meteor.call('payment.remove', user.emails[0].address)
+    Meteor.call('user.remove', user);
   }
   //function to list all trainings
 	render_rows() {

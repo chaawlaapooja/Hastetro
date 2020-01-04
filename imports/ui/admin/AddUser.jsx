@@ -22,7 +22,8 @@ class AddUser extends Component{
       errorRelation:'',
       errorNomineeDetails:'',
       errorDate:'',
-      errorNomineeDate:''
+      errorNomineeDate:'',
+      level:''
     };
 	}
 
@@ -94,7 +95,7 @@ class AddUser extends Component{
 		}
     	Meteor.call('user.create',
 			'USER',
-			this.refs.level.value,
+			this.state.level,
 			this.refs.ID.value,
 			this.refs.name.value,
 			this.refs.birthday.value,
@@ -125,13 +126,49 @@ class AddUser extends Component{
 			this.refs.productID.value,
 			this.refs.udParent.value,
 			(error,result)=>{
-				console.log(error,result)
 				if(error)
 					alert('Oops! Some error occured. Please try again')
 				else{
-					Meteor.call('payment.insert', this.refs.ID.value, this.refs.name.value, 0)
-		
-					Meteor.call('pin.update',this.refs.productID.value,(err,res)=>{
+					let address = this.refs.village.value+' , '+this.refs.tahsil.value+' , '+this.refs.district.value+' , '+this.refs.state.value+' - '+this.refs.pincode.value
+			
+					Meteor.call('payment.insert', this.refs.ID.value, this.refs.name.value, address, 0)
+					let n = this.props.userList.filter(user=>user.profile.designation==='USER')
+					let level = this.state.level
+					if(level>=7)
+						level=7
+					else level++
+					console.log(level)
+					let parents = []
+					parents.push(this.refs.udParent.value)
+					for(var i=0; parents.length<level; i++){
+						let lastIndex = parents.length-1
+					 	let p = (n.filter(user=>user.profile.designation==='USER' && user._id===parents[lastIndex]))
+						parents.push(p[0].profile.parent)
+					}
+					let p = parents.filter(parent=>parent!=='8XxCNeLhEPgSPtort')
+    				p.forEach(parent=>{
+						let u = this.props.userList.filter(user=>user._id===parent)
+						let id=u[0].emails[0].address
+						let l=parents.indexOf(parent)
+						let payment
+						if(l===0)
+							payment=60
+						else if(l===1)
+							payment=50
+						else if(l===2)
+							payment=40
+						else if(l===3)
+							payment=30
+						else if(l===4)
+							payment=20
+						else if(l===5)
+							payment=10
+						else if(l===6)
+							payment=10
+						
+						Meteor.call('payment.update',id,payment)
+					})
+					Meteor.call('pin.update',this.refs.productID.value,false,(err,res)=>{
 						if(err)
 							alert('Oops! Some error occured. Please try again')
 						else{
@@ -248,6 +285,7 @@ class AddUser extends Component{
   	onParentChange(){
   		let level = this.props.userList.filter(user=>user._id===this.refs.udParent.value)
   		this.refs.level.value = parseInt(level[0].profile.level)+1
+  		this.setState({level:this.refs.level.value})
   	}
   	validate_date(){
   		var val = this.refs.birthday.value.split('-');

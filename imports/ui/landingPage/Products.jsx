@@ -13,7 +13,7 @@ export default Products = () =>{
                                     <br/>
                                     <br/>
                                     <h4 style={{color: 'green', fontStyle: 'italic'}}>Canegold</h4>
-                                    <p><b>MRP 630/- Rs</b></p>
+                                    <p><b>MRP Rs. 1020 (1 Liter)</b></p>
                                     <p>Only for Sugar Cane </p>
                                     <br/>
                                     <Link to="/product/canegold"><button type="button" className="btn btn-primary" style={{alignSelf: 'right'}}>More Info</button></Link>
@@ -29,7 +29,7 @@ export default Products = () =>{
                                     <br/>
                                     <br/>
                                     <h4 style={{color: 'green', fontStyle: 'italic'}}>Organic Power Gold</h4>
-                                    <p><b>MRP 920/- Rs</b></p>
+                                    <p><b>MRP Rs. 1200 (1 Liter)</b></p>
                                     <p>For all Crops, Grains, fruits and Vagetables.. (For foliar Spray) </p>
                                     <br/>
                                     <Link to="/product/organicPower"><button type="button" className="btn btn-primary" style={{alignSelf: 'right'}}>More Info</button></Link>
@@ -45,7 +45,7 @@ export default Products = () =>{
                                     <br/>
                                     <br/>
                                     <h4 style={{color: 'green', fontStyle: 'italic'}}>Organic Power</h4>
-                                    <p><b>MRP 700/- Rs</b></p>
+                                    <p><b>MRP Rs. 999 (1 Liter)</b></p>
                                     <p>For all Crops, Grains, fruits and Vagetables.. (For Drenching) </p>
                                     <br/>
                                     <Link to="/product/organicPower"><button type="button" className="btn btn-primary" style={{alignSelf: 'right'}}>More Info</button></Link>
@@ -66,7 +66,7 @@ export default Products = () =>{
                                     <br/>
                                     <br/>
                                     <h4 style={{color: 'blue', fontStyle: 'italic'}}>Spirulina</h4>
-                                    <p><b>MRP 630/- Rs</b></p>
+                                    <p><b>MRP Rs. 630 (180 tablets)</b></p>
                                     <p>The Best Superfood in Family for everyone... </p>
                                     <br/>
                                     <Link to="/product/spirulina"><button type="button" className="btn btn-primary" style={{alignSelf: 'right'}}>More Info</button></Link>
@@ -82,7 +82,7 @@ export default Products = () =>{
                                     <br/>
                                     <br/>
                                     <h4 style={{color: 'purple', fontStyle: 'italic'}}>Ladysafe</h4>
-                                    <p><b>MRP 630/- Rs</b></p>
+                                    <p><b>MRP Rs. 630 (30 pads)</b></p>
                                     <p>Comfortable and Breathable</p>
                                     <p>Smart Ultra thin Anion Sanitary Napkin</p>
                                     <br/>

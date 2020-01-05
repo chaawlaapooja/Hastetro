@@ -201,7 +201,7 @@ class Navbar extends Component{
                         <li className="nav-item">
                             <Link to='/allMembers' className="nav-link">
                                 <i className="fa fa-users" aria-hidden="true"></i>
-                                <span className="menu-title">All Members</span>
+                                <span className="menu-title">All Business Associates</span>
                             </Link>
                         </li>
                         <li className="nav-item">
@@ -224,7 +224,7 @@ class Navbar extends Component{
                                     </li>
                                     <li className="nav-item">
                                       <Link to='/editUser' className="nav-link">
-                                        <i className="fa fa-pencil" aria-hidden="true"></i>Edit User
+                                        <i className="fa fa-pencil" aria-hidden="true"></i>Update User
                                       </Link>
                                     </li>
                                 </ul>
@@ -295,13 +295,13 @@ class Navbar extends Component{
                         <li className="nav-item">
                             <Link to='/addDownline' className="nav-link">
                                 <i className="fa fa-pencil" aria-hidden="true"></i>
-                                <span className="menu-title">Add Downline</span>
+                                <span className="menu-title">Add Business Associate</span>
                             </Link>
                         </li>
                         <li className="nav-item">
                             <Link to='/seeDownline' className="nav-link">
                                 <i className="fa fa-level-down" aria-hidden="true"></i>
-                                <span className="menu-title">See Downline</span>
+                                <span className="menu-title">View Business Associates</span>
                             </Link>
                         </li>
                         <li className="nav-item">

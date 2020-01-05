@@ -61,7 +61,7 @@ class AddUser extends Component{
     });
   }
   	onProductChange(){
-  		this.refs.price.value=this.refs.product.value.substring(0,3)
+  		this.refs.price.value=this.refs.product.value.substring(0,this.refs.product.value.indexOf('-'))
   	}
 	//function that handles submit event from form
 	handle_submit(event){
@@ -446,7 +446,7 @@ class AddUser extends Component{
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <form onSubmit={this.handle_submit.bind(this)}>
-                                <h3 className="register-heading">Add New Downline Member</h3>
+                                <h3 className="register-heading">Add New Business Associate</h3>
                                 
                                 <div className="row register-form">
                                     <div className="col-md-6">

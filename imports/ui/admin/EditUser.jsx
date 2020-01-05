@@ -3,6 +3,7 @@ import { createContainer } from 'meteor/react-meteor-data';
 import Dropzone from 'react-dropzone'
 import request from 'superagent'
 import print from 'print-js'
+import {Link} from 'react-router';
 
 const CLOUDINARY_UPLOAD_PRESET = 'nf7bfn7e';
 const CLOUDINARY_UPLOAD_URL = 'https://api.cloudinary.com/v1_1/hastetro/upload';
@@ -311,7 +312,10 @@ class EditUser extends Component{
                         <div className="tab-content" id="myTabContent">
                             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <form onSubmit={this.handle_submit.bind(this)}>
-                                <h3 className="register-heading">Profile Edit</h3>
+                                <h3 className="register-heading">Update Profile 
+                                <Link to='/' className='pull-right'><button className='btn btn-danger'>Cancel</button></Link>
+                                </h3>
+
                                 <div className="row register-form">
                                 	<label>HTPL ID :</label>
 									<input type="text" ref="ID" placeholder="ID" pattern="HT[0-9]{7}" title="ID starts with HTPL followed by 5 digits." required/>

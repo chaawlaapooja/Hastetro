@@ -306,7 +306,7 @@ class AddUser extends Component{
 		  }
   	} 
   	onProductChange(){
-  		this.refs.price.value=this.refs.product.value.substring(0,3)
+  		this.refs.price.value=this.refs.product.value.substring(0,this.refs.product.value.indexOf('-'))
   	}
   	getOptions(){
   		return this.props.userList.map(user=>{

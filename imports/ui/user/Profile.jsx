@@ -280,7 +280,6 @@ class Profile extends Component{
                             <div className="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
                                 <form onSubmit={this.handle_submit.bind(this)}>
                                 <h3 className="register-heading">Update Profile
-                                <Link to='/' className='pull-right'><button className='btn btn-danger'>Cancel</button></Link>
                                 </h3>
                                 <div className="row register-form">
                                 		<div className="col-md-6" >
@@ -473,7 +472,10 @@ class Profile extends Component{
 				      					</div>
 			      					
                                 </div>
-                                <div style={{display:'flex', justifyContent:'center'}}><input type="submit" className="btn btn-primary" value={this.state.hideInputFields?'Search':'Edit'}/></div>
+                                <div style={{display:'flex', justifyContent:'center'}}>
+                                <input type="submit" style={{margin:'1%'}} className="btn btn-primary" value='Update'/>
+                                <Link to='/' className='pull-right' style={{margin:'1%'}}><button className='btn btn-danger'>Cancel</button></Link>
+                                </div>
                                 </form>
                             </div>
       					</div>
